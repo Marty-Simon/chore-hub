@@ -33,19 +33,25 @@ export const updateUserSchema = z.object({
 export const createChoreSchema = z.object({
   title: z.string().min(1).max(200),
   description: z.string().max(1000).optional(),
+  descriptionList: z.array(z.string()).optional(),
   householdId: z.string().cuid(),
   recurrence: RecurrenceTypeSchema,
   recurrenceValue: z.number().int().min(1).max(30),
   estimatedMinutes: z.number().int().min(1).max(1440).optional(),
+  preferredTime1: z.number().int().min(0).max(1439).nullable().optional(),
+  preferredTime2: z.number().int().min(0).max(1439).nullable().optional(),
   isPrivate: z.boolean().optional(),
 });
 
 export const updateChoreSchema = z.object({
   title: z.string().min(1).max(200).optional(),
   description: z.string().max(1000).nullable().optional(),
+  descriptionList: z.array(z.string()).optional(),
   recurrence: RecurrenceTypeSchema.optional(),
   recurrenceValue: z.number().int().min(1).max(30).optional(),
   estimatedMinutes: z.number().int().min(1).max(1440).nullable().optional(),
+  preferredTime1: z.number().int().min(0).max(1439).nullable().optional(),
+  preferredTime2: z.number().int().min(0).max(1439).nullable().optional(),
   isPrivate: z.boolean().optional(),
 });
 

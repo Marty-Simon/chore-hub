@@ -17,7 +17,11 @@ interface ChoreScheduleItem {
   chore: {
     id: string;
     title: string;
+    description: string | null;
+    descriptionList: string[];
     estimatedMinutes: number | null;
+    preferredTime1: number | null;
+    preferredTime2: number | null;
     isPrivate: boolean;
   };
   assignedTo: {
@@ -30,6 +34,7 @@ export default function CalendarView() {
   const { goBack } = useNavigator();
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [viewMode, setViewMode] = useState<'day' | 'week' | 'month'>('week');
+  const [statusFilter, setStatusFilter] = useState<'ALL' | 'PENDING' | 'COMPLETED'>('ALL');
   
   // Calculate date range based on view mode
   const getDateRange = () => {
@@ -63,6 +68,14 @@ export default function CalendarView() {
     startDate,
     endDate,
     // TODO: Add userId from auth context when implemented
+  });
+
+  // Filter schedules by status
+  const filteredSchedules = schedules?.filter(schedule => {
+    if (statusFilter === 'ALL') return true;
+    if (statusFilter === 'PENDING') return schedule.status === 'PENDING' || schedule.status === 'IN_PROGRESS';
+    if (statusFilter === 'COMPLETED') return schedule.status === 'COMPLETED';
+    return true;
   });
 
   const getStatusColor = (status: string): 'success' | 'warning' | 'info' | 'neutral' => {
@@ -105,6 +118,15 @@ export default function CalendarView() {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
+  };
+
+  const formatPreferredTime = (minutesFromMidnight: number | null) => {
+    if (minutesFromMidnight === null) return null;
+    const hours = Math.floor(minutesFromMidnight / 60);
+    const minutes = minutesFromMidnight % 60;
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const displayHours = hours % 12 || 12;
+    return `${displayHours}:${minutes.toString().padStart(2, '0')} ${period}`;
   };
 
   return (
@@ -152,6 +174,31 @@ export default function CalendarView() {
           </Button>
         </View>
 
+        {/* Status Filter */}
+        <View style={{ flexDirection: 'row' }} gap="sm">
+          <Button
+            type={statusFilter === 'ALL' ? 'contained' : 'outlined'}
+            size="sm"
+            onPress={() => setStatusFilter('ALL')}
+          >
+            All
+          </Button>
+          <Button
+            type={statusFilter === 'PENDING' ? 'contained' : 'outlined'}
+            size="sm"
+            onPress={() => setStatusFilter('PENDING')}
+          >
+            Pending
+          </Button>
+          <Button
+            type={statusFilter === 'COMPLETED' ? 'contained' : 'outlined'}
+            size="sm"
+            onPress={() => setStatusFilter('COMPLETED')}
+          >
+            Completed
+          </Button>
+        </View>
+
         {/* Date Picker */}
         <Card padding="md">
           <DatePicker value={selectedDate} onChange={setSelectedDate} />
@@ -169,13 +216,17 @@ export default function CalendarView() {
             </Card>
           )}
 
-          {schedules && schedules.length === 0 && (
+          {filteredSchedules && filteredSchedules.length === 0 && (
             <Card padding="lg" style={{ alignItems: 'center' }}>
-              <Text color="secondary">No chores scheduled for this period</Text>
+              <Text color="secondary">
+                {statusFilter === 'ALL' 
+                  ? 'No chores scheduled for this period'
+                  : `No ${statusFilter.toLowerCase()} chores for this period`}
+              </Text>
             </Card>
           )}
 
-          {schedules?.map((schedule) => (
+          {filteredSchedules?.map((schedule) => (
             <Card key={schedule.id} padding="md" gap="sm">
               <View style={{ flexDirection: 'row', alignItems: 'center' }} gap="sm">
                 <Badge
@@ -193,7 +244,32 @@ export default function CalendarView() {
                 {schedule.chore.title}
               </Text>
 
-              <View style={{ flexDirection: 'row', alignItems: 'center' }} gap="md">
+              {/* Description */}
+              {schedule.chore.description && (
+                <Text typography="body2" color="secondary">
+                  {schedule.chore.description}
+                </Text>
+              )}
+
+              {/* Description Bullet Points */}
+              {schedule.chore.descriptionList && schedule.chore.descriptionList.length > 0 && (
+                <View gap="xs">
+                  <Text typography="body2" weight="semibold">
+                    Task Breakdown:
+                  </Text>
+                  {schedule.chore.descriptionList.map((item, index) => (
+                    <View key={index} style={{ flexDirection: 'row', gap: 8 }}>
+                      <Text typography="body2">•</Text>
+                      <Text typography="body2" style={{ flex: 1 }}>
+                        {item}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              )}
+
+              {/* Metadata Row */}
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap' }} gap="md">
                 {schedule.assignedTo && (
                   <View style={{ flexDirection: 'row', alignItems: 'center' }} gap="xs">
                     <Text typography="body2" color="secondary">
@@ -212,6 +288,28 @@ export default function CalendarView() {
                     </Text>
                     <Text typography="body2">
                       {formatTime(schedule.chore.estimatedMinutes)}
+                    </Text>
+                  </View>
+                )}
+
+                {schedule.chore.preferredTime1 !== null && (
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }} gap="xs">
+                    <Text typography="body2" color="secondary">
+                      Best time:
+                    </Text>
+                    <Text typography="body2">
+                      {formatPreferredTime(schedule.chore.preferredTime1)}
+                    </Text>
+                  </View>
+                )}
+
+                {schedule.chore.preferredTime2 !== null && (
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }} gap="xs">
+                    <Text typography="body2" color="secondary">
+                      Alt time:
+                    </Text>
+                    <Text typography="body2">
+                      {formatPreferredTime(schedule.chore.preferredTime2)}
                     </Text>
                   </View>
                 )}

@@ -19,11 +19,23 @@ export default function ChoreForm() {
   // Form state
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [descriptionBullets, setDescriptionBullets] = useState<string[]>(['']);
   const [recurrence, setRecurrence] = useState<RecurrenceType>('WEEKLY');
   const [recurrenceValue, setRecurrenceValue] = useState('1');
-  const [hour, setHour] = useState('9');
-  const [minute, setMinute] = useState('00');
-  const [period, setPeriod] = useState<'AM' | 'PM'>('AM');
+  const [scheduleMonths, setScheduleMonths] = useState('6'); // Default to 6 months
+  
+  // Time slot 1
+  const [hour1, setHour1] = useState('9');
+  const [minute1, setMinute1] = useState('00');
+  const [period1, setPeriod1] = useState<'AM' | 'PM'>('AM');
+  const [enableTime1, setEnableTime1] = useState(false);
+  
+  // Time slot 2
+  const [hour2, setHour2] = useState('3');
+  const [minute2, setMinute2] = useState('00');
+  const [period2, setPeriod2] = useState<'AM' | 'PM'>('PM');
+  const [enableTime2, setEnableTime2] = useState(false);
+  
   const [isPrivate, setIsPrivate] = useState(false);
   const [estimatedHours, setEstimatedHours] = useState('0');
   const [estimatedMinutes, setEstimatedMinutes] = useState('30');
@@ -34,11 +46,12 @@ export default function ChoreForm() {
   // Create mutation
   const createMutation = trpc.chore.create.useMutation({
     onSuccess: async (newChore) => {
-      // Generate schedules for the next 3 months
+      // Generate schedules for the specified number of months
       try {
         const startDate = new Date();
         const endDate = new Date();
-        endDate.setMonth(endDate.getMonth() + 3);
+        const monthsToSchedule = parseInt(scheduleMonths, 10);
+        endDate.setMonth(endDate.getMonth() + monthsToSchedule);
 
         await generateSchedulesMutation.mutateAsync({
           choreId: newChore.id,
@@ -62,8 +75,16 @@ export default function ChoreForm() {
   const recurrenceOptions = [
     { label: 'Daily', value: 'DAILY' },
     { label: 'Weekly', value: 'WEEKLY' },
-    { label: 'Bi-Monthly (twice a month)', value: 'BIMONTHLY' },
     { label: 'Monthly', value: 'MONTHLY' },
+  ];
+
+  const monthOptions = [
+    { label: '1 month', value: '1' },
+    { label: '2 months', value: '2' },
+    { label: '3 months', value: '3' },
+    { label: '4 months', value: '4' },
+    { label: '5 months', value: '5' },
+    { label: '6 months', value: '6' },
   ];
 
   const hourOptions = Array.from({ length: 12 }, (_, i) => ({
@@ -95,6 +116,11 @@ export default function ChoreForm() {
       newErrors.recurrenceValue = 'Must be at least 1';
     }
 
+    const monthsNum = parseInt(scheduleMonths, 10);
+    if (isNaN(monthsNum) || monthsNum < 1 || monthsNum > 6) {
+      newErrors.scheduleMonths = 'Must be between 1 and 6 months';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -112,23 +138,46 @@ export default function ChoreForm() {
     return hourNum * 60 + minuteNum;
   };
 
+  const addBulletPoint = () => {
+    setDescriptionBullets([...descriptionBullets, '']);
+  };
+
+  const removeBulletPoint = (index: number) => {
+    const newBullets = descriptionBullets.filter((_, i) => i !== index);
+    setDescriptionBullets(newBullets.length === 0 ? [''] : newBullets);
+  };
+
+  const updateBulletPoint = (index: number, value: string) => {
+    const newBullets = [...descriptionBullets];
+    newBullets[index] = value;
+    setDescriptionBullets(newBullets);
+  };
+
   const handleSubmit = () => {
     if (!validate()) return;
 
     const totalMinutes =
       parseInt(estimatedHours, 10) * 60 + parseInt(estimatedMinutes, 10);
-    const preferredTimeMinutes = convertTo24Hour(hour, minute, period);
+    
+    const preferredTime1 = enableTime1 ? convertTo24Hour(hour1, minute1, period1) : null;
+    const preferredTime2 = enableTime2 ? convertTo24Hour(hour2, minute2, period2) : null;
+
+    // Filter out empty bullet points
+    const filteredBullets = descriptionBullets
+      .map(b => b.trim())
+      .filter(b => b.length > 0);
 
     createMutation.mutate({
       title: title.trim(),
       description: description.trim() || undefined,
+      descriptionList: filteredBullets.length > 0 ? filteredBullets : undefined,
       householdId,
-      recurrence: recurrence === 'BIMONTHLY' ? 'MONTHLY' : recurrence,
-      recurrenceValue: recurrence === 'BIMONTHLY' ? 15 : parseInt(recurrenceValue, 10),
+      recurrence: recurrence,
+      recurrenceValue: parseInt(recurrenceValue, 10),
       estimatedMinutes: totalMinutes > 0 ? totalMinutes : undefined,
+      preferredTime1,
+      preferredTime2,
       isPrivate,
-      // TODO: Add preferredTime field to database schema
-      // preferredTime: preferredTimeMinutes,
     });
   };
 
@@ -183,6 +232,49 @@ export default function ChoreForm() {
             />
           </View>
 
+          {/* Description Bullet Points */}
+          <View gap="xs">
+            <Text weight="semibold">Task Breakdown (optional)</Text>
+            <Text color="secondary" typography="caption">
+              Add bullet points to break down the chore into steps
+            </Text>
+            {descriptionBullets.map((bullet, index) => (
+              <View
+                key={index}
+                style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}
+              >
+                <View style={{ flex: 1 }}>
+                  <TextInput
+                    placeholder={`Step ${index + 1}`}
+                    value={bullet}
+                    onChangeText={(value) => updateBulletPoint(index, value)}
+                    inputMode="text"
+                  />
+                </View>
+                {descriptionBullets.length > 1 && (
+                  <Button
+                    type="text"
+                    intent="danger"
+                    leftIcon="close"
+                    onPress={() => removeBulletPoint(index)}
+                    size="sm"
+                  >
+                    Remove
+                  </Button>
+                )}
+              </View>
+            ))}
+            <Button
+              type="outlined"
+              leftIcon="plus"
+              onPress={addBulletPoint}
+              size="sm"
+              alignSelf="flex-start"
+            >
+              Add Step
+            </Button>
+          </View>
+
           {/* Frequency */}
           <View gap="xs">
             <Text weight="semibold">Frequency *</Text>
@@ -193,58 +285,130 @@ export default function ChoreForm() {
             />
           </View>
 
-          {/* Recurrence Value (only show for non-bimonthly) */}
-          {recurrence !== 'BIMONTHLY' && (
-            <View gap="xs">
-              <Text weight="semibold">
-                Every {recurrence === 'DAILY' ? 'X days' : recurrence === 'WEEKLY' ? 'X weeks' : 'X months'}
-              </Text>
-              <TextInput
-                placeholder="1"
-                value={recurrenceValue}
-                onChangeText={setRecurrenceValue}
-                inputMode="numeric"
-                keyboardType="number-pad"
-              />
-              {errors.recurrenceValue && (
-                <Text color="danger" typography="caption">
-                  {errors.recurrenceValue}
-                </Text>
-              )}
-            </View>
-          )}
-
-          {/* Preferred Time */}
+          {/* Recurrence Value */}
           <View gap="xs">
-            <Text weight="semibold">Ideal Time to Complete</Text>
-            <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
-              <View style={{ flex: 1 }}>
-                <Select
-                  value={hour}
-                  onChange={setHour}
-                  options={hourOptions}
-                  placeholder="Hour"
-                />
-              </View>
-              <Text>:</Text>
-              <View style={{ flex: 1 }}>
-                <Select
-                  value={minute}
-                  onChange={setMinute}
-                  options={minuteOptions}
-                  placeholder="Min"
-                />
-              </View>
-              <View style={{ flex: 1 }}>
-                <Select
-                  value={period}
-                  onChange={(value) => setPeriod(value as 'AM' | 'PM')}
-                  options={periodOptions}
-                />
-              </View>
+            <Text weight="semibold">
+              Every {recurrence === 'DAILY' ? 'X days' : recurrence === 'WEEKLY' ? 'X weeks' : 'X months'}
+            </Text>
+            <TextInput
+              placeholder="1"
+              value={recurrenceValue}
+              onChangeText={setRecurrenceValue}
+              inputMode="numeric"
+              keyboardType="number-pad"
+            />
+            {errors.recurrenceValue && (
+              <Text color="danger" typography="caption">
+                {errors.recurrenceValue}
+              </Text>
+            )}
+          </View>
+
+          {/* Schedule Duration */}
+          <View gap="xs">
+            <Text weight="semibold">Schedule for *</Text>
+            <Select
+              value={scheduleMonths}
+              onChange={setScheduleMonths}
+              options={monthOptions}
+            />
+            <Text color="secondary" typography="caption">
+              How many months ahead should this chore be scheduled?
+            </Text>
+            {errors.scheduleMonths && (
+              <Text color="danger" typography="caption">
+                {errors.scheduleMonths}
+              </Text>
+            )}
+          </View>
+
+          {/* Preferred Time 1 */}
+          <View gap="xs">
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Text weight="semibold">Preferred Time #1 (optional)</Text>
+              <Switch value={enableTime1} onValueChange={setEnableTime1} />
             </View>
+            {enableTime1 && (
+              <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+                <View style={{ flex: 1 }}>
+                  <Select
+                    value={hour1}
+                    onChange={setHour1}
+                    options={hourOptions}
+                    placeholder="Hour"
+                  />
+                </View>
+                <Text>:</Text>
+                <View style={{ flex: 1 }}>
+                  <Select
+                    value={minute1}
+                    onChange={setMinute1}
+                    options={minuteOptions}
+                    placeholder="Min"
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Select
+                    value={period1}
+                    onChange={(value) => setPeriod1(value as 'AM' | 'PM')}
+                    options={periodOptions}
+                  />
+                </View>
+              </View>
+            )}
             <Text color="secondary" typography="caption">
               When is the best time to complete this chore?
+            </Text>
+          </View>
+
+          {/* Preferred Time 2 */}
+          <View gap="xs">
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Text weight="semibold">Preferred Time #2 (optional)</Text>
+              <Switch value={enableTime2} onValueChange={setEnableTime2} />
+            </View>
+            {enableTime2 && (
+              <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+                <View style={{ flex: 1 }}>
+                  <Select
+                    value={hour2}
+                    onChange={setHour2}
+                    options={hourOptions}
+                    placeholder="Hour"
+                  />
+                </View>
+                <Text>:</Text>
+                <View style={{ flex: 1 }}>
+                  <Select
+                    value={minute2}
+                    onChange={setMinute2}
+                    options={minuteOptions}
+                    placeholder="Min"
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Select
+                    value={period2}
+                    onChange={(value) => setPeriod2(value as 'AM' | 'PM')}
+                    options={periodOptions}
+                  />
+                </View>
+              </View>
+            )}
+            <Text color="secondary" typography="caption">
+              Add a second preferred time for flexibility
             </Text>
           </View>
 

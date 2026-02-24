@@ -14,12 +14,12 @@ import {
 export const choreRouter = router({
   // Get all chores for a household
   listByHousehold: publicProcedure
-    .input(z.object({ householdId: z.string().cuid(), userId: z.string().cuid().optional() }))
+    .input(z.object({ householdId: z.string().optional(), userId: z.string().optional() }))
     .query(async ({ ctx, input }) => {
       // If userId is provided, filter out private chores not assigned to the user
       return await ctx.prisma.chore.findMany({
         where: {
-          householdId: input.householdId,
+          ...(input.householdId ? { householdId: input.householdId } : {}),
           ...(input.userId
             ? {
                 OR: [

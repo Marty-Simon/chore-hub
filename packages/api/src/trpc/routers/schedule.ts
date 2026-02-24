@@ -51,11 +51,11 @@ export const scheduleRouter = router({
 
   // Get upcoming schedules for a user
   upcoming: publicProcedure
-    .input(z.object({ userId: z.string().cuid(), limit: z.number().int().min(1).max(100).optional() }))
+    .input(z.object({ userId: z.string().optional(), limit: z.number().int().min(1).max(100).optional() }))
     .query(async ({ ctx, input }) => {
       return await ctx.prisma.choreSchedule.findMany({
         where: {
-          assignedToId: input.userId,
+          ...(input.userId ? { assignedToId: input.userId } : {}),
           scheduledDate: {
             gte: new Date(),
           },

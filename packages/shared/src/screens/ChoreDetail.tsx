@@ -3,7 +3,6 @@
  */
 
 import { View, Text, Button, Card, Badge } from '@idealyst/components';
-import { ScrollView } from 'react-native';
 import type { IconName } from '@idealyst/components';
 import { useNavigator, useParams } from '@idealyst/navigation';
 import { trpc } from '../utils/trpc';
@@ -69,13 +68,12 @@ export default function ChoreDetail() {
   }
 
   return (
-    <ScrollView>
+    <View scrollable>
       <View padding="lg" gap="lg">
         <Button
           type="text"
           leftIcon="arrow-left"
           onPress={goBack}
-          alignSelf="flex-start"
         >
           Back
         </Button>
@@ -216,6 +214,6 @@ export default function ChoreDetail() {
           </Button>
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }

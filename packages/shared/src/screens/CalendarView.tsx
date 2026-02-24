@@ -4,7 +4,6 @@
 
 import { useState, useEffect } from 'react';
 import { View, Text, Button, Card, Badge } from '@idealyst/components';
-import { ScrollView } from 'react-native';
 import type { IconName } from '@idealyst/components';
 import { DatePicker } from '@idealyst/datepicker';
 import { useNavigator } from '@idealyst/navigation';
@@ -129,13 +128,12 @@ export default function CalendarView() {
   };
 
   return (
-    <ScrollView>
+    <View scrollable>
       <View padding="lg" gap="lg">
         <Button
           type="text"
           leftIcon="arrow-left"
           onPress={goBack}
-          alignSelf="flex-start"
         >
           Back
         </Button>
@@ -327,6 +325,6 @@ export default function CalendarView() {
           ))}
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }

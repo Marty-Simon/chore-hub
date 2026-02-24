@@ -4,7 +4,6 @@
 
 import { useState } from 'react';
 import { View, Text, Button, Card, TextInput, Select, Switch } from '@idealyst/components';
-import { ScrollView } from 'react-native';
 import { trpc } from '../utils/trpc';
 import { useNavigator } from '@idealyst/navigation';
 import type { RecurrenceType } from '@chore-hub/database';
@@ -196,18 +195,12 @@ export default function ChoreForm() {
   };
 
   return (
-    <ScrollView
-      style={{ flex: 1 }}
-      keyboardShouldPersistTaps="handled"
-      nestedScrollEnabled={false}
-      removeClippedSubviews={false}
-    >
+    <View scrollable style={{ flex: 1 }}>
       <View padding="lg" gap="lg" style={{ paddingBottom: 100 }}>
         <Button
           type="text"
           leftIcon="arrow-left"
           onPress={goBack}
-          alignSelf="flex-start"
         >
           Back
         </Button>
@@ -232,7 +225,7 @@ export default function ChoreForm() {
               inputMode="text"
             />
             {errors.title && (
-              <Text color="danger" typography="caption">
+              <Text color="tertiary" typography="caption">
                 {errors.title}
               </Text>
             )}
@@ -246,8 +239,6 @@ export default function ChoreForm() {
               value={description}
               onChangeText={setDescription}
               inputMode="text"
-              multiline
-              numberOfLines={3}
             />
           </View>
 
@@ -273,7 +264,6 @@ export default function ChoreForm() {
                 {descriptionBullets.length > 1 && (
                   <Button
                     type="text"
-                    intent="danger"
                     leftIcon="close"
                     onPress={() => removeBulletPoint(index)}
                     size="sm"
@@ -288,7 +278,6 @@ export default function ChoreForm() {
               leftIcon="plus"
               onPress={addBulletPoint}
               size="sm"
-              alignSelf="flex-start"
             >
               Add Step
             </Button>
@@ -317,7 +306,7 @@ export default function ChoreForm() {
                 {WEEKDAYS.map((day) => (
                   <Button
                     key={day.value}
-                    type={selectedWeekdays.includes(day.value) ? 'filled' : 'outlined'}
+                    type={selectedWeekdays.includes(day.value) ? 'contained' : 'outlined'}
                     intent={selectedWeekdays.includes(day.value) ? 'primary' : 'neutral'}
                     onPress={() => toggleWeekday(day.value)}
                     size="sm"
@@ -327,7 +316,7 @@ export default function ChoreForm() {
                 ))}
               </View>
               {errors.selectedWeekdays && (
-                <Text color="danger" typography="caption">
+                <Text color="tertiary" typography="caption">
                   {errors.selectedWeekdays}
                 </Text>
               )}
@@ -344,11 +333,11 @@ export default function ChoreForm() {
                 placeholder="1"
                 value={recurrenceValue}
                 onChangeText={setRecurrenceValue}
-                inputMode="numeric"
-                keyboardType="number-pad"
+                inputMode="number"
+
               />
               {errors.recurrenceValue && (
-                <Text color="danger" typography="caption">
+                <Text color="tertiary" typography="caption">
                   {errors.recurrenceValue}
                 </Text>
               )}
@@ -369,7 +358,7 @@ export default function ChoreForm() {
               Chores will be automatically scheduled for the selected duration
             </Text>
             {errors.scheduleMonths && (
-              <Text color="danger" typography="caption">
+              <Text color="tertiary" typography="caption">
                 {errors.scheduleMonths}
               </Text>
             )}
@@ -423,8 +412,8 @@ export default function ChoreForm() {
                   placeholder="0"
                   value={estimatedHours}
                   onChangeText={setEstimatedHours}
-                  inputMode="numeric"
-                  keyboardType="number-pad"
+                  inputMode="number"
+
                 />
               </View>
               <View style={{ flex: 1 }} gap="xs">
@@ -433,8 +422,7 @@ export default function ChoreForm() {
                   placeholder="30"
                   value={estimatedMinutes}
                   onChangeText={setEstimatedMinutes}
-                  inputMode="numeric"
-                  keyboardType="number-pad"
+                  inputMode="number"
                 />
               </View>
             </View>
@@ -454,14 +442,14 @@ export default function ChoreForm() {
                 Only visible to assigned household members
               </Text>
             </View>
-            <Switch value={isPrivate} onValueChange={setIsPrivate} />
+            <Switch checked={isPrivate} onChange={(value) => setIsPrivate(value)} />
           </View>
         </Card>
 
         {/* Submit Error */}
         {errors.submit && (
-          <Card padding="md" intent="danger">
-            <Text color="danger">{errors.submit}</Text>
+          <Card padding="md">
+            <Text color="tertiary">{errors.submit}</Text>
           </Card>
         )}
 
@@ -485,6 +473,6 @@ export default function ChoreForm() {
           </Button>
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }

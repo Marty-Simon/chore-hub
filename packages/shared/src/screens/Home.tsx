@@ -3,7 +3,7 @@
  */
 
 import { View, Text, Card, Button } from '@idealyst/components';
-import { ScrollView } from 'react-native';
+
 import type { IconName } from '@idealyst/components';
 import { useNavigator } from '@idealyst/navigation';
 
@@ -58,7 +58,7 @@ function NavCard({ title, description, icon, path, intent = 'primary' }: NavCard
 
 export default function Home() {
   return (
-    <ScrollView>
+    <View scrollable>
       <View padding="lg" gap="lg">
         <View>
           <Text typography="h3" weight="bold">
@@ -119,6 +119,6 @@ export default function Home() {
           </View>
         </Card>
       </View>
-    </ScrollView>
+    </View>
   );
 }

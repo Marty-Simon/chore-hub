@@ -39,7 +39,7 @@ export default function ChoreForm() {
   const [hour, setHour] = useState('9');
   const [minute, setMinute] = useState('00');
   const [period, setPeriod] = useState<'AM' | 'PM'>('AM');
-  const [enableTime, setEnableTime] = useState(false);
+  // Scheduled time is always enabled (no toggle)
   
   const [isPrivate, setIsPrivate] = useState(false);
   const [estimatedHours, setEstimatedHours] = useState('0');
@@ -174,7 +174,7 @@ export default function ChoreForm() {
     const totalMinutes =
       parseInt(estimatedHours, 10) * 60 + parseInt(estimatedMinutes, 10);
     
-    const scheduledTime = enableTime ? convertTo24Hour(hour, minute, period) : null;
+    const scheduledTime = convertTo24Hour(hour, minute, period);
 
     // Filter out empty bullet points
     const filteredBullets = descriptionBullets
@@ -377,17 +377,8 @@ export default function ChoreForm() {
 
           {/* Scheduled Time */}
           <View gap="xs">
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Text weight="semibold">Scheduled Time (optional)</Text>
-              <Switch value={enableTime} onValueChange={setEnableTime} />
-            </View>
-            {enableTime && (
+            <Text weight="semibold">Scheduled Time</Text>
+            (
               <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start', zIndex: 998, elevation: 998 }}>
                 <View style={{ flex: 1 }}>
                   <Select
@@ -416,7 +407,7 @@ export default function ChoreForm() {
                   />
                 </View>
               </View>
-            )}
+            )
             <Text color="secondary" typography="caption">
               Set the time you want to complete this chore
             </Text>

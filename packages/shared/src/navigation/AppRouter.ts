@@ -9,6 +9,7 @@ import CalendarView from '../screens/CalendarView';
 import ChoresList from '../screens/ChoresList';
 import ChoreDetail from '../screens/ChoreDetail';
 import MyChores from '../screens/MyChores';
+import ChoreForm from '../screens/ChoreForm';
 
 export const AppRouter: NavigatorParam = {
   path: '/',
@@ -41,6 +42,12 @@ export const AppRouter: NavigatorParam = {
       type: 'screen',
       component: ChoresList,
       options: { title: 'All Chores' },
+    },
+    {
+      path: '/chores/new',
+      type: 'screen',
+      component: ChoreForm,
+      options: { title: 'New Chore' },
     },
     {
       path: '/chores/:id',

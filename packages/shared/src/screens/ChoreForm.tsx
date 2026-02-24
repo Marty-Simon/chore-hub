@@ -196,8 +196,8 @@ export default function ChoreForm() {
   };
 
   return (
-    <ScrollView>
-      <View padding="lg" gap="lg">
+    <ScrollView style={{ flex: 1 }}>
+      <View padding="lg" gap="lg" style={{ paddingBottom: 400 }}>
         <Button
           type="text"
           leftIcon="arrow-left"
@@ -290,13 +290,15 @@ export default function ChoreForm() {
           </View>
 
           {/* Frequency */}
-          <View gap="xs" style={{ position: 'relative', zIndex: 50 }}>
+          <View gap="xs">
             <Text weight="semibold">Frequency *</Text>
-            <Select
-              value={recurrence}
-              onChange={(value) => setRecurrence(value as RecurrenceType)}
-              options={recurrenceOptions}
-            />
+            <View style={{ zIndex: 1000, elevation: 1000 }}>
+              <Select
+                value={recurrence}
+                onChange={(value) => setRecurrence(value as RecurrenceType)}
+                options={recurrenceOptions}
+              />
+            </View>
           </View>
 
           {/* Weekday Selection (only for Weekly) */}
@@ -349,13 +351,15 @@ export default function ChoreForm() {
           )}
 
           {/* Schedule Duration */}
-          <View gap="xs" style={{ position: 'relative', zIndex: 40 }}>
+          <View gap="xs">
             <Text weight="semibold">Schedule for *</Text>
-            <Select
-              value={scheduleMonths}
-              onChange={setScheduleMonths}
-              options={monthOptions}
-            />
+            <View style={{ zIndex: 999, elevation: 999 }}>
+              <Select
+                value={scheduleMonths}
+                onChange={setScheduleMonths}
+                options={monthOptions}
+              />
+            </View>
             <Text color="secondary" typography="caption">
               Chores will be automatically scheduled for the selected duration
             </Text>
@@ -379,8 +383,8 @@ export default function ChoreForm() {
               <Switch value={enableTime} onValueChange={setEnableTime} />
             </View>
             {enableTime && (
-              <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start' }}>
-                <View style={{ flex: 1, position: 'relative', zIndex: 30 }}>
+              <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start', zIndex: 998, elevation: 998 }}>
+                <View style={{ flex: 1 }}>
                   <Select
                     value={hour}
                     onChange={setHour}
@@ -391,7 +395,7 @@ export default function ChoreForm() {
                 <View style={{ paddingTop: 10 }}>
                   <Text>:</Text>
                 </View>
-                <View style={{ flex: 1, position: 'relative', zIndex: 20 }}>
+                <View style={{ flex: 1 }}>
                   <Select
                     value={minute}
                     onChange={setMinute}
@@ -399,7 +403,7 @@ export default function ChoreForm() {
                     placeholder="Min"
                   />
                 </View>
-                <View style={{ flex: 1, position: 'relative', zIndex: 10 }}>
+                <View style={{ flex: 1 }}>
                   <Select
                     value={period}
                     onChange={(value) => setPeriod(value as 'AM' | 'PM')}

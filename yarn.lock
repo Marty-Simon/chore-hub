@@ -1689,6 +1689,7 @@ __metadata:
   dependencies:
     "@idealyst/components": ^1.2.115
     "@idealyst/config": ^1.2.115
+    "@idealyst/datepicker": ^1.2.115
     "@idealyst/navigation": ^1.2.115
     "@idealyst/theme": ^1.2.115
     "@mdi/react": ^1.6.1
@@ -2226,6 +2227,37 @@ __metadata:
   bin:
     idealyst-config: bin/idealyst-config.js
   checksum: 3a6e0e0ba56564d0d2fc95cb3704296f45d426f9256cdfb36f40509dc88924713aac068c9881dcb94f113885e05aed6b4333368a9982a0a0ba85984cfacd9b6b
+  languageName: node
+  linkType: hard
+
+"@idealyst/datepicker@npm:^1.2.115":
+  version: 1.2.115
+  resolution: "@idealyst/datepicker@npm:1.2.115"
+  peerDependencies:
+    "@idealyst/theme": ^1.2.115
+    "@mdi/js": ">=7.0.0"
+    "@mdi/react": ">=1.6.0"
+    react: ">=16.8.0"
+    react-native: ">=0.60.0"
+    react-native-svg: ">=13.0.0"
+    react-native-unistyles: ^3.0.4
+    react-native-vector-icons: ">=10.0.0"
+  peerDependenciesMeta:
+    "@idealyst/theme":
+      optional: false
+    "@mdi/js":
+      optional: true
+    "@mdi/react":
+      optional: true
+    react-native:
+      optional: true
+    react-native-svg:
+      optional: true
+    react-native-unistyles:
+      optional: true
+    react-native-vector-icons:
+      optional: true
+  checksum: a281fcb19d7a1eb7e83244b49de1f7eaec01adffcd80ae9c7a040be52e15fca914de8e80a0ce12f07ae600a9a3e2dd847edf0938e9596bbf99fbd78e1206b7ef
   languageName: node
   linkType: hard
 

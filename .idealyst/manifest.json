@@ -1,0 +1,86 @@
+{
+  "version": 2,
+  "idealystVersion": "0.1.0",
+  "status": "created",
+  "projectId": "cmm0n1iae0015u9cdudn46vka",
+  "featureId": "cmm0n1iam0017u9cdqash75ff",
+  "branchName": "main",
+  "activatedAt": "2026-02-24T13:27:55.533Z",
+  "steps": [
+    {
+      "step": "clear_workspace",
+      "status": "success",
+      "duration": 0
+    },
+    {
+      "step": "setup_credentials",
+      "status": "success",
+      "duration": 22
+    },
+    {
+      "step": "init_project",
+      "status": "success",
+      "duration": 121751
+    },
+    {
+      "step": "git_init",
+      "status": "success",
+      "duration": 26
+    },
+    {
+      "step": "git_add",
+      "status": "success",
+      "duration": 296
+    },
+    {
+      "step": "git_commit",
+      "status": "success",
+      "duration": 62
+    },
+    {
+      "step": "git_remote",
+      "status": "success",
+      "duration": 7
+    },
+    {
+      "step": "git_push",
+      "status": "success",
+      "duration": 1789
+    },
+    {
+      "step": "prisma_generate",
+      "status": "success",
+      "duration": 3340
+    },
+    {
+      "step": "db_push",
+      "status": "success",
+      "duration": 5733
+    },
+    {
+      "step": "build_api",
+      "status": "success",
+      "duration": 10947
+    },
+    {
+      "step": "configure_allowed_host",
+      "status": "success",
+      "duration": 2
+    },
+    {
+      "step": "start_api_server",
+      "status": "success",
+      "duration": 4853
+    },
+    {
+      "step": "start_web_server",
+      "status": "success",
+      "duration": 2426
+    }
+  ],
+  "errors": [],
+  "devServerRunning": true,
+  "scaffolded": false,
+  "scaffoldedFrom": null,
+  "databaseDeployed": false
+}

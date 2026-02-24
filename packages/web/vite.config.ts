@@ -73,6 +73,7 @@ export default defineConfig({
     __DEV__: JSON.stringify(true),
   },
   server: {
+    allowedHosts: true,
     host: '0.0.0.0',
     port: 5173,
   },

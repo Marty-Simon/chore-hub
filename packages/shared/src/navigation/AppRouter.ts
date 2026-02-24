@@ -6,6 +6,10 @@
 import { NavigatorParam } from '@idealyst/navigation';
 import Home from '../screens/Home';
 import About from '../screens/About';
+import CalendarView from '../screens/CalendarView';
+import ChoresList from '../screens/ChoresList';
+import ChoreDetail from '../screens/ChoreDetail';
+import MyChores from '../screens/MyChores';
 
 export const AppRouter: NavigatorParam = {
   path: '/',
@@ -22,10 +26,34 @@ export const AppRouter: NavigatorParam = {
       options: { title: 'Chore Hub' },
     },
     {
+      path: '/my-chores',
+      type: 'screen',
+      component: MyChores,
+      options: { title: 'My Chores' },
+    },
+    {
+      path: '/calendar',
+      type: 'screen',
+      component: CalendarView,
+      options: { title: 'Calendar' },
+    },
+    {
+      path: '/chores',
+      type: 'screen',
+      component: ChoresList,
+      options: { title: 'All Chores' },
+    },
+    {
+      path: '/chores/:id',
+      type: 'screen',
+      component: ChoreDetail,
+      options: { title: 'Chore Details' },
+    },
+    {
       path: '/about',
       type: 'screen',
       component: About,
-      options: { title: 'About Idealyst' },
+      options: { title: 'About' },
     },
   ],
 };

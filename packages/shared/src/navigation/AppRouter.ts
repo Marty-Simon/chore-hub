@@ -5,7 +5,6 @@
 
 import { NavigatorParam } from '@idealyst/navigation';
 import Home from '../screens/Home';
-import About from '../screens/About';
 import CalendarView from '../screens/CalendarView';
 import ChoresList from '../screens/ChoresList';
 import ChoreDetail from '../screens/ChoreDetail';
@@ -48,12 +47,6 @@ export const AppRouter: NavigatorParam = {
       type: 'screen',
       component: ChoreDetail,
       options: { title: 'Chore Details' },
-    },
-    {
-      path: '/about',
-      type: 'screen',
-      component: About,
-      options: { title: 'About' },
     },
   ],
 };

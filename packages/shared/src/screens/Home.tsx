@@ -93,14 +93,6 @@ export default function Home() {
             path="/chores"
             intent="primary"
           />
-
-          <NavCard
-            title="About"
-            description="Learn more about this app"
-            icon="information"
-            path="/about"
-            intent="neutral"
-          />
         </View>
 
         <Card padding="md" background="primary" gap="sm">

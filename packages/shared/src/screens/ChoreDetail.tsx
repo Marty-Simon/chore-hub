@@ -10,6 +10,7 @@ import { trpc } from '../utils/trpc';
 
 export default function ChoreDetail() {
   const navigator = useNavigator();
+  const { goBack } = useNavigator();
   const params = useParams();
   const choreId = params.id as string;
 
@@ -70,6 +71,14 @@ export default function ChoreDetail() {
   return (
     <ScrollView>
       <View padding="lg" gap="lg">
+        <Button
+          type="text"
+          leftIcon="arrow-left"
+          onPress={goBack}
+          alignSelf="flex-start"
+        >
+          Back
+        </Button>
         {/* Header */}
         <View gap="sm">
           <View style={{ flexDirection: 'row', alignItems: 'center' }} gap="sm">

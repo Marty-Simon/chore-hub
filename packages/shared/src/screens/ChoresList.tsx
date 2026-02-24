@@ -11,6 +11,7 @@ import { useNavigator } from '@idealyst/navigation';
 
 export default function ChoresList() {
   const navigator = useNavigator();
+  const { goBack } = useNavigator();
   const [searchQuery, setSearchQuery] = useState('');
 
   // TODO: Get householdId and userId from auth context when implemented
@@ -66,6 +67,14 @@ export default function ChoresList() {
   return (
     <ScrollView>
       <View padding="lg" gap="lg">
+        <Button
+          type="text"
+          leftIcon="arrow-left"
+          onPress={goBack}
+          alignSelf="flex-start"
+        >
+          Back
+        </Button>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <View style={{ flex: 1 }}>
             <Text typography="h4" weight="bold">

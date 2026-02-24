@@ -7,6 +7,7 @@ import { View, Text, Button, Card, Badge } from '@idealyst/components';
 import { ScrollView } from 'react-native';
 import type { IconName } from '@idealyst/components';
 import { DatePicker } from '@idealyst/datepicker';
+import { useNavigator } from '@idealyst/navigation';
 import { trpc } from '../utils/trpc';
 
 interface ChoreScheduleItem {
@@ -26,6 +27,7 @@ interface ChoreScheduleItem {
 }
 
 export default function CalendarView() {
+  const { goBack } = useNavigator();
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [viewMode, setViewMode] = useState<'day' | 'week' | 'month'>('week');
   
@@ -108,6 +110,14 @@ export default function CalendarView() {
   return (
     <ScrollView>
       <View padding="lg" gap="lg">
+        <Button
+          type="text"
+          leftIcon="arrow-left"
+          onPress={goBack}
+          alignSelf="flex-start"
+        >
+          Back
+        </Button>
         <View>
           <Text typography="h4" weight="bold">
             Chore Calendar

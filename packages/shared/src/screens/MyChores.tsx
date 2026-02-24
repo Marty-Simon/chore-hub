@@ -11,6 +11,7 @@ import { useNavigator } from '@idealyst/navigation';
 
 export default function MyChores() {
   const navigator = useNavigator();
+  const { goBack } = useNavigator();
   const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all');
 
   // TODO: Get userId from auth context when implemented
@@ -109,6 +110,14 @@ export default function MyChores() {
   return (
     <ScrollView>
       <View padding="lg" gap="lg">
+        <Button
+          type="text"
+          leftIcon="arrow-left"
+          onPress={goBack}
+          alignSelf="flex-start"
+        >
+          Back
+        </Button>
         <View>
           <Text typography="h4" weight="bold">
             My Chores

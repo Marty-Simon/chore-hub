@@ -23,7 +23,7 @@ export const AppRouter: NavigatorParam = {
       path: '/',
       type: 'screen',
       component: Home,
-      options: { title: 'Chore Hub' },
+      options: { title: 'Chore Hub', headerShown: false },
     },
     {
       path: '/my-chores',

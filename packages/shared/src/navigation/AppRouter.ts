@@ -16,7 +16,7 @@ export const AppRouter: NavigatorParam = {
   type: 'navigator',
   layout: 'stack',
   options: {
-    headerShown: false,
+    headerShown: true,
   },
   routes: [
     {

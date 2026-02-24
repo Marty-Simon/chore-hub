@@ -33,13 +33,31 @@ export default function ChoreForm() {
 
   // Create mutation
   const createMutation = trpc.chore.create.useMutation({
-    onSuccess: () => {
+    onSuccess: async (newChore) => {
+      // Generate schedules for the next 3 months
+      try {
+        const startDate = new Date();
+        const endDate = new Date();
+        endDate.setMonth(endDate.getMonth() + 3);
+
+        await generateSchedulesMutation.mutateAsync({
+          choreId: newChore.id,
+          startDate,
+          endDate,
+        });
+      } catch (error) {
+        console.error('Failed to generate schedules:', error);
+        // Continue anyway - the chore was created successfully
+      }
       goBack();
     },
     onError: (error) => {
       setErrors({ submit: error.message });
     },
   });
+
+  // Generate schedules mutation
+  const generateSchedulesMutation = trpc.schedule.generateForChore.useMutation();
 
   const recurrenceOptions = [
     { label: 'Daily', value: 'DAILY' },

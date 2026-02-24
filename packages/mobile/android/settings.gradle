@@ -1,0 +1,8 @@
+// MONOREPO NOTE: In a Yarn workspace monorepo, dependencies are hoisted to the root node_modules.
+// Paths must point to the monorepo root (../../../node_modules) not the package's node_modules.
+pluginManagement { includeBuild("../../../node_modules/@react-native/gradle-plugin") }
+plugins { id("com.facebook.react.settings") }
+extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+rootProject.name = 'com.idealyst.chorehub'
+include ':app'
+includeBuild("../../../node_modules/@react-native/gradle-plugin")

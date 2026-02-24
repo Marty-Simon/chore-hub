@@ -196,8 +196,13 @@ export default function ChoreForm() {
   };
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <View padding="lg" gap="lg" style={{ paddingBottom: 400 }}>
+    <ScrollView
+      style={{ flex: 1 }}
+      keyboardShouldPersistTaps="handled"
+      nestedScrollEnabled={false}
+      removeClippedSubviews={false}
+    >
+      <View padding="lg" gap="lg" style={{ paddingBottom: 100 }}>
         <Button
           type="text"
           leftIcon="arrow-left"

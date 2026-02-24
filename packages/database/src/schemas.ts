@@ -39,8 +39,7 @@ export const createChoreSchema = z.object({
   recurrenceValue: z.number().int().min(1).max(30),
   selectedWeekdays: z.array(z.number().int().min(0).max(6)).optional(),
   estimatedMinutes: z.number().int().min(1).max(1440).optional(),
-  preferredTime1: z.number().int().min(0).max(1439).nullable().optional(),
-  preferredTime2: z.number().int().min(0).max(1439).nullable().optional(),
+  scheduledTime: z.number().int().min(0).max(1439).nullable().optional(),
   isPrivate: z.boolean().optional(),
 });
 
@@ -52,8 +51,7 @@ export const updateChoreSchema = z.object({
   recurrenceValue: z.number().int().min(1).max(30).optional(),
   selectedWeekdays: z.array(z.number().int().min(0).max(6)).optional(),
   estimatedMinutes: z.number().int().min(1).max(1440).nullable().optional(),
-  preferredTime1: z.number().int().min(0).max(1439).nullable().optional(),
-  preferredTime2: z.number().int().min(0).max(1439).nullable().optional(),
+  scheduledTime: z.number().int().min(0).max(1439).nullable().optional(),
   isPrivate: z.boolean().optional(),
 });
 

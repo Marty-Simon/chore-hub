@@ -35,17 +35,11 @@ export default function ChoreForm() {
   const [selectedWeekdays, setSelectedWeekdays] = useState<number[]>([]);
   const [scheduleMonths, setScheduleMonths] = useState('6'); // Default to 6 months
   
-  // Time slot 1
-  const [hour1, setHour1] = useState('9');
-  const [minute1, setMinute1] = useState('00');
-  const [period1, setPeriod1] = useState<'AM' | 'PM'>('AM');
-  const [enableTime1, setEnableTime1] = useState(false);
-  
-  // Time slot 2
-  const [hour2, setHour2] = useState('3');
-  const [minute2, setMinute2] = useState('00');
-  const [period2, setPeriod2] = useState<'AM' | 'PM'>('PM');
-  const [enableTime2, setEnableTime2] = useState(false);
+  // Single customizable time
+  const [hour, setHour] = useState('9');
+  const [minute, setMinute] = useState('00');
+  const [period, setPeriod] = useState<'AM' | 'PM'>('AM');
+  const [enableTime, setEnableTime] = useState(false);
   
   const [isPrivate, setIsPrivate] = useState(false);
   const [estimatedHours, setEstimatedHours] = useState('0');
@@ -180,8 +174,7 @@ export default function ChoreForm() {
     const totalMinutes =
       parseInt(estimatedHours, 10) * 60 + parseInt(estimatedMinutes, 10);
     
-    const preferredTime1 = enableTime1 ? convertTo24Hour(hour1, minute1, period1) : null;
-    const preferredTime2 = enableTime2 ? convertTo24Hour(hour2, minute2, period2) : null;
+    const scheduledTime = enableTime ? convertTo24Hour(hour, minute, period) : null;
 
     // Filter out empty bullet points
     const filteredBullets = descriptionBullets
@@ -197,8 +190,7 @@ export default function ChoreForm() {
       recurrenceValue: parseInt(recurrenceValue, 10),
       selectedWeekdays: recurrence === 'WEEKLY' && selectedWeekdays.length > 0 ? selectedWeekdays : undefined,
       estimatedMinutes: totalMinutes > 0 ? totalMinutes : undefined,
-      preferredTime1,
-      preferredTime2,
+      scheduledTime,
       isPrivate,
     });
   };
@@ -374,7 +366,7 @@ export default function ChoreForm() {
             )}
           </View>
 
-          {/* Preferred Time 1 */}
+          {/* Scheduled Time */}
           <View gap="xs">
             <View
               style={{
@@ -383,84 +375,39 @@ export default function ChoreForm() {
                 justifyContent: 'space-between',
               }}
             >
-              <Text weight="semibold">Preferred Time #1 (optional)</Text>
-              <Switch value={enableTime1} onValueChange={setEnableTime1} />
+              <Text weight="semibold">Scheduled Time (optional)</Text>
+              <Switch value={enableTime} onValueChange={setEnableTime} />
             </View>
-            {enableTime1 && (
+            {enableTime && (
               <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, zIndex: 3 }}>
                   <Select
-                    value={hour1}
-                    onChange={setHour1}
+                    value={hour}
+                    onChange={setHour}
                     options={hourOptions}
                     placeholder="Hour"
                   />
                 </View>
                 <Text>:</Text>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, zIndex: 2 }}>
                   <Select
-                    value={minute1}
-                    onChange={setMinute1}
+                    value={minute}
+                    onChange={setMinute}
                     options={minuteOptions}
                     placeholder="Min"
                   />
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, zIndex: 1 }}>
                   <Select
-                    value={period1}
-                    onChange={(value) => setPeriod1(value as 'AM' | 'PM')}
+                    value={period}
+                    onChange={(value) => setPeriod(value as 'AM' | 'PM')}
                     options={periodOptions}
                   />
                 </View>
               </View>
             )}
             <Text color="secondary" typography="caption">
-              When is the best time to complete this chore?
-            </Text>
-          </View>
-
-          {/* Preferred Time 2 */}
-          <View gap="xs">
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Text weight="semibold">Preferred Time #2 (optional)</Text>
-              <Switch value={enableTime2} onValueChange={setEnableTime2} />
-            </View>
-            {enableTime2 && (
-              <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
-                <View style={{ flex: 1 }}>
-                  <Select
-                    value={hour2}
-                    onChange={setHour2}
-                    options={hourOptions}
-                    placeholder="Hour"
-                  />
-                </View>
-                <Text>:</Text>
-                <View style={{ flex: 1 }}>
-                  <Select
-                    value={minute2}
-                    onChange={setMinute2}
-                    options={minuteOptions}
-                    placeholder="Min"
-                  />
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Select
-                    value={period2}
-                    onChange={(value) => setPeriod2(value as 'AM' | 'PM')}
-                    options={periodOptions}
-                  />
-                </View>
-              </View>
-            )}
-            <Text color="secondary" typography="caption">
-              Add a second preferred time for flexibility
+              Set the time you want to complete this chore
             </Text>
           </View>
 

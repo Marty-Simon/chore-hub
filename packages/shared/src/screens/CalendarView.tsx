@@ -20,8 +20,7 @@ interface ChoreScheduleItem {
     description: string | null;
     descriptionList: string[];
     estimatedMinutes: number | null;
-    preferredTime1: number | null;
-    preferredTime2: number | null;
+    scheduledTime: number | null;
     isPrivate: boolean;
   };
   assignedTo: {
@@ -292,24 +291,13 @@ export default function CalendarView() {
                   </View>
                 )}
 
-                {schedule.chore.preferredTime1 !== null && (
+                {schedule.chore.scheduledTime !== null && (
                   <View style={{ flexDirection: 'row', alignItems: 'center' }} gap="xs">
                     <Text typography="body2" color="secondary">
-                      Best time:
+                      Scheduled time:
                     </Text>
                     <Text typography="body2">
-                      {formatPreferredTime(schedule.chore.preferredTime1)}
-                    </Text>
-                  </View>
-                )}
-
-                {schedule.chore.preferredTime2 !== null && (
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }} gap="xs">
-                    <Text typography="body2" color="secondary">
-                      Alt time:
-                    </Text>
-                    <Text typography="body2">
-                      {formatPreferredTime(schedule.chore.preferredTime2)}
+                      {formatPreferredTime(schedule.chore.scheduledTime)}
                     </Text>
                   </View>
                 )}

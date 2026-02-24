@@ -3698,16 +3698,14 @@ export namespace Prisma {
     recurrenceValue: number | null
     selectedWeekdays: number | null
     estimatedMinutes: number | null
-    preferredTime1: number | null
-    preferredTime2: number | null
+    scheduledTime: number | null
   }
 
   export type ChoreSumAggregateOutputType = {
     recurrenceValue: number | null
     selectedWeekdays: number[]
     estimatedMinutes: number | null
-    preferredTime1: number | null
-    preferredTime2: number | null
+    scheduledTime: number | null
   }
 
   export type ChoreMinAggregateOutputType = {
@@ -3718,8 +3716,7 @@ export namespace Prisma {
     recurrence: $Enums.RecurrenceType | null
     recurrenceValue: number | null
     estimatedMinutes: number | null
-    preferredTime1: number | null
-    preferredTime2: number | null
+    scheduledTime: number | null
     isPrivate: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3733,8 +3730,7 @@ export namespace Prisma {
     recurrence: $Enums.RecurrenceType | null
     recurrenceValue: number | null
     estimatedMinutes: number | null
-    preferredTime1: number | null
-    preferredTime2: number | null
+    scheduledTime: number | null
     isPrivate: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3750,8 +3746,7 @@ export namespace Prisma {
     recurrenceValue: number
     selectedWeekdays: number
     estimatedMinutes: number
-    preferredTime1: number
-    preferredTime2: number
+    scheduledTime: number
     isPrivate: number
     createdAt: number
     updatedAt: number
@@ -3763,16 +3758,14 @@ export namespace Prisma {
     recurrenceValue?: true
     selectedWeekdays?: true
     estimatedMinutes?: true
-    preferredTime1?: true
-    preferredTime2?: true
+    scheduledTime?: true
   }
 
   export type ChoreSumAggregateInputType = {
     recurrenceValue?: true
     selectedWeekdays?: true
     estimatedMinutes?: true
-    preferredTime1?: true
-    preferredTime2?: true
+    scheduledTime?: true
   }
 
   export type ChoreMinAggregateInputType = {
@@ -3783,8 +3776,7 @@ export namespace Prisma {
     recurrence?: true
     recurrenceValue?: true
     estimatedMinutes?: true
-    preferredTime1?: true
-    preferredTime2?: true
+    scheduledTime?: true
     isPrivate?: true
     createdAt?: true
     updatedAt?: true
@@ -3798,8 +3790,7 @@ export namespace Prisma {
     recurrence?: true
     recurrenceValue?: true
     estimatedMinutes?: true
-    preferredTime1?: true
-    preferredTime2?: true
+    scheduledTime?: true
     isPrivate?: true
     createdAt?: true
     updatedAt?: true
@@ -3815,8 +3806,7 @@ export namespace Prisma {
     recurrenceValue?: true
     selectedWeekdays?: true
     estimatedMinutes?: true
-    preferredTime1?: true
-    preferredTime2?: true
+    scheduledTime?: true
     isPrivate?: true
     createdAt?: true
     updatedAt?: true
@@ -3919,8 +3909,7 @@ export namespace Prisma {
     recurrenceValue: number
     selectedWeekdays: number[]
     estimatedMinutes: number | null
-    preferredTime1: number | null
-    preferredTime2: number | null
+    scheduledTime: number | null
     isPrivate: boolean
     createdAt: Date
     updatedAt: Date
@@ -3955,8 +3944,7 @@ export namespace Prisma {
     recurrenceValue?: boolean
     selectedWeekdays?: boolean
     estimatedMinutes?: boolean
-    preferredTime1?: boolean
-    preferredTime2?: boolean
+    scheduledTime?: boolean
     isPrivate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3976,8 +3964,7 @@ export namespace Prisma {
     recurrenceValue?: boolean
     selectedWeekdays?: boolean
     estimatedMinutes?: boolean
-    preferredTime1?: boolean
-    preferredTime2?: boolean
+    scheduledTime?: boolean
     isPrivate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3994,8 +3981,7 @@ export namespace Prisma {
     recurrenceValue?: boolean
     selectedWeekdays?: boolean
     estimatedMinutes?: boolean
-    preferredTime1?: boolean
-    preferredTime2?: boolean
+    scheduledTime?: boolean
     isPrivate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4012,14 +3998,13 @@ export namespace Prisma {
     recurrenceValue?: boolean
     selectedWeekdays?: boolean
     estimatedMinutes?: boolean
-    preferredTime1?: boolean
-    preferredTime2?: boolean
+    scheduledTime?: boolean
     isPrivate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ChoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "descriptionList" | "householdId" | "recurrence" | "recurrenceValue" | "selectedWeekdays" | "estimatedMinutes" | "preferredTime1" | "preferredTime2" | "isPrivate" | "createdAt" | "updatedAt", ExtArgs["result"]["chore"]>
+  export type ChoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "descriptionList" | "householdId" | "recurrence" | "recurrenceValue" | "selectedWeekdays" | "estimatedMinutes" | "scheduledTime" | "isPrivate" | "createdAt" | "updatedAt", ExtArgs["result"]["chore"]>
   export type ChoreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     household?: boolean | HouseholdDefaultArgs<ExtArgs>
     instructions?: boolean | Chore$instructionsArgs<ExtArgs>
@@ -4050,8 +4035,7 @@ export namespace Prisma {
       recurrenceValue: number
       selectedWeekdays: number[]
       estimatedMinutes: number | null
-      preferredTime1: number | null
-      preferredTime2: number | null
+      scheduledTime: number | null
       isPrivate: boolean
       createdAt: Date
       updatedAt: Date
@@ -4490,8 +4474,7 @@ export namespace Prisma {
     readonly recurrenceValue: FieldRef<"Chore", 'Int'>
     readonly selectedWeekdays: FieldRef<"Chore", 'Int[]'>
     readonly estimatedMinutes: FieldRef<"Chore", 'Int'>
-    readonly preferredTime1: FieldRef<"Chore", 'Int'>
-    readonly preferredTime2: FieldRef<"Chore", 'Int'>
+    readonly scheduledTime: FieldRef<"Chore", 'Int'>
     readonly isPrivate: FieldRef<"Chore", 'Boolean'>
     readonly createdAt: FieldRef<"Chore", 'DateTime'>
     readonly updatedAt: FieldRef<"Chore", 'DateTime'>
@@ -8342,8 +8325,7 @@ export namespace Prisma {
     recurrenceValue: 'recurrenceValue',
     selectedWeekdays: 'selectedWeekdays',
     estimatedMinutes: 'estimatedMinutes',
-    preferredTime1: 'preferredTime1',
-    preferredTime2: 'preferredTime2',
+    scheduledTime: 'scheduledTime',
     isPrivate: 'isPrivate',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -8648,8 +8630,7 @@ export namespace Prisma {
     recurrenceValue?: IntFilter<"Chore"> | number
     selectedWeekdays?: IntNullableListFilter<"Chore">
     estimatedMinutes?: IntNullableFilter<"Chore"> | number | null
-    preferredTime1?: IntNullableFilter<"Chore"> | number | null
-    preferredTime2?: IntNullableFilter<"Chore"> | number | null
+    scheduledTime?: IntNullableFilter<"Chore"> | number | null
     isPrivate?: BoolFilter<"Chore"> | boolean
     createdAt?: DateTimeFilter<"Chore"> | Date | string
     updatedAt?: DateTimeFilter<"Chore"> | Date | string
@@ -8668,8 +8649,7 @@ export namespace Prisma {
     recurrenceValue?: SortOrder
     selectedWeekdays?: SortOrder
     estimatedMinutes?: SortOrderInput | SortOrder
-    preferredTime1?: SortOrderInput | SortOrder
-    preferredTime2?: SortOrderInput | SortOrder
+    scheduledTime?: SortOrderInput | SortOrder
     isPrivate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8691,8 +8671,7 @@ export namespace Prisma {
     recurrenceValue?: IntFilter<"Chore"> | number
     selectedWeekdays?: IntNullableListFilter<"Chore">
     estimatedMinutes?: IntNullableFilter<"Chore"> | number | null
-    preferredTime1?: IntNullableFilter<"Chore"> | number | null
-    preferredTime2?: IntNullableFilter<"Chore"> | number | null
+    scheduledTime?: IntNullableFilter<"Chore"> | number | null
     isPrivate?: BoolFilter<"Chore"> | boolean
     createdAt?: DateTimeFilter<"Chore"> | Date | string
     updatedAt?: DateTimeFilter<"Chore"> | Date | string
@@ -8711,8 +8690,7 @@ export namespace Prisma {
     recurrenceValue?: SortOrder
     selectedWeekdays?: SortOrder
     estimatedMinutes?: SortOrderInput | SortOrder
-    preferredTime1?: SortOrderInput | SortOrder
-    preferredTime2?: SortOrderInput | SortOrder
+    scheduledTime?: SortOrderInput | SortOrder
     isPrivate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8736,8 +8714,7 @@ export namespace Prisma {
     recurrenceValue?: IntWithAggregatesFilter<"Chore"> | number
     selectedWeekdays?: IntNullableListFilter<"Chore">
     estimatedMinutes?: IntNullableWithAggregatesFilter<"Chore"> | number | null
-    preferredTime1?: IntNullableWithAggregatesFilter<"Chore"> | number | null
-    preferredTime2?: IntNullableWithAggregatesFilter<"Chore"> | number | null
+    scheduledTime?: IntNullableWithAggregatesFilter<"Chore"> | number | null
     isPrivate?: BoolWithAggregatesFilter<"Chore"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Chore"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Chore"> | Date | string
@@ -9090,8 +9067,7 @@ export namespace Prisma {
     recurrenceValue: number
     selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
-    preferredTime1?: number | null
-    preferredTime2?: number | null
+    scheduledTime?: number | null
     isPrivate?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9110,8 +9086,7 @@ export namespace Prisma {
     recurrenceValue: number
     selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
-    preferredTime1?: number | null
-    preferredTime2?: number | null
+    scheduledTime?: number | null
     isPrivate?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9128,8 +9103,7 @@ export namespace Prisma {
     recurrenceValue?: IntFieldUpdateOperationsInput | number
     selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9148,8 +9122,7 @@ export namespace Prisma {
     recurrenceValue?: IntFieldUpdateOperationsInput | number
     selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9167,8 +9140,7 @@ export namespace Prisma {
     recurrenceValue: number
     selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
-    preferredTime1?: number | null
-    preferredTime2?: number | null
+    scheduledTime?: number | null
     isPrivate?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9183,8 +9155,7 @@ export namespace Prisma {
     recurrenceValue?: IntFieldUpdateOperationsInput | number
     selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9200,8 +9171,7 @@ export namespace Prisma {
     recurrenceValue?: IntFieldUpdateOperationsInput | number
     selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9668,8 +9638,7 @@ export namespace Prisma {
     recurrenceValue?: SortOrder
     selectedWeekdays?: SortOrder
     estimatedMinutes?: SortOrder
-    preferredTime1?: SortOrder
-    preferredTime2?: SortOrder
+    scheduledTime?: SortOrder
     isPrivate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9679,8 +9648,7 @@ export namespace Prisma {
     recurrenceValue?: SortOrder
     selectedWeekdays?: SortOrder
     estimatedMinutes?: SortOrder
-    preferredTime1?: SortOrder
-    preferredTime2?: SortOrder
+    scheduledTime?: SortOrder
   }
 
   export type ChoreMaxOrderByAggregateInput = {
@@ -9691,8 +9659,7 @@ export namespace Prisma {
     recurrence?: SortOrder
     recurrenceValue?: SortOrder
     estimatedMinutes?: SortOrder
-    preferredTime1?: SortOrder
-    preferredTime2?: SortOrder
+    scheduledTime?: SortOrder
     isPrivate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9706,8 +9673,7 @@ export namespace Prisma {
     recurrence?: SortOrder
     recurrenceValue?: SortOrder
     estimatedMinutes?: SortOrder
-    preferredTime1?: SortOrder
-    preferredTime2?: SortOrder
+    scheduledTime?: SortOrder
     isPrivate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9717,8 +9683,7 @@ export namespace Prisma {
     recurrenceValue?: SortOrder
     selectedWeekdays?: SortOrder
     estimatedMinutes?: SortOrder
-    preferredTime1?: SortOrder
-    preferredTime2?: SortOrder
+    scheduledTime?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -10629,8 +10594,7 @@ export namespace Prisma {
     recurrenceValue: number
     selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
-    preferredTime1?: number | null
-    preferredTime2?: number | null
+    scheduledTime?: number | null
     isPrivate?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10647,8 +10611,7 @@ export namespace Prisma {
     recurrenceValue: number
     selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
-    preferredTime1?: number | null
-    preferredTime2?: number | null
+    scheduledTime?: number | null
     isPrivate?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10723,8 +10686,7 @@ export namespace Prisma {
     recurrenceValue?: IntFilter<"Chore"> | number
     selectedWeekdays?: IntNullableListFilter<"Chore">
     estimatedMinutes?: IntNullableFilter<"Chore"> | number | null
-    preferredTime1?: IntNullableFilter<"Chore"> | number | null
-    preferredTime2?: IntNullableFilter<"Chore"> | number | null
+    scheduledTime?: IntNullableFilter<"Chore"> | number | null
     isPrivate?: BoolFilter<"Chore"> | boolean
     createdAt?: DateTimeFilter<"Chore"> | Date | string
     updatedAt?: DateTimeFilter<"Chore"> | Date | string
@@ -11058,8 +11020,7 @@ export namespace Prisma {
     recurrenceValue: number
     selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
-    preferredTime1?: number | null
-    preferredTime2?: number | null
+    scheduledTime?: number | null
     isPrivate?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11077,8 +11038,7 @@ export namespace Prisma {
     recurrenceValue: number
     selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
-    preferredTime1?: number | null
-    preferredTime2?: number | null
+    scheduledTime?: number | null
     isPrivate?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11110,8 +11070,7 @@ export namespace Prisma {
     recurrenceValue?: IntFieldUpdateOperationsInput | number
     selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11129,8 +11088,7 @@ export namespace Prisma {
     recurrenceValue?: IntFieldUpdateOperationsInput | number
     selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11146,8 +11104,7 @@ export namespace Prisma {
     recurrenceValue: number
     selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
-    preferredTime1?: number | null
-    preferredTime2?: number | null
+    scheduledTime?: number | null
     isPrivate?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11165,8 +11122,7 @@ export namespace Prisma {
     recurrenceValue: number
     selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
-    preferredTime1?: number | null
-    preferredTime2?: number | null
+    scheduledTime?: number | null
     isPrivate?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11223,8 +11179,7 @@ export namespace Prisma {
     recurrenceValue?: IntFieldUpdateOperationsInput | number
     selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11242,8 +11197,7 @@ export namespace Prisma {
     recurrenceValue?: IntFieldUpdateOperationsInput | number
     selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11354,8 +11308,7 @@ export namespace Prisma {
     recurrenceValue: number
     selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
-    preferredTime1?: number | null
-    preferredTime2?: number | null
+    scheduledTime?: number | null
     isPrivate?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11398,8 +11351,7 @@ export namespace Prisma {
     recurrenceValue?: IntFieldUpdateOperationsInput | number
     selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11416,8 +11368,7 @@ export namespace Prisma {
     recurrenceValue?: IntFieldUpdateOperationsInput | number
     selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11434,8 +11385,7 @@ export namespace Prisma {
     recurrenceValue?: IntFieldUpdateOperationsInput | number
     selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
-    preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

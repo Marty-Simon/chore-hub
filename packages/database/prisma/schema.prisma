@@ -47,8 +47,7 @@ model Chore {
   recurrenceValue Int               // e.g., every 2 weeks, every 3 days
   selectedWeekdays Int[]            @default([]) // Days of week (0=Sunday, 1=Monday, ..., 6=Saturday)
   estimatedMinutes Int?             // estimated time to complete
-  preferredTime1  Int?              // preferred time of day in minutes (0-1439)
-  preferredTime2  Int?              // second preferred time of day in minutes (0-1439)
+  scheduledTime   Int?              // scheduled time of day in minutes (0-1439)
   isPrivate       Boolean           @default(false) // if true, only assignee can see it
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt

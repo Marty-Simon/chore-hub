@@ -146,8 +146,7 @@ exports.Prisma.ChoreScalarFieldEnum = {
   recurrenceValue: 'recurrenceValue',
   selectedWeekdays: 'selectedWeekdays',
   estimatedMinutes: 'estimatedMinutes',
-  preferredTime1: 'preferredTime1',
-  preferredTime2: 'preferredTime2',
+  scheduledTime: 'scheduledTime',
   isPrivate: 'isPrivate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

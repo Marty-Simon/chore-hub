@@ -9,6 +9,16 @@ import { trpc } from '../utils/trpc';
 import { useNavigator } from '@idealyst/navigation';
 import type { RecurrenceType } from '@chore-hub/database';
 
+const WEEKDAYS = [
+  { label: 'Sunday', value: 0 },
+  { label: 'Monday', value: 1 },
+  { label: 'Tuesday', value: 2 },
+  { label: 'Wednesday', value: 3 },
+  { label: 'Thursday', value: 4 },
+  { label: 'Friday', value: 5 },
+  { label: 'Saturday', value: 6 },
+];
+
 export default function ChoreForm() {
   const navigator = useNavigator();
   const { goBack } = useNavigator();
@@ -22,6 +32,7 @@ export default function ChoreForm() {
   const [descriptionBullets, setDescriptionBullets] = useState<string[]>(['']);
   const [recurrence, setRecurrence] = useState<RecurrenceType>('WEEKLY');
   const [recurrenceValue, setRecurrenceValue] = useState('1');
+  const [selectedWeekdays, setSelectedWeekdays] = useState<number[]>([]);
   const [scheduleMonths, setScheduleMonths] = useState('6'); // Default to 6 months
   
   // Time slot 1
@@ -46,7 +57,7 @@ export default function ChoreForm() {
   // Create mutation
   const createMutation = trpc.chore.create.useMutation({
     onSuccess: async (newChore) => {
-      // Generate schedules for the specified number of months
+      // Generate schedules for the specified number of months (default 6)
       try {
         const startDate = new Date();
         const endDate = new Date();
@@ -104,6 +115,12 @@ export default function ChoreForm() {
     { label: 'PM', value: 'PM' },
   ];
 
+  const toggleWeekday = (day: number) => {
+    setSelectedWeekdays((prev) =>
+      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day].sort()
+    );
+  };
+
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
@@ -114,6 +131,10 @@ export default function ChoreForm() {
     const recValueNum = parseInt(recurrenceValue, 10);
     if (isNaN(recValueNum) || recValueNum < 1) {
       newErrors.recurrenceValue = 'Must be at least 1';
+    }
+
+    if (recurrence === 'WEEKLY' && selectedWeekdays.length === 0) {
+      newErrors.selectedWeekdays = 'Please select at least one day of the week';
     }
 
     const monthsNum = parseInt(scheduleMonths, 10);
@@ -174,6 +195,7 @@ export default function ChoreForm() {
       householdId,
       recurrence: recurrence,
       recurrenceValue: parseInt(recurrenceValue, 10),
+      selectedWeekdays: recurrence === 'WEEKLY' && selectedWeekdays.length > 0 ? selectedWeekdays : undefined,
       estimatedMinutes: totalMinutes > 0 ? totalMinutes : undefined,
       preferredTime1,
       preferredTime2,
@@ -285,24 +307,54 @@ export default function ChoreForm() {
             />
           </View>
 
-          {/* Recurrence Value */}
-          <View gap="xs">
-            <Text weight="semibold">
-              Every {recurrence === 'DAILY' ? 'X days' : recurrence === 'WEEKLY' ? 'X weeks' : 'X months'}
-            </Text>
-            <TextInput
-              placeholder="1"
-              value={recurrenceValue}
-              onChangeText={setRecurrenceValue}
-              inputMode="numeric"
-              keyboardType="number-pad"
-            />
-            {errors.recurrenceValue && (
-              <Text color="danger" typography="caption">
-                {errors.recurrenceValue}
+          {/* Weekday Selection (only for Weekly) */}
+          {recurrence === 'WEEKLY' && (
+            <View gap="xs">
+              <Text weight="semibold">Select Days of the Week *</Text>
+              <Text color="secondary" typography="caption">
+                Choose which days this chore should be scheduled
               </Text>
-            )}
-          </View>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                {WEEKDAYS.map((day) => (
+                  <Button
+                    key={day.value}
+                    type={selectedWeekdays.includes(day.value) ? 'filled' : 'outlined'}
+                    intent={selectedWeekdays.includes(day.value) ? 'primary' : 'neutral'}
+                    onPress={() => toggleWeekday(day.value)}
+                    size="sm"
+                  >
+                    {day.label}
+                  </Button>
+                ))}
+              </View>
+              {errors.selectedWeekdays && (
+                <Text color="danger" typography="caption">
+                  {errors.selectedWeekdays}
+                </Text>
+              )}
+            </View>
+          )}
+
+          {/* Recurrence Value (hidden for weekly with selected days) */}
+          {!(recurrence === 'WEEKLY' && selectedWeekdays.length > 0) && (
+            <View gap="xs">
+              <Text weight="semibold">
+                Every {recurrence === 'DAILY' ? 'X days' : recurrence === 'WEEKLY' ? 'X weeks' : 'X months'}
+              </Text>
+              <TextInput
+                placeholder="1"
+                value={recurrenceValue}
+                onChangeText={setRecurrenceValue}
+                inputMode="numeric"
+                keyboardType="number-pad"
+              />
+              {errors.recurrenceValue && (
+                <Text color="danger" typography="caption">
+                  {errors.recurrenceValue}
+                </Text>
+              )}
+            </View>
+          )}
 
           {/* Schedule Duration */}
           <View gap="xs">
@@ -313,7 +365,7 @@ export default function ChoreForm() {
               options={monthOptions}
             />
             <Text color="secondary" typography="caption">
-              How many months ahead should this chore be scheduled?
+              Chores will be automatically scheduled for the selected duration
             </Text>
             {errors.scheduleMonths && (
               <Text color="danger" typography="caption">

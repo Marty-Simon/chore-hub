@@ -3696,6 +3696,7 @@ export namespace Prisma {
 
   export type ChoreAvgAggregateOutputType = {
     recurrenceValue: number | null
+    selectedWeekdays: number | null
     estimatedMinutes: number | null
     preferredTime1: number | null
     preferredTime2: number | null
@@ -3703,6 +3704,7 @@ export namespace Prisma {
 
   export type ChoreSumAggregateOutputType = {
     recurrenceValue: number | null
+    selectedWeekdays: number[]
     estimatedMinutes: number | null
     preferredTime1: number | null
     preferredTime2: number | null
@@ -3746,6 +3748,7 @@ export namespace Prisma {
     householdId: number
     recurrence: number
     recurrenceValue: number
+    selectedWeekdays: number
     estimatedMinutes: number
     preferredTime1: number
     preferredTime2: number
@@ -3758,6 +3761,7 @@ export namespace Prisma {
 
   export type ChoreAvgAggregateInputType = {
     recurrenceValue?: true
+    selectedWeekdays?: true
     estimatedMinutes?: true
     preferredTime1?: true
     preferredTime2?: true
@@ -3765,6 +3769,7 @@ export namespace Prisma {
 
   export type ChoreSumAggregateInputType = {
     recurrenceValue?: true
+    selectedWeekdays?: true
     estimatedMinutes?: true
     preferredTime1?: true
     preferredTime2?: true
@@ -3808,6 +3813,7 @@ export namespace Prisma {
     householdId?: true
     recurrence?: true
     recurrenceValue?: true
+    selectedWeekdays?: true
     estimatedMinutes?: true
     preferredTime1?: true
     preferredTime2?: true
@@ -3911,6 +3917,7 @@ export namespace Prisma {
     householdId: string
     recurrence: $Enums.RecurrenceType
     recurrenceValue: number
+    selectedWeekdays: number[]
     estimatedMinutes: number | null
     preferredTime1: number | null
     preferredTime2: number | null
@@ -3946,6 +3953,7 @@ export namespace Prisma {
     householdId?: boolean
     recurrence?: boolean
     recurrenceValue?: boolean
+    selectedWeekdays?: boolean
     estimatedMinutes?: boolean
     preferredTime1?: boolean
     preferredTime2?: boolean
@@ -3966,6 +3974,7 @@ export namespace Prisma {
     householdId?: boolean
     recurrence?: boolean
     recurrenceValue?: boolean
+    selectedWeekdays?: boolean
     estimatedMinutes?: boolean
     preferredTime1?: boolean
     preferredTime2?: boolean
@@ -3983,6 +3992,7 @@ export namespace Prisma {
     householdId?: boolean
     recurrence?: boolean
     recurrenceValue?: boolean
+    selectedWeekdays?: boolean
     estimatedMinutes?: boolean
     preferredTime1?: boolean
     preferredTime2?: boolean
@@ -4000,6 +4010,7 @@ export namespace Prisma {
     householdId?: boolean
     recurrence?: boolean
     recurrenceValue?: boolean
+    selectedWeekdays?: boolean
     estimatedMinutes?: boolean
     preferredTime1?: boolean
     preferredTime2?: boolean
@@ -4008,7 +4019,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ChoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "descriptionList" | "householdId" | "recurrence" | "recurrenceValue" | "estimatedMinutes" | "preferredTime1" | "preferredTime2" | "isPrivate" | "createdAt" | "updatedAt", ExtArgs["result"]["chore"]>
+  export type ChoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "descriptionList" | "householdId" | "recurrence" | "recurrenceValue" | "selectedWeekdays" | "estimatedMinutes" | "preferredTime1" | "preferredTime2" | "isPrivate" | "createdAt" | "updatedAt", ExtArgs["result"]["chore"]>
   export type ChoreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     household?: boolean | HouseholdDefaultArgs<ExtArgs>
     instructions?: boolean | Chore$instructionsArgs<ExtArgs>
@@ -4037,6 +4048,7 @@ export namespace Prisma {
       householdId: string
       recurrence: $Enums.RecurrenceType
       recurrenceValue: number
+      selectedWeekdays: number[]
       estimatedMinutes: number | null
       preferredTime1: number | null
       preferredTime2: number | null
@@ -4476,6 +4488,7 @@ export namespace Prisma {
     readonly householdId: FieldRef<"Chore", 'String'>
     readonly recurrence: FieldRef<"Chore", 'RecurrenceType'>
     readonly recurrenceValue: FieldRef<"Chore", 'Int'>
+    readonly selectedWeekdays: FieldRef<"Chore", 'Int[]'>
     readonly estimatedMinutes: FieldRef<"Chore", 'Int'>
     readonly preferredTime1: FieldRef<"Chore", 'Int'>
     readonly preferredTime2: FieldRef<"Chore", 'Int'>
@@ -8327,6 +8340,7 @@ export namespace Prisma {
     householdId: 'householdId',
     recurrence: 'recurrence',
     recurrenceValue: 'recurrenceValue',
+    selectedWeekdays: 'selectedWeekdays',
     estimatedMinutes: 'estimatedMinutes',
     preferredTime1: 'preferredTime1',
     preferredTime2: 'preferredTime2',
@@ -8632,6 +8646,7 @@ export namespace Prisma {
     householdId?: StringFilter<"Chore"> | string
     recurrence?: EnumRecurrenceTypeFilter<"Chore"> | $Enums.RecurrenceType
     recurrenceValue?: IntFilter<"Chore"> | number
+    selectedWeekdays?: IntNullableListFilter<"Chore">
     estimatedMinutes?: IntNullableFilter<"Chore"> | number | null
     preferredTime1?: IntNullableFilter<"Chore"> | number | null
     preferredTime2?: IntNullableFilter<"Chore"> | number | null
@@ -8651,6 +8666,7 @@ export namespace Prisma {
     householdId?: SortOrder
     recurrence?: SortOrder
     recurrenceValue?: SortOrder
+    selectedWeekdays?: SortOrder
     estimatedMinutes?: SortOrderInput | SortOrder
     preferredTime1?: SortOrderInput | SortOrder
     preferredTime2?: SortOrderInput | SortOrder
@@ -8673,6 +8689,7 @@ export namespace Prisma {
     householdId?: StringFilter<"Chore"> | string
     recurrence?: EnumRecurrenceTypeFilter<"Chore"> | $Enums.RecurrenceType
     recurrenceValue?: IntFilter<"Chore"> | number
+    selectedWeekdays?: IntNullableListFilter<"Chore">
     estimatedMinutes?: IntNullableFilter<"Chore"> | number | null
     preferredTime1?: IntNullableFilter<"Chore"> | number | null
     preferredTime2?: IntNullableFilter<"Chore"> | number | null
@@ -8692,6 +8709,7 @@ export namespace Prisma {
     householdId?: SortOrder
     recurrence?: SortOrder
     recurrenceValue?: SortOrder
+    selectedWeekdays?: SortOrder
     estimatedMinutes?: SortOrderInput | SortOrder
     preferredTime1?: SortOrderInput | SortOrder
     preferredTime2?: SortOrderInput | SortOrder
@@ -8716,6 +8734,7 @@ export namespace Prisma {
     householdId?: StringWithAggregatesFilter<"Chore"> | string
     recurrence?: EnumRecurrenceTypeWithAggregatesFilter<"Chore"> | $Enums.RecurrenceType
     recurrenceValue?: IntWithAggregatesFilter<"Chore"> | number
+    selectedWeekdays?: IntNullableListFilter<"Chore">
     estimatedMinutes?: IntNullableWithAggregatesFilter<"Chore"> | number | null
     preferredTime1?: IntNullableWithAggregatesFilter<"Chore"> | number | null
     preferredTime2?: IntNullableWithAggregatesFilter<"Chore"> | number | null
@@ -9069,6 +9088,7 @@ export namespace Prisma {
     descriptionList?: ChoreCreatedescriptionListInput | string[]
     recurrence: $Enums.RecurrenceType
     recurrenceValue: number
+    selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
     preferredTime1?: number | null
     preferredTime2?: number | null
@@ -9088,6 +9108,7 @@ export namespace Prisma {
     householdId: string
     recurrence: $Enums.RecurrenceType
     recurrenceValue: number
+    selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
     preferredTime1?: number | null
     preferredTime2?: number | null
@@ -9105,6 +9126,7 @@ export namespace Prisma {
     descriptionList?: ChoreUpdatedescriptionListInput | string[]
     recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
     recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9124,6 +9146,7 @@ export namespace Prisma {
     householdId?: StringFieldUpdateOperationsInput | string
     recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
     recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9142,6 +9165,7 @@ export namespace Prisma {
     householdId: string
     recurrence: $Enums.RecurrenceType
     recurrenceValue: number
+    selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
     preferredTime1?: number | null
     preferredTime2?: number | null
@@ -9157,6 +9181,7 @@ export namespace Prisma {
     descriptionList?: ChoreUpdatedescriptionListInput | string[]
     recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
     recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9173,6 +9198,7 @@ export namespace Prisma {
     householdId?: StringFieldUpdateOperationsInput | string
     recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
     recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9593,6 +9619,14 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type IntNullableListFilter<$PrismaModel = never> = {
+    equals?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    has?: number | IntFieldRefInput<$PrismaModel> | null
+    hasEvery?: number[] | ListIntFieldRefInput<$PrismaModel>
+    hasSome?: number[] | ListIntFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -9632,6 +9666,7 @@ export namespace Prisma {
     householdId?: SortOrder
     recurrence?: SortOrder
     recurrenceValue?: SortOrder
+    selectedWeekdays?: SortOrder
     estimatedMinutes?: SortOrder
     preferredTime1?: SortOrder
     preferredTime2?: SortOrder
@@ -9642,6 +9677,7 @@ export namespace Prisma {
 
   export type ChoreAvgOrderByAggregateInput = {
     recurrenceValue?: SortOrder
+    selectedWeekdays?: SortOrder
     estimatedMinutes?: SortOrder
     preferredTime1?: SortOrder
     preferredTime2?: SortOrder
@@ -9679,6 +9715,7 @@ export namespace Prisma {
 
   export type ChoreSumOrderByAggregateInput = {
     recurrenceValue?: SortOrder
+    selectedWeekdays?: SortOrder
     estimatedMinutes?: SortOrder
     preferredTime1?: SortOrder
     preferredTime2?: SortOrder
@@ -10112,6 +10149,10 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type ChoreCreateselectedWeekdaysInput = {
+    set: number[]
+  }
+
   export type HouseholdCreateNestedOneWithoutChoresInput = {
     create?: XOR<HouseholdCreateWithoutChoresInput, HouseholdUncheckedCreateWithoutChoresInput>
     connectOrCreate?: HouseholdCreateOrConnectWithoutChoresInput
@@ -10165,6 +10206,11 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type ChoreUpdateselectedWeekdaysInput = {
+    set?: number[]
+    push?: number | number[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -10581,6 +10627,7 @@ export namespace Prisma {
     descriptionList?: ChoreCreatedescriptionListInput | string[]
     recurrence: $Enums.RecurrenceType
     recurrenceValue: number
+    selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
     preferredTime1?: number | null
     preferredTime2?: number | null
@@ -10598,6 +10645,7 @@ export namespace Prisma {
     descriptionList?: ChoreCreatedescriptionListInput | string[]
     recurrence: $Enums.RecurrenceType
     recurrenceValue: number
+    selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
     preferredTime1?: number | null
     preferredTime2?: number | null
@@ -10673,6 +10721,7 @@ export namespace Prisma {
     householdId?: StringFilter<"Chore"> | string
     recurrence?: EnumRecurrenceTypeFilter<"Chore"> | $Enums.RecurrenceType
     recurrenceValue?: IntFilter<"Chore"> | number
+    selectedWeekdays?: IntNullableListFilter<"Chore">
     estimatedMinutes?: IntNullableFilter<"Chore"> | number | null
     preferredTime1?: IntNullableFilter<"Chore"> | number | null
     preferredTime2?: IntNullableFilter<"Chore"> | number | null
@@ -11007,6 +11056,7 @@ export namespace Prisma {
     descriptionList?: ChoreCreatedescriptionListInput | string[]
     recurrence: $Enums.RecurrenceType
     recurrenceValue: number
+    selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
     preferredTime1?: number | null
     preferredTime2?: number | null
@@ -11025,6 +11075,7 @@ export namespace Prisma {
     householdId: string
     recurrence: $Enums.RecurrenceType
     recurrenceValue: number
+    selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
     preferredTime1?: number | null
     preferredTime2?: number | null
@@ -11057,6 +11108,7 @@ export namespace Prisma {
     descriptionList?: ChoreUpdatedescriptionListInput | string[]
     recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
     recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
@@ -11075,6 +11127,7 @@ export namespace Prisma {
     householdId?: StringFieldUpdateOperationsInput | string
     recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
     recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
@@ -11091,6 +11144,7 @@ export namespace Prisma {
     descriptionList?: ChoreCreatedescriptionListInput | string[]
     recurrence: $Enums.RecurrenceType
     recurrenceValue: number
+    selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
     preferredTime1?: number | null
     preferredTime2?: number | null
@@ -11109,6 +11163,7 @@ export namespace Prisma {
     householdId: string
     recurrence: $Enums.RecurrenceType
     recurrenceValue: number
+    selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
     preferredTime1?: number | null
     preferredTime2?: number | null
@@ -11166,6 +11221,7 @@ export namespace Prisma {
     descriptionList?: ChoreUpdatedescriptionListInput | string[]
     recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
     recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
@@ -11184,6 +11240,7 @@ export namespace Prisma {
     householdId?: StringFieldUpdateOperationsInput | string
     recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
     recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
@@ -11295,6 +11352,7 @@ export namespace Prisma {
     descriptionList?: ChoreCreatedescriptionListInput | string[]
     recurrence: $Enums.RecurrenceType
     recurrenceValue: number
+    selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
     estimatedMinutes?: number | null
     preferredTime1?: number | null
     preferredTime2?: number | null
@@ -11338,6 +11396,7 @@ export namespace Prisma {
     descriptionList?: ChoreUpdatedescriptionListInput | string[]
     recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
     recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
@@ -11355,6 +11414,7 @@ export namespace Prisma {
     descriptionList?: ChoreUpdatedescriptionListInput | string[]
     recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
     recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null
@@ -11372,6 +11432,7 @@ export namespace Prisma {
     descriptionList?: ChoreUpdatedescriptionListInput | string[]
     recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
     recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
     estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime1?: NullableIntFieldUpdateOperationsInput | number | null
     preferredTime2?: NullableIntFieldUpdateOperationsInput | number | null

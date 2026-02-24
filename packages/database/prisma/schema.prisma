@@ -45,6 +45,7 @@ model Chore {
   schedules       ChoreSchedule[]
   recurrence      RecurrenceType    // DAILY, WEEKLY, MONTHLY
   recurrenceValue Int               // e.g., every 2 weeks, every 3 days
+  selectedWeekdays Int[]            @default([]) // Days of week (0=Sunday, 1=Monday, ..., 6=Saturday)
   estimatedMinutes Int?             // estimated time to complete
   preferredTime1  Int?              // preferred time of day in minutes (0-1439)
   preferredTime2  Int?              // second preferred time of day in minutes (0-1439)

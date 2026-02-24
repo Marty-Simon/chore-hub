@@ -169,24 +169,40 @@ export const scheduleRouter = router({
       const currentDate = new Date(input.startDate);
       const endDate = new Date(input.endDate);
 
-      while (currentDate <= endDate) {
-        schedules.push({
-          choreId: input.choreId,
-          assignedToId: input.assignedToId,
-          scheduledDate: new Date(currentDate),
-        });
+      if (chore.recurrence === 'WEEKLY' && chore.selectedWeekdays && chore.selectedWeekdays.length > 0) {
+        // For weekly chores with selected weekdays, generate for those specific days
+        while (currentDate <= endDate) {
+          const dayOfWeek = currentDate.getDay(); // 0 = Sunday, 1 = Monday, etc.
+          if (chore.selectedWeekdays.includes(dayOfWeek)) {
+            schedules.push({
+              choreId: input.choreId,
+              assignedToId: input.assignedToId,
+              scheduledDate: new Date(currentDate),
+            });
+          }
+          currentDate.setDate(currentDate.getDate() + 1); // Move to next day
+        }
+      } else {
+        // Standard recurrence logic for other types or weekly without specific days
+        while (currentDate <= endDate) {
+          schedules.push({
+            choreId: input.choreId,
+            assignedToId: input.assignedToId,
+            scheduledDate: new Date(currentDate),
+          });
 
-        // Increment based on recurrence
-        switch (chore.recurrence) {
-          case 'DAILY':
-            currentDate.setDate(currentDate.getDate() + chore.recurrenceValue);
-            break;
-          case 'WEEKLY':
-            currentDate.setDate(currentDate.getDate() + chore.recurrenceValue * 7);
-            break;
-          case 'MONTHLY':
-            currentDate.setMonth(currentDate.getMonth() + chore.recurrenceValue);
-            break;
+          // Increment based on recurrence
+          switch (chore.recurrence) {
+            case 'DAILY':
+              currentDate.setDate(currentDate.getDate() + chore.recurrenceValue);
+              break;
+            case 'WEEKLY':
+              currentDate.setDate(currentDate.getDate() + chore.recurrenceValue * 7);
+              break;
+            case 'MONTHLY':
+              currentDate.setMonth(currentDate.getMonth() + chore.recurrenceValue);
+              break;
+          }
         }
       }
 

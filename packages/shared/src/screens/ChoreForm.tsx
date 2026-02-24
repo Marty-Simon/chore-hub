@@ -290,7 +290,7 @@ export default function ChoreForm() {
           </View>
 
           {/* Frequency */}
-          <View gap="xs">
+          <View gap="xs" style={{ position: 'relative', zIndex: 50 }}>
             <Text weight="semibold">Frequency *</Text>
             <Select
               value={recurrence}
@@ -349,7 +349,7 @@ export default function ChoreForm() {
           )}
 
           {/* Schedule Duration */}
-          <View gap="xs">
+          <View gap="xs" style={{ position: 'relative', zIndex: 40 }}>
             <Text weight="semibold">Schedule for *</Text>
             <Select
               value={scheduleMonths}
@@ -379,8 +379,8 @@ export default function ChoreForm() {
               <Switch value={enableTime} onValueChange={setEnableTime} />
             </View>
             {enableTime && (
-              <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
-                <View style={{ flex: 1, zIndex: 3 }}>
+              <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start' }}>
+                <View style={{ flex: 1, position: 'relative', zIndex: 30 }}>
                   <Select
                     value={hour}
                     onChange={setHour}
@@ -388,8 +388,10 @@ export default function ChoreForm() {
                     placeholder="Hour"
                   />
                 </View>
-                <Text>:</Text>
-                <View style={{ flex: 1, zIndex: 2 }}>
+                <View style={{ paddingTop: 10 }}>
+                  <Text>:</Text>
+                </View>
+                <View style={{ flex: 1, position: 'relative', zIndex: 20 }}>
                   <Select
                     value={minute}
                     onChange={setMinute}
@@ -397,7 +399,7 @@ export default function ChoreForm() {
                     placeholder="Min"
                   />
                 </View>
-                <View style={{ flex: 1, zIndex: 1 }}>
+                <View style={{ flex: 1, position: 'relative', zIndex: 10 }}>
                   <Select
                     value={period}
                     onChange={(value) => setPeriod(value as 'AM' | 'PM')}

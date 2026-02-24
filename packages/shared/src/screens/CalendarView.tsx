@@ -3,10 +3,11 @@
  */
 
 import { useState, useEffect } from 'react';
-import { View, Text, Button, Card, Badge, ScrollView } from '@idealyst/components';
+import { View, Text, Button, Card, Badge } from '@idealyst/components';
+import { ScrollView } from 'react-native';
 import type { IconName } from '@idealyst/components';
 import { DatePicker } from '@idealyst/datepicker';
-import { trpc } from '../trpc/client';
+import { trpc } from '../utils/trpc';
 
 interface ChoreScheduleItem {
   id: string;
@@ -170,12 +171,11 @@ export default function CalendarView() {
                 <Badge
                   type="filled"
                   intent={getStatusColor(schedule.status)}
-                  leftIcon={getStatusIcon(schedule.status)}
                 >
                   {schedule.status}
                 </Badge>
                 <Text typography="body2" color="secondary">
-                  {formatDate(schedule.scheduledDate)}
+                  {formatDate(new Date(schedule.scheduledDate))}
                 </Text>
               </View>
 

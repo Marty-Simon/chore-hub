@@ -3,9 +3,10 @@
  */
 
 import { useState } from 'react';
-import { View, Text, Button, Card, Badge, ScrollView, Pressable } from '@idealyst/components';
+import { View, Text, Button, Card, Badge, Pressable } from '@idealyst/components';
+import { ScrollView } from 'react-native';
 import type { IconName } from '@idealyst/components';
-import { trpc } from '../trpc/client';
+import { trpc } from '../utils/trpc';
 import { useNavigator } from '@idealyst/navigation';
 
 export default function MyChores() {
@@ -166,12 +167,11 @@ export default function MyChores() {
                 <Badge
                   type="filled"
                   intent={getStatusColor(schedule.status)}
-                  leftIcon={getStatusIcon(schedule.status)}
                 >
                   {schedule.status}
                 </Badge>
                 <Text typography="body2" color="secondary">
-                  {formatDate(schedule.scheduledDate)}
+                  {formatDate(new Date(schedule.scheduledDate))}
                 </Text>
               </View>
 

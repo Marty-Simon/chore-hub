@@ -1,12 +1,17 @@
 {
   "version": 2,
   "idealystVersion": "0.1.0",
-  "status": "created",
+  "status": "activated",
   "projectId": "cmm0n1iae0015u9cdudn46vka",
   "featureId": "cmm0n1iam0017u9cdqash75ff",
   "branchName": "main",
-  "activatedAt": "2026-02-24T13:27:55.533Z",
+  "activatedAt": "2026-02-24T13:44:59.857Z",
   "steps": [
+    {
+      "step": "fetch_context",
+      "status": "success",
+      "duration": 161
+    },
     {
       "step": "clear_workspace",
       "status": "success",
@@ -15,67 +20,62 @@
     {
       "step": "setup_credentials",
       "status": "success",
-      "duration": 22
+      "duration": 166
     },
     {
-      "step": "init_project",
+      "step": "git_clone",
       "status": "success",
-      "duration": 121751
+      "duration": 411
     },
     {
-      "step": "git_init",
+      "step": "npm_install",
       "status": "success",
-      "duration": 26
+      "duration": 57702
     },
     {
-      "step": "git_add",
+      "step": "create_database",
       "status": "success",
-      "duration": 296
+      "duration": 107
     },
     {
-      "step": "git_commit",
+      "step": "db_generate",
       "status": "success",
-      "duration": 62
+      "duration": 3092
     },
     {
-      "step": "git_remote",
+      "step": "db_migrate",
       "status": "success",
-      "duration": 7
+      "duration": 2160
     },
     {
-      "step": "git_push",
-      "status": "success",
-      "duration": 1789
+      "step": "restore_database",
+      "status": "skipped",
+      "duration": 3031
     },
     {
-      "step": "prisma_generate",
+      "step": "configure_env",
       "status": "success",
-      "duration": 3340
-    },
-    {
-      "step": "db_push",
-      "status": "success",
-      "duration": 5733
-    },
-    {
-      "step": "build_api",
-      "status": "success",
-      "duration": 10947
+      "duration": 2
     },
     {
       "step": "configure_allowed_host",
+      "status": "success",
+      "duration": 1
+    },
+    {
+      "step": "inject_preview_bridge",
       "status": "success",
       "duration": 2
     },
     {
       "step": "start_api_server",
       "status": "success",
-      "duration": 4853
+      "duration": 2735
     },
     {
       "step": "start_web_server",
       "status": "success",
-      "duration": 2426
+      "duration": 2317
     }
   ],
   "errors": [],

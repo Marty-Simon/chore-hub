@@ -24,4 +24,31 @@ if (process.env.NODE_ENV !== 'production') {
 
 export { PrismaClient };
 export * from '../prisma/generated/client/index.js';
-export * from './schemas';
+export {
+  RecurrenceTypeSchema,
+  ScheduleStatusSchema,
+  createHouseholdSchema,
+  updateHouseholdSchema,
+  createUserSchema,
+  updateUserSchema,
+  createChoreSchema,
+  updateChoreSchema,
+  createChoreInstructionSchema,
+  updateChoreInstructionSchema,
+  createChoreScheduleSchema,
+  updateChoreScheduleSchema,
+  createCalendarConnectionSchema,
+  updateCalendarConnectionSchema,
+  type CreateHousehold,
+  type UpdateHousehold,
+  type CreateUser,
+  type UpdateUser,
+  type CreateChore,
+  type UpdateChore,
+  type CreateChoreInstruction,
+  type UpdateChoreInstruction,
+  type CreateChoreSchedule,
+  type UpdateChoreSchedule,
+  type CreateCalendarConnection,
+  type UpdateCalendarConnection,
+} from './schemas';

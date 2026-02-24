@@ -120,11 +120,63 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.ItemScalarFieldEnum = {
+exports.Prisma.HouseholdScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  householdId: 'householdId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ChoreScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  completed: 'completed',
+  householdId: 'householdId',
+  recurrence: 'recurrence',
+  recurrenceValue: 'recurrenceValue',
+  estimatedMinutes: 'estimatedMinutes',
+  isPrivate: 'isPrivate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ChoreInstructionScalarFieldEnum = {
+  id: 'id',
+  choreId: 'choreId',
+  stepNumber: 'stepNumber',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ChoreScheduleScalarFieldEnum = {
+  id: 'id',
+  choreId: 'choreId',
+  assignedToId: 'assignedToId',
+  scheduledDate: 'scheduledDate',
+  completedAt: 'completedAt',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CalendarConnectionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  provider: 'provider',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  expiresAt: 'expiresAt',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -143,10 +195,26 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.RecurrenceType = exports.$Enums.RecurrenceType = {
+  DAILY: 'DAILY',
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY'
+};
 
+exports.ScheduleStatus = exports.$Enums.ScheduleStatus = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  SKIPPED: 'SKIPPED'
+};
 
 exports.Prisma.ModelName = {
-  Item: 'Item'
+  Household: 'Household',
+  User: 'User',
+  Chore: 'Chore',
+  ChoreInstruction: 'ChoreInstruction',
+  ChoreSchedule: 'ChoreSchedule',
+  CalendarConnection: 'CalendarConnection'
 };
 
 /**

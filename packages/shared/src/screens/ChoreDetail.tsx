@@ -2,10 +2,11 @@
  * Chore Detail Screen - View chore instructions and details
  */
 
-import { View, Text, Button, Card, Badge, ScrollView } from '@idealyst/components';
+import { View, Text, Button, Card, Badge } from '@idealyst/components';
+import { ScrollView } from 'react-native';
 import type { IconName } from '@idealyst/components';
 import { useNavigator, useParams } from '@idealyst/navigation';
-import { trpc } from '../trpc/client';
+import { trpc } from '../utils/trpc';
 
 export default function ChoreDetail() {
   const navigator = useNavigator();
@@ -95,7 +96,6 @@ export default function ChoreDetail() {
             <Badge
               type="filled"
               intent="neutral"
-              leftIcon={getRecurrenceIcon(chore.recurrence)}
             >
               {formatRecurrence(chore.recurrence, chore.recurrenceValue)}
             </Badge>

@@ -10,11 +10,99 @@ datasource db {
   provider = "postgresql"
 }
 
-model Item {
+// Household management
+model Household {
+  id        String   @id @default(cuid())
+  name      String
+  members   User[]
+  chores    Chore[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Users (household members)
+model User {
+  id                  String               @id @default(cuid())
+  name                String
+  email               String               @unique
+  householdId         String
+  household           Household            @relation(fields: [householdId], references: [id], onDelete: Cascade)
+  assignedChores      ChoreSchedule[]
+  calendarConnections CalendarConnection[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+}
+
+// Chore definitions (templates)
+model Chore {
+  id               String             @id @default(cuid())
+  title            String
+  description      String?
+  householdId      String
+  household        Household          @relation(fields: [householdId], references: [id], onDelete: Cascade)
+  instructions     ChoreInstruction[]
+  schedules        ChoreSchedule[]
+  recurrence       RecurrenceType // DAILY, WEEKLY, MONTHLY
+  recurrenceValue  Int // e.g., every 2 weeks, every 3 days
+  estimatedMinutes Int? // estimated time to complete
+  isPrivate        Boolean            @default(false) // if true, only assignee can see it
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+enum RecurrenceType {
+  DAILY
+  WEEKLY
+  MONTHLY
+}
+
+// Step-by-step instructions for completing a chore
+model ChoreInstruction {
   id          String   @id @default(cuid())
-  title       String
-  description String?
-  completed   Boolean  @default(false)
+  choreId     String
+  chore       Chore    @relation(fields: [choreId], references: [id], onDelete: Cascade)
+  stepNumber  Int
+  description String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@unique([choreId, stepNumber])
+}
+
+// Scheduled instances of chores
+model ChoreSchedule {
+  id            String         @id @default(cuid())
+  choreId       String
+  chore         Chore          @relation(fields: [choreId], references: [id], onDelete: Cascade)
+  assignedToId  String?
+  assignedTo    User?          @relation(fields: [assignedToId], references: [id], onDelete: SetNull)
+  scheduledDate DateTime
+  completedAt   DateTime?
+  status        ScheduleStatus @default(PENDING)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([scheduledDate])
+  @@index([assignedToId])
+}
+
+enum ScheduleStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+}
+
+// External calendar connections (Google, Outlook, etc.)
+model CalendarConnection {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider     String // "google", "outlook", etc.
+  accessToken  String // encrypted
+  refreshToken String? // encrypted
+  expiresAt    DateTime?
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 }

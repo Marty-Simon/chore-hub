@@ -2,7 +2,8 @@
  * Home Screen - Main dashboard
  */
 
-import { View, Text, Card, Button, ScrollView } from '@idealyst/components';
+import { View, Text, Card, Button } from '@idealyst/components';
+import { ScrollView } from 'react-native';
 import type { IconName } from '@idealyst/components';
 import { useNavigator } from '@idealyst/navigation';
 
@@ -11,7 +12,7 @@ interface NavCardProps {
   description: string;
   icon: IconName;
   path: string;
-  intent?: 'primary' | 'secondary' | 'success' | 'info';
+  intent?: 'primary' | 'neutral' | 'success' | 'danger' | 'warning';
 }
 
 function NavCard({ title, description, icon, path, intent = 'primary' }: NavCardProps) {
@@ -82,13 +83,13 @@ export default function Home() {
             description="See all scheduled chores in calendar view"
             icon="calendar"
             path="/calendar"
-            intent="info"
+            intent="neutral"
           />
 
           <NavCard
             title="All Chores"
             description="Browse and manage all household chores"
-            icon="list"
+            icon="clipboard-list"
             path="/chores"
             intent="primary"
           />
@@ -98,7 +99,7 @@ export default function Home() {
             description="Learn more about this app"
             icon="information"
             path="/about"
-            intent="secondary"
+            intent="neutral"
           />
         </View>
 

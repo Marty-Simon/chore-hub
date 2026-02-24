@@ -3,9 +3,10 @@
  */
 
 import { useState } from 'react';
-import { View, Text, Button, Card, Badge, TextInput, ScrollView, Pressable } from '@idealyst/components';
+import { View, Text, Button, Card, Badge, TextInput, Pressable } from '@idealyst/components';
+import { ScrollView } from 'react-native';
 import type { IconName } from '@idealyst/components';
-import { trpc } from '../trpc/client';
+import { trpc } from '../utils/trpc';
 import { useNavigator } from '@idealyst/navigation';
 
 export default function ChoresList() {
@@ -137,7 +138,6 @@ export default function ChoresList() {
                     type="filled"
                     intent="neutral"
                     size="sm"
-                    leftIcon={getRecurrenceIcon(chore.recurrence)}
                   >
                     {formatRecurrence(chore.recurrence, chore.recurrenceValue)}
                   </Badge>

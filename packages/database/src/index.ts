@@ -61,4 +61,10 @@ export {
   type DeclineInvitation,
   type UserRole,
   type InvitationStatus,
+  chorePrivacyCreateSchema,
+  chorePrivacyDeleteSchema,
+  updateChorePrivacySchema,
+  type ChorePrivacyCreate,
+  type ChorePrivacyDelete,
+  type UpdateChorePrivacy,
 } from './schemas';

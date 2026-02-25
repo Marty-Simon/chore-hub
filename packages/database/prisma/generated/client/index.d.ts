@@ -48,6 +48,11 @@ export type CalendarConnection = $Result.DefaultSelection<Prisma.$CalendarConnec
  * 
  */
 export type HouseholdInvitation = $Result.DefaultSelection<Prisma.$HouseholdInvitationPayload>
+/**
+ * Model ChorePrivacy
+ * 
+ */
+export type ChorePrivacy = $Result.DefaultSelection<Prisma.$ChorePrivacyPayload>
 
 /**
  * Enums
@@ -294,6 +299,16 @@ export class PrismaClient<
     * ```
     */
   get householdInvitation(): Prisma.HouseholdInvitationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.chorePrivacy`: Exposes CRUD operations for the **ChorePrivacy** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChorePrivacies
+    * const chorePrivacies = await prisma.chorePrivacy.findMany()
+    * ```
+    */
+  get chorePrivacy(): Prisma.ChorePrivacyDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -734,7 +749,8 @@ export namespace Prisma {
     ChoreInstruction: 'ChoreInstruction',
     ChoreSchedule: 'ChoreSchedule',
     CalendarConnection: 'CalendarConnection',
-    HouseholdInvitation: 'HouseholdInvitation'
+    HouseholdInvitation: 'HouseholdInvitation',
+    ChorePrivacy: 'ChorePrivacy'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -750,7 +766,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "household" | "user" | "chore" | "choreInstruction" | "choreSchedule" | "calendarConnection" | "householdInvitation"
+      modelProps: "household" | "user" | "chore" | "choreInstruction" | "choreSchedule" | "calendarConnection" | "householdInvitation" | "chorePrivacy"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1272,6 +1288,80 @@ export namespace Prisma {
           }
         }
       }
+      ChorePrivacy: {
+        payload: Prisma.$ChorePrivacyPayload<ExtArgs>
+        fields: Prisma.ChorePrivacyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChorePrivacyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChorePrivacyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChorePrivacyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChorePrivacyPayload>
+          }
+          findFirst: {
+            args: Prisma.ChorePrivacyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChorePrivacyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChorePrivacyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChorePrivacyPayload>
+          }
+          findMany: {
+            args: Prisma.ChorePrivacyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChorePrivacyPayload>[]
+          }
+          create: {
+            args: Prisma.ChorePrivacyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChorePrivacyPayload>
+          }
+          createMany: {
+            args: Prisma.ChorePrivacyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ChorePrivacyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChorePrivacyPayload>[]
+          }
+          delete: {
+            args: Prisma.ChorePrivacyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChorePrivacyPayload>
+          }
+          update: {
+            args: Prisma.ChorePrivacyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChorePrivacyPayload>
+          }
+          deleteMany: {
+            args: Prisma.ChorePrivacyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChorePrivacyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ChorePrivacyUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChorePrivacyPayload>[]
+          }
+          upsert: {
+            args: Prisma.ChorePrivacyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChorePrivacyPayload>
+          }
+          aggregate: {
+            args: Prisma.ChorePrivacyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChorePrivacy>
+          }
+          groupBy: {
+            args: Prisma.ChorePrivacyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChorePrivacyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ChorePrivacyCountArgs<ExtArgs>
+            result: $Utils.Optional<ChorePrivacyCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1387,6 +1477,7 @@ export namespace Prisma {
     choreSchedule?: ChoreScheduleOmit
     calendarConnection?: CalendarConnectionOmit
     householdInvitation?: HouseholdInvitationOmit
+    chorePrivacy?: ChorePrivacyOmit
   }
 
   /* Types for Logging */
@@ -1567,11 +1658,13 @@ export namespace Prisma {
   export type ChoreCountOutputType = {
     instructions: number
     schedules: number
+    hiddenFromUsers: number
   }
 
   export type ChoreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     instructions?: boolean | ChoreCountOutputTypeCountInstructionsArgs
     schedules?: boolean | ChoreCountOutputTypeCountSchedulesArgs
+    hiddenFromUsers?: boolean | ChoreCountOutputTypeCountHiddenFromUsersArgs
   }
 
   // Custom InputTypes
@@ -1597,6 +1690,13 @@ export namespace Prisma {
    */
   export type ChoreCountOutputTypeCountSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChoreScheduleWhereInput
+  }
+
+  /**
+   * ChoreCountOutputType without action
+   */
+  export type ChoreCountOutputTypeCountHiddenFromUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChorePrivacyWhereInput
   }
 
 
@@ -4192,6 +4292,7 @@ export namespace Prisma {
     household?: boolean | HouseholdDefaultArgs<ExtArgs>
     instructions?: boolean | Chore$instructionsArgs<ExtArgs>
     schedules?: boolean | Chore$schedulesArgs<ExtArgs>
+    hiddenFromUsers?: boolean | Chore$hiddenFromUsersArgs<ExtArgs>
     _count?: boolean | ChoreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["chore"]>
 
@@ -4250,6 +4351,7 @@ export namespace Prisma {
     household?: boolean | HouseholdDefaultArgs<ExtArgs>
     instructions?: boolean | Chore$instructionsArgs<ExtArgs>
     schedules?: boolean | Chore$schedulesArgs<ExtArgs>
+    hiddenFromUsers?: boolean | Chore$hiddenFromUsersArgs<ExtArgs>
     _count?: boolean | ChoreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ChoreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4265,6 +4367,7 @@ export namespace Prisma {
       household: Prisma.$HouseholdPayload<ExtArgs>
       instructions: Prisma.$ChoreInstructionPayload<ExtArgs>[]
       schedules: Prisma.$ChoreSchedulePayload<ExtArgs>[]
+      hiddenFromUsers: Prisma.$ChorePrivacyPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4677,6 +4780,7 @@ export namespace Prisma {
     household<T extends HouseholdDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HouseholdDefaultArgs<ExtArgs>>): Prisma__HouseholdClient<$Result.GetResult<Prisma.$HouseholdPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     instructions<T extends Chore$instructionsArgs<ExtArgs> = {}>(args?: Subset<T, Chore$instructionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChoreInstructionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     schedules<T extends Chore$schedulesArgs<ExtArgs> = {}>(args?: Subset<T, Chore$schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChoreSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    hiddenFromUsers<T extends Chore$hiddenFromUsersArgs<ExtArgs> = {}>(args?: Subset<T, Chore$hiddenFromUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChorePrivacyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5160,6 +5264,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ChoreScheduleScalarFieldEnum | ChoreScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Chore.hiddenFromUsers
+   */
+  export type Chore$hiddenFromUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyInclude<ExtArgs> | null
+    where?: ChorePrivacyWhereInput
+    orderBy?: ChorePrivacyOrderByWithRelationInput | ChorePrivacyOrderByWithRelationInput[]
+    cursor?: ChorePrivacyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChorePrivacyScalarFieldEnum | ChorePrivacyScalarFieldEnum[]
   }
 
   /**
@@ -9692,6 +9820,1051 @@ export namespace Prisma {
 
 
   /**
+   * Model ChorePrivacy
+   */
+
+  export type AggregateChorePrivacy = {
+    _count: ChorePrivacyCountAggregateOutputType | null
+    _min: ChorePrivacyMinAggregateOutputType | null
+    _max: ChorePrivacyMaxAggregateOutputType | null
+  }
+
+  export type ChorePrivacyMinAggregateOutputType = {
+    id: string | null
+    choreId: string | null
+    userId: string | null
+    createdAt: Date | null
+  }
+
+  export type ChorePrivacyMaxAggregateOutputType = {
+    id: string | null
+    choreId: string | null
+    userId: string | null
+    createdAt: Date | null
+  }
+
+  export type ChorePrivacyCountAggregateOutputType = {
+    id: number
+    choreId: number
+    userId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ChorePrivacyMinAggregateInputType = {
+    id?: true
+    choreId?: true
+    userId?: true
+    createdAt?: true
+  }
+
+  export type ChorePrivacyMaxAggregateInputType = {
+    id?: true
+    choreId?: true
+    userId?: true
+    createdAt?: true
+  }
+
+  export type ChorePrivacyCountAggregateInputType = {
+    id?: true
+    choreId?: true
+    userId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ChorePrivacyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChorePrivacy to aggregate.
+     */
+    where?: ChorePrivacyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChorePrivacies to fetch.
+     */
+    orderBy?: ChorePrivacyOrderByWithRelationInput | ChorePrivacyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChorePrivacyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChorePrivacies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChorePrivacies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChorePrivacies
+    **/
+    _count?: true | ChorePrivacyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChorePrivacyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChorePrivacyMaxAggregateInputType
+  }
+
+  export type GetChorePrivacyAggregateType<T extends ChorePrivacyAggregateArgs> = {
+        [P in keyof T & keyof AggregateChorePrivacy]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChorePrivacy[P]>
+      : GetScalarType<T[P], AggregateChorePrivacy[P]>
+  }
+
+
+
+
+  export type ChorePrivacyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChorePrivacyWhereInput
+    orderBy?: ChorePrivacyOrderByWithAggregationInput | ChorePrivacyOrderByWithAggregationInput[]
+    by: ChorePrivacyScalarFieldEnum[] | ChorePrivacyScalarFieldEnum
+    having?: ChorePrivacyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChorePrivacyCountAggregateInputType | true
+    _min?: ChorePrivacyMinAggregateInputType
+    _max?: ChorePrivacyMaxAggregateInputType
+  }
+
+  export type ChorePrivacyGroupByOutputType = {
+    id: string
+    choreId: string
+    userId: string
+    createdAt: Date
+    _count: ChorePrivacyCountAggregateOutputType | null
+    _min: ChorePrivacyMinAggregateOutputType | null
+    _max: ChorePrivacyMaxAggregateOutputType | null
+  }
+
+  type GetChorePrivacyGroupByPayload<T extends ChorePrivacyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChorePrivacyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChorePrivacyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChorePrivacyGroupByOutputType[P]>
+            : GetScalarType<T[P], ChorePrivacyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChorePrivacySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    choreId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    chore?: boolean | ChoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chorePrivacy"]>
+
+  export type ChorePrivacySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    choreId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    chore?: boolean | ChoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chorePrivacy"]>
+
+  export type ChorePrivacySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    choreId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    chore?: boolean | ChoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chorePrivacy"]>
+
+  export type ChorePrivacySelectScalar = {
+    id?: boolean
+    choreId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+  }
+
+  export type ChorePrivacyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "choreId" | "userId" | "createdAt", ExtArgs["result"]["chorePrivacy"]>
+  export type ChorePrivacyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    chore?: boolean | ChoreDefaultArgs<ExtArgs>
+  }
+  export type ChorePrivacyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    chore?: boolean | ChoreDefaultArgs<ExtArgs>
+  }
+  export type ChorePrivacyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    chore?: boolean | ChoreDefaultArgs<ExtArgs>
+  }
+
+  export type $ChorePrivacyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ChorePrivacy"
+    objects: {
+      chore: Prisma.$ChorePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      choreId: string
+      userId: string
+      createdAt: Date
+    }, ExtArgs["result"]["chorePrivacy"]>
+    composites: {}
+  }
+
+  type ChorePrivacyGetPayload<S extends boolean | null | undefined | ChorePrivacyDefaultArgs> = $Result.GetResult<Prisma.$ChorePrivacyPayload, S>
+
+  type ChorePrivacyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ChorePrivacyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ChorePrivacyCountAggregateInputType | true
+    }
+
+  export interface ChorePrivacyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ChorePrivacy'], meta: { name: 'ChorePrivacy' } }
+    /**
+     * Find zero or one ChorePrivacy that matches the filter.
+     * @param {ChorePrivacyFindUniqueArgs} args - Arguments to find a ChorePrivacy
+     * @example
+     * // Get one ChorePrivacy
+     * const chorePrivacy = await prisma.chorePrivacy.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChorePrivacyFindUniqueArgs>(args: SelectSubset<T, ChorePrivacyFindUniqueArgs<ExtArgs>>): Prisma__ChorePrivacyClient<$Result.GetResult<Prisma.$ChorePrivacyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ChorePrivacy that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ChorePrivacyFindUniqueOrThrowArgs} args - Arguments to find a ChorePrivacy
+     * @example
+     * // Get one ChorePrivacy
+     * const chorePrivacy = await prisma.chorePrivacy.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChorePrivacyFindUniqueOrThrowArgs>(args: SelectSubset<T, ChorePrivacyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChorePrivacyClient<$Result.GetResult<Prisma.$ChorePrivacyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChorePrivacy that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChorePrivacyFindFirstArgs} args - Arguments to find a ChorePrivacy
+     * @example
+     * // Get one ChorePrivacy
+     * const chorePrivacy = await prisma.chorePrivacy.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChorePrivacyFindFirstArgs>(args?: SelectSubset<T, ChorePrivacyFindFirstArgs<ExtArgs>>): Prisma__ChorePrivacyClient<$Result.GetResult<Prisma.$ChorePrivacyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChorePrivacy that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChorePrivacyFindFirstOrThrowArgs} args - Arguments to find a ChorePrivacy
+     * @example
+     * // Get one ChorePrivacy
+     * const chorePrivacy = await prisma.chorePrivacy.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChorePrivacyFindFirstOrThrowArgs>(args?: SelectSubset<T, ChorePrivacyFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChorePrivacyClient<$Result.GetResult<Prisma.$ChorePrivacyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ChorePrivacies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChorePrivacyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChorePrivacies
+     * const chorePrivacies = await prisma.chorePrivacy.findMany()
+     * 
+     * // Get first 10 ChorePrivacies
+     * const chorePrivacies = await prisma.chorePrivacy.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const chorePrivacyWithIdOnly = await prisma.chorePrivacy.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChorePrivacyFindManyArgs>(args?: SelectSubset<T, ChorePrivacyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChorePrivacyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ChorePrivacy.
+     * @param {ChorePrivacyCreateArgs} args - Arguments to create a ChorePrivacy.
+     * @example
+     * // Create one ChorePrivacy
+     * const ChorePrivacy = await prisma.chorePrivacy.create({
+     *   data: {
+     *     // ... data to create a ChorePrivacy
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChorePrivacyCreateArgs>(args: SelectSubset<T, ChorePrivacyCreateArgs<ExtArgs>>): Prisma__ChorePrivacyClient<$Result.GetResult<Prisma.$ChorePrivacyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ChorePrivacies.
+     * @param {ChorePrivacyCreateManyArgs} args - Arguments to create many ChorePrivacies.
+     * @example
+     * // Create many ChorePrivacies
+     * const chorePrivacy = await prisma.chorePrivacy.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChorePrivacyCreateManyArgs>(args?: SelectSubset<T, ChorePrivacyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ChorePrivacies and returns the data saved in the database.
+     * @param {ChorePrivacyCreateManyAndReturnArgs} args - Arguments to create many ChorePrivacies.
+     * @example
+     * // Create many ChorePrivacies
+     * const chorePrivacy = await prisma.chorePrivacy.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ChorePrivacies and only return the `id`
+     * const chorePrivacyWithIdOnly = await prisma.chorePrivacy.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ChorePrivacyCreateManyAndReturnArgs>(args?: SelectSubset<T, ChorePrivacyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChorePrivacyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ChorePrivacy.
+     * @param {ChorePrivacyDeleteArgs} args - Arguments to delete one ChorePrivacy.
+     * @example
+     * // Delete one ChorePrivacy
+     * const ChorePrivacy = await prisma.chorePrivacy.delete({
+     *   where: {
+     *     // ... filter to delete one ChorePrivacy
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChorePrivacyDeleteArgs>(args: SelectSubset<T, ChorePrivacyDeleteArgs<ExtArgs>>): Prisma__ChorePrivacyClient<$Result.GetResult<Prisma.$ChorePrivacyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ChorePrivacy.
+     * @param {ChorePrivacyUpdateArgs} args - Arguments to update one ChorePrivacy.
+     * @example
+     * // Update one ChorePrivacy
+     * const chorePrivacy = await prisma.chorePrivacy.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChorePrivacyUpdateArgs>(args: SelectSubset<T, ChorePrivacyUpdateArgs<ExtArgs>>): Prisma__ChorePrivacyClient<$Result.GetResult<Prisma.$ChorePrivacyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ChorePrivacies.
+     * @param {ChorePrivacyDeleteManyArgs} args - Arguments to filter ChorePrivacies to delete.
+     * @example
+     * // Delete a few ChorePrivacies
+     * const { count } = await prisma.chorePrivacy.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChorePrivacyDeleteManyArgs>(args?: SelectSubset<T, ChorePrivacyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChorePrivacies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChorePrivacyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChorePrivacies
+     * const chorePrivacy = await prisma.chorePrivacy.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChorePrivacyUpdateManyArgs>(args: SelectSubset<T, ChorePrivacyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChorePrivacies and returns the data updated in the database.
+     * @param {ChorePrivacyUpdateManyAndReturnArgs} args - Arguments to update many ChorePrivacies.
+     * @example
+     * // Update many ChorePrivacies
+     * const chorePrivacy = await prisma.chorePrivacy.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ChorePrivacies and only return the `id`
+     * const chorePrivacyWithIdOnly = await prisma.chorePrivacy.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ChorePrivacyUpdateManyAndReturnArgs>(args: SelectSubset<T, ChorePrivacyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChorePrivacyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ChorePrivacy.
+     * @param {ChorePrivacyUpsertArgs} args - Arguments to update or create a ChorePrivacy.
+     * @example
+     * // Update or create a ChorePrivacy
+     * const chorePrivacy = await prisma.chorePrivacy.upsert({
+     *   create: {
+     *     // ... data to create a ChorePrivacy
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChorePrivacy we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChorePrivacyUpsertArgs>(args: SelectSubset<T, ChorePrivacyUpsertArgs<ExtArgs>>): Prisma__ChorePrivacyClient<$Result.GetResult<Prisma.$ChorePrivacyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ChorePrivacies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChorePrivacyCountArgs} args - Arguments to filter ChorePrivacies to count.
+     * @example
+     * // Count the number of ChorePrivacies
+     * const count = await prisma.chorePrivacy.count({
+     *   where: {
+     *     // ... the filter for the ChorePrivacies we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChorePrivacyCountArgs>(
+      args?: Subset<T, ChorePrivacyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChorePrivacyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChorePrivacy.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChorePrivacyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChorePrivacyAggregateArgs>(args: Subset<T, ChorePrivacyAggregateArgs>): Prisma.PrismaPromise<GetChorePrivacyAggregateType<T>>
+
+    /**
+     * Group by ChorePrivacy.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChorePrivacyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChorePrivacyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChorePrivacyGroupByArgs['orderBy'] }
+        : { orderBy?: ChorePrivacyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChorePrivacyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChorePrivacyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ChorePrivacy model
+   */
+  readonly fields: ChorePrivacyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChorePrivacy.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChorePrivacyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    chore<T extends ChoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChoreDefaultArgs<ExtArgs>>): Prisma__ChoreClient<$Result.GetResult<Prisma.$ChorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ChorePrivacy model
+   */
+  interface ChorePrivacyFieldRefs {
+    readonly id: FieldRef<"ChorePrivacy", 'String'>
+    readonly choreId: FieldRef<"ChorePrivacy", 'String'>
+    readonly userId: FieldRef<"ChorePrivacy", 'String'>
+    readonly createdAt: FieldRef<"ChorePrivacy", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ChorePrivacy findUnique
+   */
+  export type ChorePrivacyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyInclude<ExtArgs> | null
+    /**
+     * Filter, which ChorePrivacy to fetch.
+     */
+    where: ChorePrivacyWhereUniqueInput
+  }
+
+  /**
+   * ChorePrivacy findUniqueOrThrow
+   */
+  export type ChorePrivacyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyInclude<ExtArgs> | null
+    /**
+     * Filter, which ChorePrivacy to fetch.
+     */
+    where: ChorePrivacyWhereUniqueInput
+  }
+
+  /**
+   * ChorePrivacy findFirst
+   */
+  export type ChorePrivacyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyInclude<ExtArgs> | null
+    /**
+     * Filter, which ChorePrivacy to fetch.
+     */
+    where?: ChorePrivacyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChorePrivacies to fetch.
+     */
+    orderBy?: ChorePrivacyOrderByWithRelationInput | ChorePrivacyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChorePrivacies.
+     */
+    cursor?: ChorePrivacyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChorePrivacies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChorePrivacies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChorePrivacies.
+     */
+    distinct?: ChorePrivacyScalarFieldEnum | ChorePrivacyScalarFieldEnum[]
+  }
+
+  /**
+   * ChorePrivacy findFirstOrThrow
+   */
+  export type ChorePrivacyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyInclude<ExtArgs> | null
+    /**
+     * Filter, which ChorePrivacy to fetch.
+     */
+    where?: ChorePrivacyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChorePrivacies to fetch.
+     */
+    orderBy?: ChorePrivacyOrderByWithRelationInput | ChorePrivacyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChorePrivacies.
+     */
+    cursor?: ChorePrivacyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChorePrivacies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChorePrivacies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChorePrivacies.
+     */
+    distinct?: ChorePrivacyScalarFieldEnum | ChorePrivacyScalarFieldEnum[]
+  }
+
+  /**
+   * ChorePrivacy findMany
+   */
+  export type ChorePrivacyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyInclude<ExtArgs> | null
+    /**
+     * Filter, which ChorePrivacies to fetch.
+     */
+    where?: ChorePrivacyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChorePrivacies to fetch.
+     */
+    orderBy?: ChorePrivacyOrderByWithRelationInput | ChorePrivacyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChorePrivacies.
+     */
+    cursor?: ChorePrivacyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChorePrivacies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChorePrivacies.
+     */
+    skip?: number
+    distinct?: ChorePrivacyScalarFieldEnum | ChorePrivacyScalarFieldEnum[]
+  }
+
+  /**
+   * ChorePrivacy create
+   */
+  export type ChorePrivacyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ChorePrivacy.
+     */
+    data: XOR<ChorePrivacyCreateInput, ChorePrivacyUncheckedCreateInput>
+  }
+
+  /**
+   * ChorePrivacy createMany
+   */
+  export type ChorePrivacyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ChorePrivacies.
+     */
+    data: ChorePrivacyCreateManyInput | ChorePrivacyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ChorePrivacy createManyAndReturn
+   */
+  export type ChorePrivacyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * The data used to create many ChorePrivacies.
+     */
+    data: ChorePrivacyCreateManyInput | ChorePrivacyCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChorePrivacy update
+   */
+  export type ChorePrivacyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ChorePrivacy.
+     */
+    data: XOR<ChorePrivacyUpdateInput, ChorePrivacyUncheckedUpdateInput>
+    /**
+     * Choose, which ChorePrivacy to update.
+     */
+    where: ChorePrivacyWhereUniqueInput
+  }
+
+  /**
+   * ChorePrivacy updateMany
+   */
+  export type ChorePrivacyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ChorePrivacies.
+     */
+    data: XOR<ChorePrivacyUpdateManyMutationInput, ChorePrivacyUncheckedUpdateManyInput>
+    /**
+     * Filter which ChorePrivacies to update
+     */
+    where?: ChorePrivacyWhereInput
+    /**
+     * Limit how many ChorePrivacies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChorePrivacy updateManyAndReturn
+   */
+  export type ChorePrivacyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * The data used to update ChorePrivacies.
+     */
+    data: XOR<ChorePrivacyUpdateManyMutationInput, ChorePrivacyUncheckedUpdateManyInput>
+    /**
+     * Filter which ChorePrivacies to update
+     */
+    where?: ChorePrivacyWhereInput
+    /**
+     * Limit how many ChorePrivacies to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChorePrivacy upsert
+   */
+  export type ChorePrivacyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ChorePrivacy to update in case it exists.
+     */
+    where: ChorePrivacyWhereUniqueInput
+    /**
+     * In case the ChorePrivacy found by the `where` argument doesn't exist, create a new ChorePrivacy with this data.
+     */
+    create: XOR<ChorePrivacyCreateInput, ChorePrivacyUncheckedCreateInput>
+    /**
+     * In case the ChorePrivacy was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChorePrivacyUpdateInput, ChorePrivacyUncheckedUpdateInput>
+  }
+
+  /**
+   * ChorePrivacy delete
+   */
+  export type ChorePrivacyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyInclude<ExtArgs> | null
+    /**
+     * Filter which ChorePrivacy to delete.
+     */
+    where: ChorePrivacyWhereUniqueInput
+  }
+
+  /**
+   * ChorePrivacy deleteMany
+   */
+  export type ChorePrivacyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChorePrivacies to delete
+     */
+    where?: ChorePrivacyWhereInput
+    /**
+     * Limit how many ChorePrivacies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChorePrivacy without action
+   */
+  export type ChorePrivacyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChorePrivacy
+     */
+    select?: ChorePrivacySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChorePrivacy
+     */
+    omit?: ChorePrivacyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChorePrivacyInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9804,6 +10977,16 @@ export namespace Prisma {
   };
 
   export type HouseholdInvitationScalarFieldEnum = (typeof HouseholdInvitationScalarFieldEnum)[keyof typeof HouseholdInvitationScalarFieldEnum]
+
+
+  export const ChorePrivacyScalarFieldEnum: {
+    id: 'id',
+    choreId: 'choreId',
+    userId: 'userId',
+    createdAt: 'createdAt'
+  };
+
+  export type ChorePrivacyScalarFieldEnum = (typeof ChorePrivacyScalarFieldEnum)[keyof typeof ChorePrivacyScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10115,6 +11298,7 @@ export namespace Prisma {
     household?: XOR<HouseholdScalarRelationFilter, HouseholdWhereInput>
     instructions?: ChoreInstructionListRelationFilter
     schedules?: ChoreScheduleListRelationFilter
+    hiddenFromUsers?: ChorePrivacyListRelationFilter
   }
 
   export type ChoreOrderByWithRelationInput = {
@@ -10134,6 +11318,7 @@ export namespace Prisma {
     household?: HouseholdOrderByWithRelationInput
     instructions?: ChoreInstructionOrderByRelationAggregateInput
     schedules?: ChoreScheduleOrderByRelationAggregateInput
+    hiddenFromUsers?: ChorePrivacyOrderByRelationAggregateInput
   }
 
   export type ChoreWhereUniqueInput = Prisma.AtLeast<{
@@ -10156,6 +11341,7 @@ export namespace Prisma {
     household?: XOR<HouseholdScalarRelationFilter, HouseholdWhereInput>
     instructions?: ChoreInstructionListRelationFilter
     schedules?: ChoreScheduleListRelationFilter
+    hiddenFromUsers?: ChorePrivacyListRelationFilter
   }, "id">
 
   export type ChoreOrderByWithAggregationInput = {
@@ -10500,6 +11686,57 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"HouseholdInvitation"> | Date | string
   }
 
+  export type ChorePrivacyWhereInput = {
+    AND?: ChorePrivacyWhereInput | ChorePrivacyWhereInput[]
+    OR?: ChorePrivacyWhereInput[]
+    NOT?: ChorePrivacyWhereInput | ChorePrivacyWhereInput[]
+    id?: StringFilter<"ChorePrivacy"> | string
+    choreId?: StringFilter<"ChorePrivacy"> | string
+    userId?: StringFilter<"ChorePrivacy"> | string
+    createdAt?: DateTimeFilter<"ChorePrivacy"> | Date | string
+    chore?: XOR<ChoreScalarRelationFilter, ChoreWhereInput>
+  }
+
+  export type ChorePrivacyOrderByWithRelationInput = {
+    id?: SortOrder
+    choreId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    chore?: ChoreOrderByWithRelationInput
+  }
+
+  export type ChorePrivacyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    choreId_userId?: ChorePrivacyChoreIdUserIdCompoundUniqueInput
+    AND?: ChorePrivacyWhereInput | ChorePrivacyWhereInput[]
+    OR?: ChorePrivacyWhereInput[]
+    NOT?: ChorePrivacyWhereInput | ChorePrivacyWhereInput[]
+    choreId?: StringFilter<"ChorePrivacy"> | string
+    userId?: StringFilter<"ChorePrivacy"> | string
+    createdAt?: DateTimeFilter<"ChorePrivacy"> | Date | string
+    chore?: XOR<ChoreScalarRelationFilter, ChoreWhereInput>
+  }, "id" | "choreId_userId">
+
+  export type ChorePrivacyOrderByWithAggregationInput = {
+    id?: SortOrder
+    choreId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    _count?: ChorePrivacyCountOrderByAggregateInput
+    _max?: ChorePrivacyMaxOrderByAggregateInput
+    _min?: ChorePrivacyMinOrderByAggregateInput
+  }
+
+  export type ChorePrivacyScalarWhereWithAggregatesInput = {
+    AND?: ChorePrivacyScalarWhereWithAggregatesInput | ChorePrivacyScalarWhereWithAggregatesInput[]
+    OR?: ChorePrivacyScalarWhereWithAggregatesInput[]
+    NOT?: ChorePrivacyScalarWhereWithAggregatesInput | ChorePrivacyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ChorePrivacy"> | string
+    choreId?: StringWithAggregatesFilter<"ChorePrivacy"> | string
+    userId?: StringWithAggregatesFilter<"ChorePrivacy"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ChorePrivacy"> | Date | string
+  }
+
   export type HouseholdCreateInput = {
     id?: string
     name: string
@@ -10669,6 +11906,7 @@ export namespace Prisma {
     household: HouseholdCreateNestedOneWithoutChoresInput
     instructions?: ChoreInstructionCreateNestedManyWithoutChoreInput
     schedules?: ChoreScheduleCreateNestedManyWithoutChoreInput
+    hiddenFromUsers?: ChorePrivacyCreateNestedManyWithoutChoreInput
   }
 
   export type ChoreUncheckedCreateInput = {
@@ -10687,6 +11925,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     instructions?: ChoreInstructionUncheckedCreateNestedManyWithoutChoreInput
     schedules?: ChoreScheduleUncheckedCreateNestedManyWithoutChoreInput
+    hiddenFromUsers?: ChorePrivacyUncheckedCreateNestedManyWithoutChoreInput
   }
 
   export type ChoreUpdateInput = {
@@ -10705,6 +11944,7 @@ export namespace Prisma {
     household?: HouseholdUpdateOneRequiredWithoutChoresNestedInput
     instructions?: ChoreInstructionUpdateManyWithoutChoreNestedInput
     schedules?: ChoreScheduleUpdateManyWithoutChoreNestedInput
+    hiddenFromUsers?: ChorePrivacyUpdateManyWithoutChoreNestedInput
   }
 
   export type ChoreUncheckedUpdateInput = {
@@ -10723,6 +11963,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: ChoreInstructionUncheckedUpdateManyWithoutChoreNestedInput
     schedules?: ChoreScheduleUncheckedUpdateManyWithoutChoreNestedInput
+    hiddenFromUsers?: ChorePrivacyUncheckedUpdateManyWithoutChoreNestedInput
   }
 
   export type ChoreCreateManyInput = {
@@ -11087,6 +12328,54 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ChorePrivacyCreateInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+    chore: ChoreCreateNestedOneWithoutHiddenFromUsersInput
+  }
+
+  export type ChorePrivacyUncheckedCreateInput = {
+    id?: string
+    choreId: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type ChorePrivacyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    chore?: ChoreUpdateOneRequiredWithoutHiddenFromUsersNestedInput
+  }
+
+  export type ChorePrivacyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    choreId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChorePrivacyCreateManyInput = {
+    id?: string
+    choreId: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type ChorePrivacyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChorePrivacyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    choreId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11370,7 +12659,17 @@ export namespace Prisma {
     none?: ChoreInstructionWhereInput
   }
 
+  export type ChorePrivacyListRelationFilter = {
+    every?: ChorePrivacyWhereInput
+    some?: ChorePrivacyWhereInput
+    none?: ChorePrivacyWhereInput
+  }
+
   export type ChoreInstructionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ChorePrivacyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11705,6 +13004,32 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumInvitationStatusFilter<$PrismaModel>
     _max?: NestedEnumInvitationStatusFilter<$PrismaModel>
+  }
+
+  export type ChorePrivacyChoreIdUserIdCompoundUniqueInput = {
+    choreId: string
+    userId: string
+  }
+
+  export type ChorePrivacyCountOrderByAggregateInput = {
+    id?: SortOrder
+    choreId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChorePrivacyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    choreId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChorePrivacyMinOrderByAggregateInput = {
+    id?: SortOrder
+    choreId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type UserCreateNestedManyWithoutHouseholdInput = {
@@ -12049,6 +13374,13 @@ export namespace Prisma {
     connect?: ChoreScheduleWhereUniqueInput | ChoreScheduleWhereUniqueInput[]
   }
 
+  export type ChorePrivacyCreateNestedManyWithoutChoreInput = {
+    create?: XOR<ChorePrivacyCreateWithoutChoreInput, ChorePrivacyUncheckedCreateWithoutChoreInput> | ChorePrivacyCreateWithoutChoreInput[] | ChorePrivacyUncheckedCreateWithoutChoreInput[]
+    connectOrCreate?: ChorePrivacyCreateOrConnectWithoutChoreInput | ChorePrivacyCreateOrConnectWithoutChoreInput[]
+    createMany?: ChorePrivacyCreateManyChoreInputEnvelope
+    connect?: ChorePrivacyWhereUniqueInput | ChorePrivacyWhereUniqueInput[]
+  }
+
   export type ChoreInstructionUncheckedCreateNestedManyWithoutChoreInput = {
     create?: XOR<ChoreInstructionCreateWithoutChoreInput, ChoreInstructionUncheckedCreateWithoutChoreInput> | ChoreInstructionCreateWithoutChoreInput[] | ChoreInstructionUncheckedCreateWithoutChoreInput[]
     connectOrCreate?: ChoreInstructionCreateOrConnectWithoutChoreInput | ChoreInstructionCreateOrConnectWithoutChoreInput[]
@@ -12061,6 +13393,13 @@ export namespace Prisma {
     connectOrCreate?: ChoreScheduleCreateOrConnectWithoutChoreInput | ChoreScheduleCreateOrConnectWithoutChoreInput[]
     createMany?: ChoreScheduleCreateManyChoreInputEnvelope
     connect?: ChoreScheduleWhereUniqueInput | ChoreScheduleWhereUniqueInput[]
+  }
+
+  export type ChorePrivacyUncheckedCreateNestedManyWithoutChoreInput = {
+    create?: XOR<ChorePrivacyCreateWithoutChoreInput, ChorePrivacyUncheckedCreateWithoutChoreInput> | ChorePrivacyCreateWithoutChoreInput[] | ChorePrivacyUncheckedCreateWithoutChoreInput[]
+    connectOrCreate?: ChorePrivacyCreateOrConnectWithoutChoreInput | ChorePrivacyCreateOrConnectWithoutChoreInput[]
+    createMany?: ChorePrivacyCreateManyChoreInputEnvelope
+    connect?: ChorePrivacyWhereUniqueInput | ChorePrivacyWhereUniqueInput[]
   }
 
   export type ChoreUpdatedescriptionListInput = {
@@ -12133,6 +13472,20 @@ export namespace Prisma {
     deleteMany?: ChoreScheduleScalarWhereInput | ChoreScheduleScalarWhereInput[]
   }
 
+  export type ChorePrivacyUpdateManyWithoutChoreNestedInput = {
+    create?: XOR<ChorePrivacyCreateWithoutChoreInput, ChorePrivacyUncheckedCreateWithoutChoreInput> | ChorePrivacyCreateWithoutChoreInput[] | ChorePrivacyUncheckedCreateWithoutChoreInput[]
+    connectOrCreate?: ChorePrivacyCreateOrConnectWithoutChoreInput | ChorePrivacyCreateOrConnectWithoutChoreInput[]
+    upsert?: ChorePrivacyUpsertWithWhereUniqueWithoutChoreInput | ChorePrivacyUpsertWithWhereUniqueWithoutChoreInput[]
+    createMany?: ChorePrivacyCreateManyChoreInputEnvelope
+    set?: ChorePrivacyWhereUniqueInput | ChorePrivacyWhereUniqueInput[]
+    disconnect?: ChorePrivacyWhereUniqueInput | ChorePrivacyWhereUniqueInput[]
+    delete?: ChorePrivacyWhereUniqueInput | ChorePrivacyWhereUniqueInput[]
+    connect?: ChorePrivacyWhereUniqueInput | ChorePrivacyWhereUniqueInput[]
+    update?: ChorePrivacyUpdateWithWhereUniqueWithoutChoreInput | ChorePrivacyUpdateWithWhereUniqueWithoutChoreInput[]
+    updateMany?: ChorePrivacyUpdateManyWithWhereWithoutChoreInput | ChorePrivacyUpdateManyWithWhereWithoutChoreInput[]
+    deleteMany?: ChorePrivacyScalarWhereInput | ChorePrivacyScalarWhereInput[]
+  }
+
   export type ChoreInstructionUncheckedUpdateManyWithoutChoreNestedInput = {
     create?: XOR<ChoreInstructionCreateWithoutChoreInput, ChoreInstructionUncheckedCreateWithoutChoreInput> | ChoreInstructionCreateWithoutChoreInput[] | ChoreInstructionUncheckedCreateWithoutChoreInput[]
     connectOrCreate?: ChoreInstructionCreateOrConnectWithoutChoreInput | ChoreInstructionCreateOrConnectWithoutChoreInput[]
@@ -12159,6 +13512,20 @@ export namespace Prisma {
     update?: ChoreScheduleUpdateWithWhereUniqueWithoutChoreInput | ChoreScheduleUpdateWithWhereUniqueWithoutChoreInput[]
     updateMany?: ChoreScheduleUpdateManyWithWhereWithoutChoreInput | ChoreScheduleUpdateManyWithWhereWithoutChoreInput[]
     deleteMany?: ChoreScheduleScalarWhereInput | ChoreScheduleScalarWhereInput[]
+  }
+
+  export type ChorePrivacyUncheckedUpdateManyWithoutChoreNestedInput = {
+    create?: XOR<ChorePrivacyCreateWithoutChoreInput, ChorePrivacyUncheckedCreateWithoutChoreInput> | ChorePrivacyCreateWithoutChoreInput[] | ChorePrivacyUncheckedCreateWithoutChoreInput[]
+    connectOrCreate?: ChorePrivacyCreateOrConnectWithoutChoreInput | ChorePrivacyCreateOrConnectWithoutChoreInput[]
+    upsert?: ChorePrivacyUpsertWithWhereUniqueWithoutChoreInput | ChorePrivacyUpsertWithWhereUniqueWithoutChoreInput[]
+    createMany?: ChorePrivacyCreateManyChoreInputEnvelope
+    set?: ChorePrivacyWhereUniqueInput | ChorePrivacyWhereUniqueInput[]
+    disconnect?: ChorePrivacyWhereUniqueInput | ChorePrivacyWhereUniqueInput[]
+    delete?: ChorePrivacyWhereUniqueInput | ChorePrivacyWhereUniqueInput[]
+    connect?: ChorePrivacyWhereUniqueInput | ChorePrivacyWhereUniqueInput[]
+    update?: ChorePrivacyUpdateWithWhereUniqueWithoutChoreInput | ChorePrivacyUpdateWithWhereUniqueWithoutChoreInput[]
+    updateMany?: ChorePrivacyUpdateManyWithWhereWithoutChoreInput | ChorePrivacyUpdateManyWithWhereWithoutChoreInput[]
+    deleteMany?: ChorePrivacyScalarWhereInput | ChorePrivacyScalarWhereInput[]
   }
 
   export type ChoreCreateNestedOneWithoutInstructionsInput = {
@@ -12273,6 +13640,20 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReceivedInvitationInput, UserUpdateWithoutReceivedInvitationInput>, UserUncheckedUpdateWithoutReceivedInvitationInput>
+  }
+
+  export type ChoreCreateNestedOneWithoutHiddenFromUsersInput = {
+    create?: XOR<ChoreCreateWithoutHiddenFromUsersInput, ChoreUncheckedCreateWithoutHiddenFromUsersInput>
+    connectOrCreate?: ChoreCreateOrConnectWithoutHiddenFromUsersInput
+    connect?: ChoreWhereUniqueInput
+  }
+
+  export type ChoreUpdateOneRequiredWithoutHiddenFromUsersNestedInput = {
+    create?: XOR<ChoreCreateWithoutHiddenFromUsersInput, ChoreUncheckedCreateWithoutHiddenFromUsersInput>
+    connectOrCreate?: ChoreCreateOrConnectWithoutHiddenFromUsersInput
+    upsert?: ChoreUpsertWithoutHiddenFromUsersInput
+    connect?: ChoreWhereUniqueInput
+    update?: XOR<XOR<ChoreUpdateToOneWithWhereWithoutHiddenFromUsersInput, ChoreUpdateWithoutHiddenFromUsersInput>, ChoreUncheckedUpdateWithoutHiddenFromUsersInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12597,6 +13978,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     instructions?: ChoreInstructionCreateNestedManyWithoutChoreInput
     schedules?: ChoreScheduleCreateNestedManyWithoutChoreInput
+    hiddenFromUsers?: ChorePrivacyCreateNestedManyWithoutChoreInput
   }
 
   export type ChoreUncheckedCreateWithoutHouseholdInput = {
@@ -12614,6 +13996,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     instructions?: ChoreInstructionUncheckedCreateNestedManyWithoutChoreInput
     schedules?: ChoreScheduleUncheckedCreateNestedManyWithoutChoreInput
+    hiddenFromUsers?: ChorePrivacyUncheckedCreateNestedManyWithoutChoreInput
   }
 
   export type ChoreCreateOrConnectWithoutHouseholdInput = {
@@ -13134,6 +14517,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ChorePrivacyCreateWithoutChoreInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type ChorePrivacyUncheckedCreateWithoutChoreInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type ChorePrivacyCreateOrConnectWithoutChoreInput = {
+    where: ChorePrivacyWhereUniqueInput
+    create: XOR<ChorePrivacyCreateWithoutChoreInput, ChorePrivacyUncheckedCreateWithoutChoreInput>
+  }
+
+  export type ChorePrivacyCreateManyChoreInputEnvelope = {
+    data: ChorePrivacyCreateManyChoreInput | ChorePrivacyCreateManyChoreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type HouseholdUpsertWithoutChoresInput = {
     update: XOR<HouseholdUpdateWithoutChoresInput, HouseholdUncheckedUpdateWithoutChoresInput>
     create: XOR<HouseholdCreateWithoutChoresInput, HouseholdUncheckedCreateWithoutChoresInput>
@@ -13207,6 +14612,32 @@ export namespace Prisma {
     data: XOR<ChoreScheduleUpdateManyMutationInput, ChoreScheduleUncheckedUpdateManyWithoutChoreInput>
   }
 
+  export type ChorePrivacyUpsertWithWhereUniqueWithoutChoreInput = {
+    where: ChorePrivacyWhereUniqueInput
+    update: XOR<ChorePrivacyUpdateWithoutChoreInput, ChorePrivacyUncheckedUpdateWithoutChoreInput>
+    create: XOR<ChorePrivacyCreateWithoutChoreInput, ChorePrivacyUncheckedCreateWithoutChoreInput>
+  }
+
+  export type ChorePrivacyUpdateWithWhereUniqueWithoutChoreInput = {
+    where: ChorePrivacyWhereUniqueInput
+    data: XOR<ChorePrivacyUpdateWithoutChoreInput, ChorePrivacyUncheckedUpdateWithoutChoreInput>
+  }
+
+  export type ChorePrivacyUpdateManyWithWhereWithoutChoreInput = {
+    where: ChorePrivacyScalarWhereInput
+    data: XOR<ChorePrivacyUpdateManyMutationInput, ChorePrivacyUncheckedUpdateManyWithoutChoreInput>
+  }
+
+  export type ChorePrivacyScalarWhereInput = {
+    AND?: ChorePrivacyScalarWhereInput | ChorePrivacyScalarWhereInput[]
+    OR?: ChorePrivacyScalarWhereInput[]
+    NOT?: ChorePrivacyScalarWhereInput | ChorePrivacyScalarWhereInput[]
+    id?: StringFilter<"ChorePrivacy"> | string
+    choreId?: StringFilter<"ChorePrivacy"> | string
+    userId?: StringFilter<"ChorePrivacy"> | string
+    createdAt?: DateTimeFilter<"ChorePrivacy"> | Date | string
+  }
+
   export type ChoreCreateWithoutInstructionsInput = {
     id?: string
     title: string
@@ -13222,6 +14653,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     household: HouseholdCreateNestedOneWithoutChoresInput
     schedules?: ChoreScheduleCreateNestedManyWithoutChoreInput
+    hiddenFromUsers?: ChorePrivacyCreateNestedManyWithoutChoreInput
   }
 
   export type ChoreUncheckedCreateWithoutInstructionsInput = {
@@ -13239,6 +14671,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     schedules?: ChoreScheduleUncheckedCreateNestedManyWithoutChoreInput
+    hiddenFromUsers?: ChorePrivacyUncheckedCreateNestedManyWithoutChoreInput
   }
 
   export type ChoreCreateOrConnectWithoutInstructionsInput = {
@@ -13272,6 +14705,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     household?: HouseholdUpdateOneRequiredWithoutChoresNestedInput
     schedules?: ChoreScheduleUpdateManyWithoutChoreNestedInput
+    hiddenFromUsers?: ChorePrivacyUpdateManyWithoutChoreNestedInput
   }
 
   export type ChoreUncheckedUpdateWithoutInstructionsInput = {
@@ -13289,6 +14723,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     schedules?: ChoreScheduleUncheckedUpdateManyWithoutChoreNestedInput
+    hiddenFromUsers?: ChorePrivacyUncheckedUpdateManyWithoutChoreNestedInput
   }
 
   export type ChoreCreateWithoutSchedulesInput = {
@@ -13306,6 +14741,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     household: HouseholdCreateNestedOneWithoutChoresInput
     instructions?: ChoreInstructionCreateNestedManyWithoutChoreInput
+    hiddenFromUsers?: ChorePrivacyCreateNestedManyWithoutChoreInput
   }
 
   export type ChoreUncheckedCreateWithoutSchedulesInput = {
@@ -13323,6 +14759,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     instructions?: ChoreInstructionUncheckedCreateNestedManyWithoutChoreInput
+    hiddenFromUsers?: ChorePrivacyUncheckedCreateNestedManyWithoutChoreInput
   }
 
   export type ChoreCreateOrConnectWithoutSchedulesInput = {
@@ -13389,6 +14826,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     household?: HouseholdUpdateOneRequiredWithoutChoresNestedInput
     instructions?: ChoreInstructionUpdateManyWithoutChoreNestedInput
+    hiddenFromUsers?: ChorePrivacyUpdateManyWithoutChoreNestedInput
   }
 
   export type ChoreUncheckedUpdateWithoutSchedulesInput = {
@@ -13406,6 +14844,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: ChoreInstructionUncheckedUpdateManyWithoutChoreNestedInput
+    hiddenFromUsers?: ChorePrivacyUncheckedUpdateManyWithoutChoreNestedInput
   }
 
   export type UserUpsertWithoutAssignedChoresInput = {
@@ -13715,6 +15154,94 @@ export namespace Prisma {
     sentInvitations?: HouseholdInvitationUncheckedUpdateManyWithoutInviterNestedInput
   }
 
+  export type ChoreCreateWithoutHiddenFromUsersInput = {
+    id?: string
+    title: string
+    description?: string | null
+    descriptionList?: ChoreCreatedescriptionListInput | string[]
+    recurrence: $Enums.RecurrenceType
+    recurrenceValue: number
+    selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
+    estimatedMinutes?: number | null
+    scheduledTime?: number | null
+    isPrivate?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    household: HouseholdCreateNestedOneWithoutChoresInput
+    instructions?: ChoreInstructionCreateNestedManyWithoutChoreInput
+    schedules?: ChoreScheduleCreateNestedManyWithoutChoreInput
+  }
+
+  export type ChoreUncheckedCreateWithoutHiddenFromUsersInput = {
+    id?: string
+    title: string
+    description?: string | null
+    descriptionList?: ChoreCreatedescriptionListInput | string[]
+    householdId: string
+    recurrence: $Enums.RecurrenceType
+    recurrenceValue: number
+    selectedWeekdays?: ChoreCreateselectedWeekdaysInput | number[]
+    estimatedMinutes?: number | null
+    scheduledTime?: number | null
+    isPrivate?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    instructions?: ChoreInstructionUncheckedCreateNestedManyWithoutChoreInput
+    schedules?: ChoreScheduleUncheckedCreateNestedManyWithoutChoreInput
+  }
+
+  export type ChoreCreateOrConnectWithoutHiddenFromUsersInput = {
+    where: ChoreWhereUniqueInput
+    create: XOR<ChoreCreateWithoutHiddenFromUsersInput, ChoreUncheckedCreateWithoutHiddenFromUsersInput>
+  }
+
+  export type ChoreUpsertWithoutHiddenFromUsersInput = {
+    update: XOR<ChoreUpdateWithoutHiddenFromUsersInput, ChoreUncheckedUpdateWithoutHiddenFromUsersInput>
+    create: XOR<ChoreCreateWithoutHiddenFromUsersInput, ChoreUncheckedCreateWithoutHiddenFromUsersInput>
+    where?: ChoreWhereInput
+  }
+
+  export type ChoreUpdateToOneWithWhereWithoutHiddenFromUsersInput = {
+    where?: ChoreWhereInput
+    data: XOR<ChoreUpdateWithoutHiddenFromUsersInput, ChoreUncheckedUpdateWithoutHiddenFromUsersInput>
+  }
+
+  export type ChoreUpdateWithoutHiddenFromUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionList?: ChoreUpdatedescriptionListInput | string[]
+    recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
+    recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
+    estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
+    isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    household?: HouseholdUpdateOneRequiredWithoutChoresNestedInput
+    instructions?: ChoreInstructionUpdateManyWithoutChoreNestedInput
+    schedules?: ChoreScheduleUpdateManyWithoutChoreNestedInput
+  }
+
+  export type ChoreUncheckedUpdateWithoutHiddenFromUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionList?: ChoreUpdatedescriptionListInput | string[]
+    householdId?: StringFieldUpdateOperationsInput | string
+    recurrence?: EnumRecurrenceTypeFieldUpdateOperationsInput | $Enums.RecurrenceType
+    recurrenceValue?: IntFieldUpdateOperationsInput | number
+    selectedWeekdays?: ChoreUpdateselectedWeekdaysInput | number[]
+    estimatedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    scheduledTime?: NullableIntFieldUpdateOperationsInput | number | null
+    isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructions?: ChoreInstructionUncheckedUpdateManyWithoutChoreNestedInput
+    schedules?: ChoreScheduleUncheckedUpdateManyWithoutChoreNestedInput
+  }
+
   export type UserCreateManyHouseholdInput = {
     id?: string
     name: string
@@ -13806,6 +15333,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: ChoreInstructionUpdateManyWithoutChoreNestedInput
     schedules?: ChoreScheduleUpdateManyWithoutChoreNestedInput
+    hiddenFromUsers?: ChorePrivacyUpdateManyWithoutChoreNestedInput
   }
 
   export type ChoreUncheckedUpdateWithoutHouseholdInput = {
@@ -13823,6 +15351,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     instructions?: ChoreInstructionUncheckedUpdateManyWithoutChoreNestedInput
     schedules?: ChoreScheduleUncheckedUpdateManyWithoutChoreNestedInput
+    hiddenFromUsers?: ChorePrivacyUncheckedUpdateManyWithoutChoreNestedInput
   }
 
   export type ChoreUncheckedUpdateManyWithoutHouseholdInput = {
@@ -14033,6 +15562,12 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type ChorePrivacyCreateManyChoreInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
   export type ChoreInstructionUpdateWithoutChoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     stepNumber?: IntFieldUpdateOperationsInput | number
@@ -14085,6 +15620,24 @@ export namespace Prisma {
     status?: EnumScheduleStatusFieldUpdateOperationsInput | $Enums.ScheduleStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChorePrivacyUpdateWithoutChoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChorePrivacyUncheckedUpdateWithoutChoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChorePrivacyUncheckedUpdateManyWithoutChoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

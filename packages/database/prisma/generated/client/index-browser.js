@@ -200,6 +200,13 @@ exports.Prisma.HouseholdInvitationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ChorePrivacyScalarFieldEnum = {
+  id: 'id',
+  choreId: 'choreId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -247,7 +254,8 @@ exports.Prisma.ModelName = {
   ChoreInstruction: 'ChoreInstruction',
   ChoreSchedule: 'ChoreSchedule',
   CalendarConnection: 'CalendarConnection',
-  HouseholdInvitation: 'HouseholdInvitation'
+  HouseholdInvitation: 'HouseholdInvitation',
+  ChorePrivacy: 'ChorePrivacy'
 };
 
 /**

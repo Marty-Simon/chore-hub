@@ -140,3 +140,23 @@ export type RecurrenceType = z.infer<typeof RecurrenceTypeSchema>;
 export type ScheduleStatus = z.infer<typeof ScheduleStatusSchema>;
 export type UserRole = z.infer<typeof UserRoleSchema>;
 export type InvitationStatus = z.infer<typeof InvitationStatusSchema>;
+
+// Chore Privacy schemas
+export const chorePrivacyCreateSchema = z.object({
+  choreId: z.string().cuid(),
+  userId: z.string().cuid(),
+});
+
+export const chorePrivacyDeleteSchema = z.object({
+  choreId: z.string().cuid(),
+  userId: z.string().cuid(),
+});
+
+export const updateChorePrivacySchema = z.object({
+  choreId: z.string().cuid(),
+  hiddenFromUserIds: z.array(z.string().cuid()),
+});
+
+export type ChorePrivacyCreate = z.infer<typeof chorePrivacyCreateSchema>;
+export type ChorePrivacyDelete = z.infer<typeof chorePrivacyDeleteSchema>;
+export type UpdateChorePrivacy = z.infer<typeof updateChorePrivacySchema>;

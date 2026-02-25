@@ -60,6 +60,7 @@ model Chore {
   estimatedMinutes Int?             // estimated time to complete
   scheduledTime   Int?              // scheduled time of day in minutes (0-1439)
   isPrivate       Boolean           @default(false) // if true, only assignee can see it
+  hiddenFromUsers ChorePrivacy[]    // Users who cannot see this chore
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 }
@@ -147,4 +148,16 @@ enum InvitationStatus {
   ACCEPTED
   DECLINED
   EXPIRED
+}
+
+// Privacy settings for chores - hide from specific users
+model ChorePrivacy {
+  id        String   @id @default(cuid())
+  choreId   String
+  chore     Chore    @relation(fields: [choreId], references: [id], onDelete: Cascade)
+  userId    String   // User who cannot see this chore
+  createdAt DateTime @default(now())
+
+  @@unique([choreId, userId])
+  @@index([userId])
 }

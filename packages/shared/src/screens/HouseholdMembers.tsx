@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { View, Text, Card, Button, TextInput, Badge, IconButton, Dialog } from '@idealyst/components';
 import type { IconName } from '@idealyst/components';
 import { trpc } from '../utils/trpc';
-import { useNavigation } from '@idealyst/navigation';
+import { useNavigator } from '@idealyst/navigation';
 
 // TODO: Replace with actual household ID from auth context
 const CURRENT_HOUSEHOLD_ID = 'temp-household-id';
@@ -18,7 +18,7 @@ interface InviteFormData {
 }
 
 export default function HouseholdMembers() {
-  const navigation = useNavigation();
+  const navigation = useNavigator();
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [inviteForm, setInviteForm] = useState<InviteFormData>({
     name: '',

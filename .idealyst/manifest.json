@@ -1,16 +1,16 @@
 {
   "version": 2,
   "idealystVersion": "0.1.0",
-  "status": "activated",
+  "status": "failed",
   "projectId": "cmm0n1iae0015u9cdudn46vka",
   "featureId": "cmm0n1iam0017u9cdqash75ff",
   "branchName": "main",
-  "activatedAt": "2026-02-25T15:13:25.284Z",
+  "activatedAt": "2026-02-25T18:19:07.930Z",
   "steps": [
     {
       "step": "fetch_context",
       "status": "success",
-      "duration": 172
+      "duration": 66
     },
     {
       "step": "clear_workspace",
@@ -20,52 +20,52 @@
     {
       "step": "setup_credentials",
       "status": "success",
-      "duration": 25
+      "duration": 19
     },
     {
       "step": "git_clone",
       "status": "success",
-      "duration": 529
+      "duration": 428
     },
     {
       "step": "npm_install",
       "status": "success",
-      "duration": 50196
+      "duration": 38136
     },
     {
       "step": "upgrade_idealyst",
       "status": "success",
-      "duration": 4745
+      "duration": 5125
     },
     {
       "step": "create_database",
-      "status": "success",
-      "duration": 131
+      "status": "failed",
+      "duration": 61
     },
     {
       "step": "db_generate",
       "status": "success",
-      "duration": 5021
+      "duration": 6453
     },
     {
       "step": "db_migrate",
-      "status": "success",
-      "duration": 3931
+      "status": "failed",
+      "duration": 3127
     },
     {
       "step": "restore_database",
       "status": "success",
-      "duration": 406
+      "duration": 312
     },
     {
       "step": "configure_env",
       "status": "success",
-      "duration": 2
+      "duration": 1
     },
     {
       "step": "configure_allowed_host",
       "status": "success",
-      "duration": 2
+      "duration": 14
     },
     {
       "step": "inject_preview_bridge",
@@ -75,15 +75,18 @@
     {
       "step": "start_api_server",
       "status": "success",
-      "duration": 5259
+      "duration": 3655
     },
     {
       "step": "start_web_server",
       "status": "success",
-      "duration": 4750
+      "duration": 1720
     }
   ],
-  "errors": [],
+  "errors": [
+    "Failed to create database: psql: error: connection to server at \"10.2.4.2\", port 5432 failed: Connection refused\n\tIs the server running on that host and accepting TCP/IP connections?\n",
+    "Prisma db push failed: Loaded Prisma config from prisma.config.ts.\n\nPrisma schema loaded from prisma/schema.prisma.\nError: P1001: Can't reach database server at `10.2.4.2:5432`\n\nPlease make sure your database server is runn"
+  ],
   "devServerRunning": true,
   "scaffolded": false,
   "scaffoldedFrom": null,

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { View, Text, Card, Button, TextInput, Badge, IconButton, Dialog } from '@idealyst/components';
 import type { IconName } from '@idealyst/components';
 import { trpc } from '../utils/trpc';
+import { useNavigation } from '@idealyst/navigation';
 
 // TODO: Replace with actual household ID from auth context
 const CURRENT_HOUSEHOLD_ID = 'temp-household-id';
@@ -17,6 +18,7 @@ interface InviteFormData {
 }
 
 export default function HouseholdMembers() {
+  const navigation = useNavigation();
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [inviteForm, setInviteForm] = useState<InviteFormData>({
     name: '',
@@ -117,24 +119,32 @@ export default function HouseholdMembers() {
   return (
     <View scrollable>
       <View padding="lg" gap="lg">
-        {/* Header */}
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <View>
+        {/* Header with Back Button */}
+        <View gap="md">
+          <View style={{ flexDirection: 'row', alignItems: 'center' }} gap="md">
+            <IconButton
+              icon="arrow-left"
+              intent="neutral"
+              type="text"
+              onPress={() => navigation.goBack()}
+            />
             <Text typography="h4" weight="bold">
               Household Members
             </Text>
-            <Text typography="body2" color="secondary">
-              Manage who has access to this household
-            </Text>
           </View>
-          <Button
-            type="contained"
-            intent="primary"
-            leftIcon="account-plus"
-            onPress={() => setShowInviteModal(true)}
-          >
-            Invite Member
-          </Button>
+          <Text typography="body2" color="secondary">
+            Manage who has access to this household
+          </Text>
+          <View style={{ alignItems: 'center' }}>
+            <Button
+              type="contained"
+              intent="primary"
+              leftIcon="account-plus"
+              onPress={() => setShowInviteModal(true)}
+            >
+              Invite Member
+            </Button>
+          </View>
         </View>
 
         {isLoading ? (

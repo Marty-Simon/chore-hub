@@ -43,12 +43,26 @@ export type ChoreSchedule = $Result.DefaultSelection<Prisma.$ChoreSchedulePayloa
  * 
  */
 export type CalendarConnection = $Result.DefaultSelection<Prisma.$CalendarConnectionPayload>
+/**
+ * Model HouseholdInvitation
+ * 
+ */
+export type HouseholdInvitation = $Result.DefaultSelection<Prisma.$HouseholdInvitationPayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const RecurrenceType: {
+  export const UserRole: {
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER',
+  CHILD: 'CHILD'
+};
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const RecurrenceType: {
   DAILY: 'DAILY',
   WEEKLY: 'WEEKLY',
   MONTHLY: 'MONTHLY'
@@ -66,7 +80,21 @@ export const ScheduleStatus: {
 
 export type ScheduleStatus = (typeof ScheduleStatus)[keyof typeof ScheduleStatus]
 
+
+export const InvitationStatus: {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  DECLINED: 'DECLINED',
+  EXPIRED: 'EXPIRED'
+};
+
+export type InvitationStatus = (typeof InvitationStatus)[keyof typeof InvitationStatus]
+
 }
+
+export type UserRole = $Enums.UserRole
+
+export const UserRole: typeof $Enums.UserRole
 
 export type RecurrenceType = $Enums.RecurrenceType
 
@@ -75,6 +103,10 @@ export const RecurrenceType: typeof $Enums.RecurrenceType
 export type ScheduleStatus = $Enums.ScheduleStatus
 
 export const ScheduleStatus: typeof $Enums.ScheduleStatus
+
+export type InvitationStatus = $Enums.InvitationStatus
+
+export const InvitationStatus: typeof $Enums.InvitationStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -252,6 +284,16 @@ export class PrismaClient<
     * ```
     */
   get calendarConnection(): Prisma.CalendarConnectionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.householdInvitation`: Exposes CRUD operations for the **HouseholdInvitation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HouseholdInvitations
+    * const householdInvitations = await prisma.householdInvitation.findMany()
+    * ```
+    */
+  get householdInvitation(): Prisma.HouseholdInvitationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -691,7 +733,8 @@ export namespace Prisma {
     Chore: 'Chore',
     ChoreInstruction: 'ChoreInstruction',
     ChoreSchedule: 'ChoreSchedule',
-    CalendarConnection: 'CalendarConnection'
+    CalendarConnection: 'CalendarConnection',
+    HouseholdInvitation: 'HouseholdInvitation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -707,7 +750,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "household" | "user" | "chore" | "choreInstruction" | "choreSchedule" | "calendarConnection"
+      modelProps: "household" | "user" | "chore" | "choreInstruction" | "choreSchedule" | "calendarConnection" | "householdInvitation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1155,6 +1198,80 @@ export namespace Prisma {
           }
         }
       }
+      HouseholdInvitation: {
+        payload: Prisma.$HouseholdInvitationPayload<ExtArgs>
+        fields: Prisma.HouseholdInvitationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HouseholdInvitationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HouseholdInvitationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HouseholdInvitationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HouseholdInvitationPayload>
+          }
+          findFirst: {
+            args: Prisma.HouseholdInvitationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HouseholdInvitationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HouseholdInvitationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HouseholdInvitationPayload>
+          }
+          findMany: {
+            args: Prisma.HouseholdInvitationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HouseholdInvitationPayload>[]
+          }
+          create: {
+            args: Prisma.HouseholdInvitationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HouseholdInvitationPayload>
+          }
+          createMany: {
+            args: Prisma.HouseholdInvitationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HouseholdInvitationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HouseholdInvitationPayload>[]
+          }
+          delete: {
+            args: Prisma.HouseholdInvitationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HouseholdInvitationPayload>
+          }
+          update: {
+            args: Prisma.HouseholdInvitationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HouseholdInvitationPayload>
+          }
+          deleteMany: {
+            args: Prisma.HouseholdInvitationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HouseholdInvitationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.HouseholdInvitationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HouseholdInvitationPayload>[]
+          }
+          upsert: {
+            args: Prisma.HouseholdInvitationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HouseholdInvitationPayload>
+          }
+          aggregate: {
+            args: Prisma.HouseholdInvitationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHouseholdInvitation>
+          }
+          groupBy: {
+            args: Prisma.HouseholdInvitationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HouseholdInvitationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HouseholdInvitationCountArgs<ExtArgs>
+            result: $Utils.Optional<HouseholdInvitationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1269,6 +1386,7 @@ export namespace Prisma {
     choreInstruction?: ChoreInstructionOmit
     choreSchedule?: ChoreScheduleOmit
     calendarConnection?: CalendarConnectionOmit
+    householdInvitation?: HouseholdInvitationOmit
   }
 
   /* Types for Logging */
@@ -1351,11 +1469,13 @@ export namespace Prisma {
   export type HouseholdCountOutputType = {
     members: number
     chores: number
+    invitations: number
   }
 
   export type HouseholdCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | HouseholdCountOutputTypeCountMembersArgs
     chores?: boolean | HouseholdCountOutputTypeCountChoresArgs
+    invitations?: boolean | HouseholdCountOutputTypeCountInvitationsArgs
   }
 
   // Custom InputTypes
@@ -1383,6 +1503,13 @@ export namespace Prisma {
     where?: ChoreWhereInput
   }
 
+  /**
+   * HouseholdCountOutputType without action
+   */
+  export type HouseholdCountOutputTypeCountInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HouseholdInvitationWhereInput
+  }
+
 
   /**
    * Count Type UserCountOutputType
@@ -1391,11 +1518,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     assignedChores: number
     calendarConnections: number
+    sentInvitations: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assignedChores?: boolean | UserCountOutputTypeCountAssignedChoresArgs
     calendarConnections?: boolean | UserCountOutputTypeCountCalendarConnectionsArgs
+    sentInvitations?: boolean | UserCountOutputTypeCountSentInvitationsArgs
   }
 
   // Custom InputTypes
@@ -1421,6 +1550,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCalendarConnectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CalendarConnectionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSentInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HouseholdInvitationWhereInput
   }
 
 
@@ -1626,6 +1762,7 @@ export namespace Prisma {
     updatedAt?: boolean
     members?: boolean | Household$membersArgs<ExtArgs>
     chores?: boolean | Household$choresArgs<ExtArgs>
+    invitations?: boolean | Household$invitationsArgs<ExtArgs>
     _count?: boolean | HouseholdCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["household"]>
 
@@ -1654,6 +1791,7 @@ export namespace Prisma {
   export type HouseholdInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | Household$membersArgs<ExtArgs>
     chores?: boolean | Household$choresArgs<ExtArgs>
+    invitations?: boolean | Household$invitationsArgs<ExtArgs>
     _count?: boolean | HouseholdCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type HouseholdIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1664,6 +1802,7 @@ export namespace Prisma {
     objects: {
       members: Prisma.$UserPayload<ExtArgs>[]
       chores: Prisma.$ChorePayload<ExtArgs>[]
+      invitations: Prisma.$HouseholdInvitationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2066,6 +2205,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     members<T extends Household$membersArgs<ExtArgs> = {}>(args?: Subset<T, Household$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     chores<T extends Household$choresArgs<ExtArgs> = {}>(args?: Subset<T, Household$choresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    invitations<T extends Household$invitationsArgs<ExtArgs> = {}>(args?: Subset<T, Household$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2535,6 +2675,30 @@ export namespace Prisma {
   }
 
   /**
+   * Household.invitations
+   */
+  export type Household$invitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+    where?: HouseholdInvitationWhereInput
+    orderBy?: HouseholdInvitationOrderByWithRelationInput | HouseholdInvitationOrderByWithRelationInput[]
+    cursor?: HouseholdInvitationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HouseholdInvitationScalarFieldEnum | HouseholdInvitationScalarFieldEnum[]
+  }
+
+  /**
    * Household without action
    */
   export type HouseholdDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2567,7 +2731,9 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
+    phone: string | null
     householdId: string | null
+    role: $Enums.UserRole | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2576,7 +2742,9 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
+    phone: string | null
     householdId: string | null
+    role: $Enums.UserRole | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2585,7 +2753,9 @@ export namespace Prisma {
     id: number
     name: number
     email: number
+    phone: number
     householdId: number
+    role: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2596,7 +2766,9 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    phone?: true
     householdId?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2605,7 +2777,9 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    phone?: true
     householdId?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2614,7 +2788,9 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    phone?: true
     householdId?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2696,7 +2872,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phone: string | null
     householdId: string
+    role: $Enums.UserRole
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -2722,12 +2900,16 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    phone?: boolean
     householdId?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     household?: boolean | HouseholdDefaultArgs<ExtArgs>
     assignedChores?: boolean | User$assignedChoresArgs<ExtArgs>
     calendarConnections?: boolean | User$calendarConnectionsArgs<ExtArgs>
+    sentInvitations?: boolean | User$sentInvitationsArgs<ExtArgs>
+    receivedInvitation?: boolean | User$receivedInvitationArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2735,7 +2917,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    phone?: boolean
     householdId?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     household?: boolean | HouseholdDefaultArgs<ExtArgs>
@@ -2745,7 +2929,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    phone?: boolean
     householdId?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     household?: boolean | HouseholdDefaultArgs<ExtArgs>
@@ -2755,16 +2941,20 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    phone?: boolean
     householdId?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "householdId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "householdId" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     household?: boolean | HouseholdDefaultArgs<ExtArgs>
     assignedChores?: boolean | User$assignedChoresArgs<ExtArgs>
     calendarConnections?: boolean | User$calendarConnectionsArgs<ExtArgs>
+    sentInvitations?: boolean | User$sentInvitationsArgs<ExtArgs>
+    receivedInvitation?: boolean | User$receivedInvitationArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2780,12 +2970,16 @@ export namespace Prisma {
       household: Prisma.$HouseholdPayload<ExtArgs>
       assignedChores: Prisma.$ChoreSchedulePayload<ExtArgs>[]
       calendarConnections: Prisma.$CalendarConnectionPayload<ExtArgs>[]
+      sentInvitations: Prisma.$HouseholdInvitationPayload<ExtArgs>[]
+      receivedInvitation: Prisma.$HouseholdInvitationPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       email: string
+      phone: string | null
       householdId: string
+      role: $Enums.UserRole
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -3185,6 +3379,8 @@ export namespace Prisma {
     household<T extends HouseholdDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HouseholdDefaultArgs<ExtArgs>>): Prisma__HouseholdClient<$Result.GetResult<Prisma.$HouseholdPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     assignedChores<T extends User$assignedChoresArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedChoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChoreSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     calendarConnections<T extends User$calendarConnectionsArgs<ExtArgs> = {}>(args?: Subset<T, User$calendarConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CalendarConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sentInvitations<T extends User$sentInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, User$sentInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    receivedInvitation<T extends User$receivedInvitationArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedInvitationArgs<ExtArgs>>): Prisma__HouseholdInvitationClient<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3217,7 +3413,9 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
+    readonly phone: FieldRef<"User", 'String'>
     readonly householdId: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'UserRole'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -3661,6 +3859,49 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CalendarConnectionScalarFieldEnum | CalendarConnectionScalarFieldEnum[]
+  }
+
+  /**
+   * User.sentInvitations
+   */
+  export type User$sentInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+    where?: HouseholdInvitationWhereInput
+    orderBy?: HouseholdInvitationOrderByWithRelationInput | HouseholdInvitationOrderByWithRelationInput[]
+    cursor?: HouseholdInvitationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HouseholdInvitationScalarFieldEnum | HouseholdInvitationScalarFieldEnum[]
+  }
+
+  /**
+   * User.receivedInvitation
+   */
+  export type User$receivedInvitationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+    where?: HouseholdInvitationWhereInput
   }
 
   /**
@@ -8280,6 +8521,1177 @@ export namespace Prisma {
 
 
   /**
+   * Model HouseholdInvitation
+   */
+
+  export type AggregateHouseholdInvitation = {
+    _count: HouseholdInvitationCountAggregateOutputType | null
+    _min: HouseholdInvitationMinAggregateOutputType | null
+    _max: HouseholdInvitationMaxAggregateOutputType | null
+  }
+
+  export type HouseholdInvitationMinAggregateOutputType = {
+    id: string | null
+    householdId: string | null
+    inviterId: string | null
+    inviteeId: string | null
+    phoneNumber: string | null
+    name: string | null
+    status: $Enums.InvitationStatus | null
+    token: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HouseholdInvitationMaxAggregateOutputType = {
+    id: string | null
+    householdId: string | null
+    inviterId: string | null
+    inviteeId: string | null
+    phoneNumber: string | null
+    name: string | null
+    status: $Enums.InvitationStatus | null
+    token: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HouseholdInvitationCountAggregateOutputType = {
+    id: number
+    householdId: number
+    inviterId: number
+    inviteeId: number
+    phoneNumber: number
+    name: number
+    status: number
+    token: number
+    expiresAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type HouseholdInvitationMinAggregateInputType = {
+    id?: true
+    householdId?: true
+    inviterId?: true
+    inviteeId?: true
+    phoneNumber?: true
+    name?: true
+    status?: true
+    token?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HouseholdInvitationMaxAggregateInputType = {
+    id?: true
+    householdId?: true
+    inviterId?: true
+    inviteeId?: true
+    phoneNumber?: true
+    name?: true
+    status?: true
+    token?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HouseholdInvitationCountAggregateInputType = {
+    id?: true
+    householdId?: true
+    inviterId?: true
+    inviteeId?: true
+    phoneNumber?: true
+    name?: true
+    status?: true
+    token?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type HouseholdInvitationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HouseholdInvitation to aggregate.
+     */
+    where?: HouseholdInvitationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HouseholdInvitations to fetch.
+     */
+    orderBy?: HouseholdInvitationOrderByWithRelationInput | HouseholdInvitationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HouseholdInvitationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HouseholdInvitations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HouseholdInvitations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HouseholdInvitations
+    **/
+    _count?: true | HouseholdInvitationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HouseholdInvitationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HouseholdInvitationMaxAggregateInputType
+  }
+
+  export type GetHouseholdInvitationAggregateType<T extends HouseholdInvitationAggregateArgs> = {
+        [P in keyof T & keyof AggregateHouseholdInvitation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHouseholdInvitation[P]>
+      : GetScalarType<T[P], AggregateHouseholdInvitation[P]>
+  }
+
+
+
+
+  export type HouseholdInvitationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HouseholdInvitationWhereInput
+    orderBy?: HouseholdInvitationOrderByWithAggregationInput | HouseholdInvitationOrderByWithAggregationInput[]
+    by: HouseholdInvitationScalarFieldEnum[] | HouseholdInvitationScalarFieldEnum
+    having?: HouseholdInvitationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HouseholdInvitationCountAggregateInputType | true
+    _min?: HouseholdInvitationMinAggregateInputType
+    _max?: HouseholdInvitationMaxAggregateInputType
+  }
+
+  export type HouseholdInvitationGroupByOutputType = {
+    id: string
+    householdId: string
+    inviterId: string
+    inviteeId: string | null
+    phoneNumber: string
+    name: string | null
+    status: $Enums.InvitationStatus
+    token: string
+    expiresAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: HouseholdInvitationCountAggregateOutputType | null
+    _min: HouseholdInvitationMinAggregateOutputType | null
+    _max: HouseholdInvitationMaxAggregateOutputType | null
+  }
+
+  type GetHouseholdInvitationGroupByPayload<T extends HouseholdInvitationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HouseholdInvitationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HouseholdInvitationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HouseholdInvitationGroupByOutputType[P]>
+            : GetScalarType<T[P], HouseholdInvitationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HouseholdInvitationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    householdId?: boolean
+    inviterId?: boolean
+    inviteeId?: boolean
+    phoneNumber?: boolean
+    name?: boolean
+    status?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    household?: boolean | HouseholdDefaultArgs<ExtArgs>
+    inviter?: boolean | UserDefaultArgs<ExtArgs>
+    invitee?: boolean | HouseholdInvitation$inviteeArgs<ExtArgs>
+  }, ExtArgs["result"]["householdInvitation"]>
+
+  export type HouseholdInvitationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    householdId?: boolean
+    inviterId?: boolean
+    inviteeId?: boolean
+    phoneNumber?: boolean
+    name?: boolean
+    status?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    household?: boolean | HouseholdDefaultArgs<ExtArgs>
+    inviter?: boolean | UserDefaultArgs<ExtArgs>
+    invitee?: boolean | HouseholdInvitation$inviteeArgs<ExtArgs>
+  }, ExtArgs["result"]["householdInvitation"]>
+
+  export type HouseholdInvitationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    householdId?: boolean
+    inviterId?: boolean
+    inviteeId?: boolean
+    phoneNumber?: boolean
+    name?: boolean
+    status?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    household?: boolean | HouseholdDefaultArgs<ExtArgs>
+    inviter?: boolean | UserDefaultArgs<ExtArgs>
+    invitee?: boolean | HouseholdInvitation$inviteeArgs<ExtArgs>
+  }, ExtArgs["result"]["householdInvitation"]>
+
+  export type HouseholdInvitationSelectScalar = {
+    id?: boolean
+    householdId?: boolean
+    inviterId?: boolean
+    inviteeId?: boolean
+    phoneNumber?: boolean
+    name?: boolean
+    status?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type HouseholdInvitationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "householdId" | "inviterId" | "inviteeId" | "phoneNumber" | "name" | "status" | "token" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["householdInvitation"]>
+  export type HouseholdInvitationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    household?: boolean | HouseholdDefaultArgs<ExtArgs>
+    inviter?: boolean | UserDefaultArgs<ExtArgs>
+    invitee?: boolean | HouseholdInvitation$inviteeArgs<ExtArgs>
+  }
+  export type HouseholdInvitationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    household?: boolean | HouseholdDefaultArgs<ExtArgs>
+    inviter?: boolean | UserDefaultArgs<ExtArgs>
+    invitee?: boolean | HouseholdInvitation$inviteeArgs<ExtArgs>
+  }
+  export type HouseholdInvitationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    household?: boolean | HouseholdDefaultArgs<ExtArgs>
+    inviter?: boolean | UserDefaultArgs<ExtArgs>
+    invitee?: boolean | HouseholdInvitation$inviteeArgs<ExtArgs>
+  }
+
+  export type $HouseholdInvitationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HouseholdInvitation"
+    objects: {
+      household: Prisma.$HouseholdPayload<ExtArgs>
+      inviter: Prisma.$UserPayload<ExtArgs>
+      invitee: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      householdId: string
+      inviterId: string
+      inviteeId: string | null
+      phoneNumber: string
+      name: string | null
+      status: $Enums.InvitationStatus
+      token: string
+      expiresAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["householdInvitation"]>
+    composites: {}
+  }
+
+  type HouseholdInvitationGetPayload<S extends boolean | null | undefined | HouseholdInvitationDefaultArgs> = $Result.GetResult<Prisma.$HouseholdInvitationPayload, S>
+
+  type HouseholdInvitationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HouseholdInvitationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HouseholdInvitationCountAggregateInputType | true
+    }
+
+  export interface HouseholdInvitationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HouseholdInvitation'], meta: { name: 'HouseholdInvitation' } }
+    /**
+     * Find zero or one HouseholdInvitation that matches the filter.
+     * @param {HouseholdInvitationFindUniqueArgs} args - Arguments to find a HouseholdInvitation
+     * @example
+     * // Get one HouseholdInvitation
+     * const householdInvitation = await prisma.householdInvitation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HouseholdInvitationFindUniqueArgs>(args: SelectSubset<T, HouseholdInvitationFindUniqueArgs<ExtArgs>>): Prisma__HouseholdInvitationClient<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one HouseholdInvitation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HouseholdInvitationFindUniqueOrThrowArgs} args - Arguments to find a HouseholdInvitation
+     * @example
+     * // Get one HouseholdInvitation
+     * const householdInvitation = await prisma.householdInvitation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HouseholdInvitationFindUniqueOrThrowArgs>(args: SelectSubset<T, HouseholdInvitationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HouseholdInvitationClient<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HouseholdInvitation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HouseholdInvitationFindFirstArgs} args - Arguments to find a HouseholdInvitation
+     * @example
+     * // Get one HouseholdInvitation
+     * const householdInvitation = await prisma.householdInvitation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HouseholdInvitationFindFirstArgs>(args?: SelectSubset<T, HouseholdInvitationFindFirstArgs<ExtArgs>>): Prisma__HouseholdInvitationClient<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HouseholdInvitation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HouseholdInvitationFindFirstOrThrowArgs} args - Arguments to find a HouseholdInvitation
+     * @example
+     * // Get one HouseholdInvitation
+     * const householdInvitation = await prisma.householdInvitation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HouseholdInvitationFindFirstOrThrowArgs>(args?: SelectSubset<T, HouseholdInvitationFindFirstOrThrowArgs<ExtArgs>>): Prisma__HouseholdInvitationClient<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more HouseholdInvitations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HouseholdInvitationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HouseholdInvitations
+     * const householdInvitations = await prisma.householdInvitation.findMany()
+     * 
+     * // Get first 10 HouseholdInvitations
+     * const householdInvitations = await prisma.householdInvitation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const householdInvitationWithIdOnly = await prisma.householdInvitation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HouseholdInvitationFindManyArgs>(args?: SelectSubset<T, HouseholdInvitationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a HouseholdInvitation.
+     * @param {HouseholdInvitationCreateArgs} args - Arguments to create a HouseholdInvitation.
+     * @example
+     * // Create one HouseholdInvitation
+     * const HouseholdInvitation = await prisma.householdInvitation.create({
+     *   data: {
+     *     // ... data to create a HouseholdInvitation
+     *   }
+     * })
+     * 
+     */
+    create<T extends HouseholdInvitationCreateArgs>(args: SelectSubset<T, HouseholdInvitationCreateArgs<ExtArgs>>): Prisma__HouseholdInvitationClient<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many HouseholdInvitations.
+     * @param {HouseholdInvitationCreateManyArgs} args - Arguments to create many HouseholdInvitations.
+     * @example
+     * // Create many HouseholdInvitations
+     * const householdInvitation = await prisma.householdInvitation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HouseholdInvitationCreateManyArgs>(args?: SelectSubset<T, HouseholdInvitationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many HouseholdInvitations and returns the data saved in the database.
+     * @param {HouseholdInvitationCreateManyAndReturnArgs} args - Arguments to create many HouseholdInvitations.
+     * @example
+     * // Create many HouseholdInvitations
+     * const householdInvitation = await prisma.householdInvitation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many HouseholdInvitations and only return the `id`
+     * const householdInvitationWithIdOnly = await prisma.householdInvitation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HouseholdInvitationCreateManyAndReturnArgs>(args?: SelectSubset<T, HouseholdInvitationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a HouseholdInvitation.
+     * @param {HouseholdInvitationDeleteArgs} args - Arguments to delete one HouseholdInvitation.
+     * @example
+     * // Delete one HouseholdInvitation
+     * const HouseholdInvitation = await prisma.householdInvitation.delete({
+     *   where: {
+     *     // ... filter to delete one HouseholdInvitation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HouseholdInvitationDeleteArgs>(args: SelectSubset<T, HouseholdInvitationDeleteArgs<ExtArgs>>): Prisma__HouseholdInvitationClient<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one HouseholdInvitation.
+     * @param {HouseholdInvitationUpdateArgs} args - Arguments to update one HouseholdInvitation.
+     * @example
+     * // Update one HouseholdInvitation
+     * const householdInvitation = await prisma.householdInvitation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HouseholdInvitationUpdateArgs>(args: SelectSubset<T, HouseholdInvitationUpdateArgs<ExtArgs>>): Prisma__HouseholdInvitationClient<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more HouseholdInvitations.
+     * @param {HouseholdInvitationDeleteManyArgs} args - Arguments to filter HouseholdInvitations to delete.
+     * @example
+     * // Delete a few HouseholdInvitations
+     * const { count } = await prisma.householdInvitation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HouseholdInvitationDeleteManyArgs>(args?: SelectSubset<T, HouseholdInvitationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HouseholdInvitations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HouseholdInvitationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HouseholdInvitations
+     * const householdInvitation = await prisma.householdInvitation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HouseholdInvitationUpdateManyArgs>(args: SelectSubset<T, HouseholdInvitationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HouseholdInvitations and returns the data updated in the database.
+     * @param {HouseholdInvitationUpdateManyAndReturnArgs} args - Arguments to update many HouseholdInvitations.
+     * @example
+     * // Update many HouseholdInvitations
+     * const householdInvitation = await prisma.householdInvitation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more HouseholdInvitations and only return the `id`
+     * const householdInvitationWithIdOnly = await prisma.householdInvitation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends HouseholdInvitationUpdateManyAndReturnArgs>(args: SelectSubset<T, HouseholdInvitationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one HouseholdInvitation.
+     * @param {HouseholdInvitationUpsertArgs} args - Arguments to update or create a HouseholdInvitation.
+     * @example
+     * // Update or create a HouseholdInvitation
+     * const householdInvitation = await prisma.householdInvitation.upsert({
+     *   create: {
+     *     // ... data to create a HouseholdInvitation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HouseholdInvitation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HouseholdInvitationUpsertArgs>(args: SelectSubset<T, HouseholdInvitationUpsertArgs<ExtArgs>>): Prisma__HouseholdInvitationClient<$Result.GetResult<Prisma.$HouseholdInvitationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of HouseholdInvitations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HouseholdInvitationCountArgs} args - Arguments to filter HouseholdInvitations to count.
+     * @example
+     * // Count the number of HouseholdInvitations
+     * const count = await prisma.householdInvitation.count({
+     *   where: {
+     *     // ... the filter for the HouseholdInvitations we want to count
+     *   }
+     * })
+    **/
+    count<T extends HouseholdInvitationCountArgs>(
+      args?: Subset<T, HouseholdInvitationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HouseholdInvitationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HouseholdInvitation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HouseholdInvitationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HouseholdInvitationAggregateArgs>(args: Subset<T, HouseholdInvitationAggregateArgs>): Prisma.PrismaPromise<GetHouseholdInvitationAggregateType<T>>
+
+    /**
+     * Group by HouseholdInvitation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HouseholdInvitationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HouseholdInvitationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HouseholdInvitationGroupByArgs['orderBy'] }
+        : { orderBy?: HouseholdInvitationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HouseholdInvitationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHouseholdInvitationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HouseholdInvitation model
+   */
+  readonly fields: HouseholdInvitationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HouseholdInvitation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HouseholdInvitationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    household<T extends HouseholdDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HouseholdDefaultArgs<ExtArgs>>): Prisma__HouseholdClient<$Result.GetResult<Prisma.$HouseholdPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    inviter<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    invitee<T extends HouseholdInvitation$inviteeArgs<ExtArgs> = {}>(args?: Subset<T, HouseholdInvitation$inviteeArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the HouseholdInvitation model
+   */
+  interface HouseholdInvitationFieldRefs {
+    readonly id: FieldRef<"HouseholdInvitation", 'String'>
+    readonly householdId: FieldRef<"HouseholdInvitation", 'String'>
+    readonly inviterId: FieldRef<"HouseholdInvitation", 'String'>
+    readonly inviteeId: FieldRef<"HouseholdInvitation", 'String'>
+    readonly phoneNumber: FieldRef<"HouseholdInvitation", 'String'>
+    readonly name: FieldRef<"HouseholdInvitation", 'String'>
+    readonly status: FieldRef<"HouseholdInvitation", 'InvitationStatus'>
+    readonly token: FieldRef<"HouseholdInvitation", 'String'>
+    readonly expiresAt: FieldRef<"HouseholdInvitation", 'DateTime'>
+    readonly createdAt: FieldRef<"HouseholdInvitation", 'DateTime'>
+    readonly updatedAt: FieldRef<"HouseholdInvitation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * HouseholdInvitation findUnique
+   */
+  export type HouseholdInvitationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which HouseholdInvitation to fetch.
+     */
+    where: HouseholdInvitationWhereUniqueInput
+  }
+
+  /**
+   * HouseholdInvitation findUniqueOrThrow
+   */
+  export type HouseholdInvitationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which HouseholdInvitation to fetch.
+     */
+    where: HouseholdInvitationWhereUniqueInput
+  }
+
+  /**
+   * HouseholdInvitation findFirst
+   */
+  export type HouseholdInvitationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which HouseholdInvitation to fetch.
+     */
+    where?: HouseholdInvitationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HouseholdInvitations to fetch.
+     */
+    orderBy?: HouseholdInvitationOrderByWithRelationInput | HouseholdInvitationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HouseholdInvitations.
+     */
+    cursor?: HouseholdInvitationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HouseholdInvitations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HouseholdInvitations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HouseholdInvitations.
+     */
+    distinct?: HouseholdInvitationScalarFieldEnum | HouseholdInvitationScalarFieldEnum[]
+  }
+
+  /**
+   * HouseholdInvitation findFirstOrThrow
+   */
+  export type HouseholdInvitationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which HouseholdInvitation to fetch.
+     */
+    where?: HouseholdInvitationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HouseholdInvitations to fetch.
+     */
+    orderBy?: HouseholdInvitationOrderByWithRelationInput | HouseholdInvitationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HouseholdInvitations.
+     */
+    cursor?: HouseholdInvitationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HouseholdInvitations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HouseholdInvitations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HouseholdInvitations.
+     */
+    distinct?: HouseholdInvitationScalarFieldEnum | HouseholdInvitationScalarFieldEnum[]
+  }
+
+  /**
+   * HouseholdInvitation findMany
+   */
+  export type HouseholdInvitationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which HouseholdInvitations to fetch.
+     */
+    where?: HouseholdInvitationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HouseholdInvitations to fetch.
+     */
+    orderBy?: HouseholdInvitationOrderByWithRelationInput | HouseholdInvitationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HouseholdInvitations.
+     */
+    cursor?: HouseholdInvitationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HouseholdInvitations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HouseholdInvitations.
+     */
+    skip?: number
+    distinct?: HouseholdInvitationScalarFieldEnum | HouseholdInvitationScalarFieldEnum[]
+  }
+
+  /**
+   * HouseholdInvitation create
+   */
+  export type HouseholdInvitationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a HouseholdInvitation.
+     */
+    data: XOR<HouseholdInvitationCreateInput, HouseholdInvitationUncheckedCreateInput>
+  }
+
+  /**
+   * HouseholdInvitation createMany
+   */
+  export type HouseholdInvitationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HouseholdInvitations.
+     */
+    data: HouseholdInvitationCreateManyInput | HouseholdInvitationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HouseholdInvitation createManyAndReturn
+   */
+  export type HouseholdInvitationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * The data used to create many HouseholdInvitations.
+     */
+    data: HouseholdInvitationCreateManyInput | HouseholdInvitationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * HouseholdInvitation update
+   */
+  export type HouseholdInvitationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a HouseholdInvitation.
+     */
+    data: XOR<HouseholdInvitationUpdateInput, HouseholdInvitationUncheckedUpdateInput>
+    /**
+     * Choose, which HouseholdInvitation to update.
+     */
+    where: HouseholdInvitationWhereUniqueInput
+  }
+
+  /**
+   * HouseholdInvitation updateMany
+   */
+  export type HouseholdInvitationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HouseholdInvitations.
+     */
+    data: XOR<HouseholdInvitationUpdateManyMutationInput, HouseholdInvitationUncheckedUpdateManyInput>
+    /**
+     * Filter which HouseholdInvitations to update
+     */
+    where?: HouseholdInvitationWhereInput
+    /**
+     * Limit how many HouseholdInvitations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * HouseholdInvitation updateManyAndReturn
+   */
+  export type HouseholdInvitationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * The data used to update HouseholdInvitations.
+     */
+    data: XOR<HouseholdInvitationUpdateManyMutationInput, HouseholdInvitationUncheckedUpdateManyInput>
+    /**
+     * Filter which HouseholdInvitations to update
+     */
+    where?: HouseholdInvitationWhereInput
+    /**
+     * Limit how many HouseholdInvitations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * HouseholdInvitation upsert
+   */
+  export type HouseholdInvitationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the HouseholdInvitation to update in case it exists.
+     */
+    where: HouseholdInvitationWhereUniqueInput
+    /**
+     * In case the HouseholdInvitation found by the `where` argument doesn't exist, create a new HouseholdInvitation with this data.
+     */
+    create: XOR<HouseholdInvitationCreateInput, HouseholdInvitationUncheckedCreateInput>
+    /**
+     * In case the HouseholdInvitation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HouseholdInvitationUpdateInput, HouseholdInvitationUncheckedUpdateInput>
+  }
+
+  /**
+   * HouseholdInvitation delete
+   */
+  export type HouseholdInvitationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+    /**
+     * Filter which HouseholdInvitation to delete.
+     */
+    where: HouseholdInvitationWhereUniqueInput
+  }
+
+  /**
+   * HouseholdInvitation deleteMany
+   */
+  export type HouseholdInvitationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HouseholdInvitations to delete
+     */
+    where?: HouseholdInvitationWhereInput
+    /**
+     * Limit how many HouseholdInvitations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * HouseholdInvitation.invitee
+   */
+  export type HouseholdInvitation$inviteeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * HouseholdInvitation without action
+   */
+  export type HouseholdInvitationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdInvitation
+     */
+    select?: HouseholdInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HouseholdInvitation
+     */
+    omit?: HouseholdInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HouseholdInvitationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8307,7 +9719,9 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     email: 'email',
+    phone: 'phone',
     householdId: 'householdId',
+    role: 'role',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8375,6 +9789,23 @@ export namespace Prisma {
   export type CalendarConnectionScalarFieldEnum = (typeof CalendarConnectionScalarFieldEnum)[keyof typeof CalendarConnectionScalarFieldEnum]
 
 
+  export const HouseholdInvitationScalarFieldEnum: {
+    id: 'id',
+    householdId: 'householdId',
+    inviterId: 'inviterId',
+    inviteeId: 'inviteeId',
+    phoneNumber: 'phoneNumber',
+    name: 'name',
+    status: 'status',
+    token: 'token',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type HouseholdInvitationScalarFieldEnum = (typeof HouseholdInvitationScalarFieldEnum)[keyof typeof HouseholdInvitationScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -8433,6 +9864,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'UserRole'
+   */
+  export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserRole[]'
+   */
+  export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
+    
+
+
+  /**
    * Reference to a field of type 'RecurrenceType'
    */
   export type EnumRecurrenceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecurrenceType'>
@@ -8482,6 +9927,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'InvitationStatus'
+   */
+  export type EnumInvitationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvitationStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'InvitationStatus[]'
+   */
+  export type ListEnumInvitationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvitationStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -8508,6 +9967,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Household"> | Date | string
     members?: UserListRelationFilter
     chores?: ChoreListRelationFilter
+    invitations?: HouseholdInvitationListRelationFilter
   }
 
   export type HouseholdOrderByWithRelationInput = {
@@ -8517,6 +9977,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     members?: UserOrderByRelationAggregateInput
     chores?: ChoreOrderByRelationAggregateInput
+    invitations?: HouseholdInvitationOrderByRelationAggregateInput
   }
 
   export type HouseholdWhereUniqueInput = Prisma.AtLeast<{
@@ -8529,6 +9990,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Household"> | Date | string
     members?: UserListRelationFilter
     chores?: ChoreListRelationFilter
+    invitations?: HouseholdInvitationListRelationFilter
   }, "id">
 
   export type HouseholdOrderByWithAggregationInput = {
@@ -8558,24 +10020,32 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    phone?: StringNullableFilter<"User"> | string | null
     householdId?: StringFilter<"User"> | string
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     household?: XOR<HouseholdScalarRelationFilter, HouseholdWhereInput>
     assignedChores?: ChoreScheduleListRelationFilter
     calendarConnections?: CalendarConnectionListRelationFilter
+    sentInvitations?: HouseholdInvitationListRelationFilter
+    receivedInvitation?: XOR<HouseholdInvitationNullableScalarRelationFilter, HouseholdInvitationWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phone?: SortOrderInput | SortOrder
     householdId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     household?: HouseholdOrderByWithRelationInput
     assignedChores?: ChoreScheduleOrderByRelationAggregateInput
     calendarConnections?: CalendarConnectionOrderByRelationAggregateInput
+    sentInvitations?: HouseholdInvitationOrderByRelationAggregateInput
+    receivedInvitation?: HouseholdInvitationOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8585,19 +10055,25 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
+    phone?: StringNullableFilter<"User"> | string | null
     householdId?: StringFilter<"User"> | string
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     household?: XOR<HouseholdScalarRelationFilter, HouseholdWhereInput>
     assignedChores?: ChoreScheduleListRelationFilter
     calendarConnections?: CalendarConnectionListRelationFilter
+    sentInvitations?: HouseholdInvitationListRelationFilter
+    receivedInvitation?: XOR<HouseholdInvitationNullableScalarRelationFilter, HouseholdInvitationWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phone?: SortOrderInput | SortOrder
     householdId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -8612,7 +10088,9 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
+    phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     householdId?: StringWithAggregatesFilter<"User"> | string
+    role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -8931,6 +10409,97 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"CalendarConnection"> | Date | string
   }
 
+  export type HouseholdInvitationWhereInput = {
+    AND?: HouseholdInvitationWhereInput | HouseholdInvitationWhereInput[]
+    OR?: HouseholdInvitationWhereInput[]
+    NOT?: HouseholdInvitationWhereInput | HouseholdInvitationWhereInput[]
+    id?: StringFilter<"HouseholdInvitation"> | string
+    householdId?: StringFilter<"HouseholdInvitation"> | string
+    inviterId?: StringFilter<"HouseholdInvitation"> | string
+    inviteeId?: StringNullableFilter<"HouseholdInvitation"> | string | null
+    phoneNumber?: StringFilter<"HouseholdInvitation"> | string
+    name?: StringNullableFilter<"HouseholdInvitation"> | string | null
+    status?: EnumInvitationStatusFilter<"HouseholdInvitation"> | $Enums.InvitationStatus
+    token?: StringFilter<"HouseholdInvitation"> | string
+    expiresAt?: DateTimeFilter<"HouseholdInvitation"> | Date | string
+    createdAt?: DateTimeFilter<"HouseholdInvitation"> | Date | string
+    updatedAt?: DateTimeFilter<"HouseholdInvitation"> | Date | string
+    household?: XOR<HouseholdScalarRelationFilter, HouseholdWhereInput>
+    inviter?: XOR<UserScalarRelationFilter, UserWhereInput>
+    invitee?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type HouseholdInvitationOrderByWithRelationInput = {
+    id?: SortOrder
+    householdId?: SortOrder
+    inviterId?: SortOrder
+    inviteeId?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrder
+    name?: SortOrderInput | SortOrder
+    status?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    household?: HouseholdOrderByWithRelationInput
+    inviter?: UserOrderByWithRelationInput
+    invitee?: UserOrderByWithRelationInput
+  }
+
+  export type HouseholdInvitationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    inviteeId?: string
+    token?: string
+    AND?: HouseholdInvitationWhereInput | HouseholdInvitationWhereInput[]
+    OR?: HouseholdInvitationWhereInput[]
+    NOT?: HouseholdInvitationWhereInput | HouseholdInvitationWhereInput[]
+    householdId?: StringFilter<"HouseholdInvitation"> | string
+    inviterId?: StringFilter<"HouseholdInvitation"> | string
+    phoneNumber?: StringFilter<"HouseholdInvitation"> | string
+    name?: StringNullableFilter<"HouseholdInvitation"> | string | null
+    status?: EnumInvitationStatusFilter<"HouseholdInvitation"> | $Enums.InvitationStatus
+    expiresAt?: DateTimeFilter<"HouseholdInvitation"> | Date | string
+    createdAt?: DateTimeFilter<"HouseholdInvitation"> | Date | string
+    updatedAt?: DateTimeFilter<"HouseholdInvitation"> | Date | string
+    household?: XOR<HouseholdScalarRelationFilter, HouseholdWhereInput>
+    inviter?: XOR<UserScalarRelationFilter, UserWhereInput>
+    invitee?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id" | "inviteeId" | "token">
+
+  export type HouseholdInvitationOrderByWithAggregationInput = {
+    id?: SortOrder
+    householdId?: SortOrder
+    inviterId?: SortOrder
+    inviteeId?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrder
+    name?: SortOrderInput | SortOrder
+    status?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: HouseholdInvitationCountOrderByAggregateInput
+    _max?: HouseholdInvitationMaxOrderByAggregateInput
+    _min?: HouseholdInvitationMinOrderByAggregateInput
+  }
+
+  export type HouseholdInvitationScalarWhereWithAggregatesInput = {
+    AND?: HouseholdInvitationScalarWhereWithAggregatesInput | HouseholdInvitationScalarWhereWithAggregatesInput[]
+    OR?: HouseholdInvitationScalarWhereWithAggregatesInput[]
+    NOT?: HouseholdInvitationScalarWhereWithAggregatesInput | HouseholdInvitationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"HouseholdInvitation"> | string
+    householdId?: StringWithAggregatesFilter<"HouseholdInvitation"> | string
+    inviterId?: StringWithAggregatesFilter<"HouseholdInvitation"> | string
+    inviteeId?: StringNullableWithAggregatesFilter<"HouseholdInvitation"> | string | null
+    phoneNumber?: StringWithAggregatesFilter<"HouseholdInvitation"> | string
+    name?: StringNullableWithAggregatesFilter<"HouseholdInvitation"> | string | null
+    status?: EnumInvitationStatusWithAggregatesFilter<"HouseholdInvitation"> | $Enums.InvitationStatus
+    token?: StringWithAggregatesFilter<"HouseholdInvitation"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"HouseholdInvitation"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"HouseholdInvitation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"HouseholdInvitation"> | Date | string
+  }
+
   export type HouseholdCreateInput = {
     id?: string
     name: string
@@ -8938,6 +10507,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     members?: UserCreateNestedManyWithoutHouseholdInput
     chores?: ChoreCreateNestedManyWithoutHouseholdInput
+    invitations?: HouseholdInvitationCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateInput = {
@@ -8947,6 +10517,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     members?: UserUncheckedCreateNestedManyWithoutHouseholdInput
     chores?: ChoreUncheckedCreateNestedManyWithoutHouseholdInput
+    invitations?: HouseholdInvitationUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUpdateInput = {
@@ -8956,6 +10527,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserUpdateManyWithoutHouseholdNestedInput
     chores?: ChoreUpdateManyWithoutHouseholdNestedInput
+    invitations?: HouseholdInvitationUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateInput = {
@@ -8965,6 +10537,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserUncheckedUpdateManyWithoutHouseholdNestedInput
     chores?: ChoreUncheckedUpdateManyWithoutHouseholdNestedInput
+    invitations?: HouseholdInvitationUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdCreateManyInput = {
@@ -8992,51 +10565,69 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    phone?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     household: HouseholdCreateNestedOneWithoutMembersInput
     assignedChores?: ChoreScheduleCreateNestedManyWithoutAssignedToInput
     calendarConnections?: CalendarConnectionCreateNestedManyWithoutUserInput
+    sentInvitations?: HouseholdInvitationCreateNestedManyWithoutInviterInput
+    receivedInvitation?: HouseholdInvitationCreateNestedOneWithoutInviteeInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     name: string
     email: string
+    phone?: string | null
     householdId: string
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedChores?: ChoreScheduleUncheckedCreateNestedManyWithoutAssignedToInput
     calendarConnections?: CalendarConnectionUncheckedCreateNestedManyWithoutUserInput
+    sentInvitations?: HouseholdInvitationUncheckedCreateNestedManyWithoutInviterInput
+    receivedInvitation?: HouseholdInvitationUncheckedCreateNestedOneWithoutInviteeInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     household?: HouseholdUpdateOneRequiredWithoutMembersNestedInput
     assignedChores?: ChoreScheduleUpdateManyWithoutAssignedToNestedInput
     calendarConnections?: CalendarConnectionUpdateManyWithoutUserNestedInput
+    sentInvitations?: HouseholdInvitationUpdateManyWithoutInviterNestedInput
+    receivedInvitation?: HouseholdInvitationUpdateOneWithoutInviteeNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     householdId?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedChores?: ChoreScheduleUncheckedUpdateManyWithoutAssignedToNestedInput
     calendarConnections?: CalendarConnectionUncheckedUpdateManyWithoutUserNestedInput
+    sentInvitations?: HouseholdInvitationUncheckedUpdateManyWithoutInviterNestedInput
+    receivedInvitation?: HouseholdInvitationUncheckedUpdateOneWithoutInviteeNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     name: string
     email: string
+    phone?: string | null
     householdId: string
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9045,6 +10636,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9053,7 +10646,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     householdId?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9397,6 +10992,101 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type HouseholdInvitationCreateInput = {
+    id?: string
+    phoneNumber: string
+    name?: string | null
+    status?: $Enums.InvitationStatus
+    token?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    household: HouseholdCreateNestedOneWithoutInvitationsInput
+    inviter: UserCreateNestedOneWithoutSentInvitationsInput
+    invitee?: UserCreateNestedOneWithoutReceivedInvitationInput
+  }
+
+  export type HouseholdInvitationUncheckedCreateInput = {
+    id?: string
+    householdId: string
+    inviterId: string
+    inviteeId?: string | null
+    phoneNumber: string
+    name?: string | null
+    status?: $Enums.InvitationStatus
+    token?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HouseholdInvitationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    household?: HouseholdUpdateOneRequiredWithoutInvitationsNestedInput
+    inviter?: UserUpdateOneRequiredWithoutSentInvitationsNestedInput
+    invitee?: UserUpdateOneWithoutReceivedInvitationNestedInput
+  }
+
+  export type HouseholdInvitationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    householdId?: StringFieldUpdateOperationsInput | string
+    inviterId?: StringFieldUpdateOperationsInput | string
+    inviteeId?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HouseholdInvitationCreateManyInput = {
+    id?: string
+    householdId: string
+    inviterId: string
+    inviteeId?: string | null
+    phoneNumber: string
+    name?: string | null
+    status?: $Enums.InvitationStatus
+    token?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HouseholdInvitationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HouseholdInvitationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    householdId?: StringFieldUpdateOperationsInput | string
+    inviterId?: StringFieldUpdateOperationsInput | string
+    inviteeId?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9435,11 +11125,21 @@ export namespace Prisma {
     none?: ChoreWhereInput
   }
 
+  export type HouseholdInvitationListRelationFilter = {
+    every?: HouseholdInvitationWhereInput
+    some?: HouseholdInvitationWhereInput
+    none?: HouseholdInvitationWhereInput
+  }
+
   export type UserOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type ChoreOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HouseholdInvitationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9496,6 +11196,28 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type EnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
   export type HouseholdScalarRelationFilter = {
     is?: HouseholdWhereInput
     isNot?: HouseholdWhereInput
@@ -9513,6 +11235,16 @@ export namespace Prisma {
     none?: CalendarConnectionWhereInput
   }
 
+  export type HouseholdInvitationNullableScalarRelationFilter = {
+    is?: HouseholdInvitationWhereInput | null
+    isNot?: HouseholdInvitationWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type ChoreScheduleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -9525,7 +11257,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phone?: SortOrder
     householdId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9534,7 +11268,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phone?: SortOrder
     householdId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9543,12 +11279,14 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phone?: SortOrder
     householdId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -9560,7 +11298,20 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -9617,11 +11368,6 @@ export namespace Prisma {
     every?: ChoreInstructionWhereInput
     some?: ChoreInstructionWhereInput
     none?: ChoreInstructionWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type ChoreInstructionOrderByRelationAggregateInput = {
@@ -9684,24 +11430,6 @@ export namespace Prisma {
     selectedWeekdays?: SortOrder
     estimatedMinutes?: SortOrder
     scheduledTime?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumRecurrenceTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -9920,6 +11648,65 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EnumInvitationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvitationStatus | EnumInvitationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvitationStatusFilter<$PrismaModel> | $Enums.InvitationStatus
+  }
+
+  export type HouseholdInvitationCountOrderByAggregateInput = {
+    id?: SortOrder
+    householdId?: SortOrder
+    inviterId?: SortOrder
+    inviteeId?: SortOrder
+    phoneNumber?: SortOrder
+    name?: SortOrder
+    status?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HouseholdInvitationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    householdId?: SortOrder
+    inviterId?: SortOrder
+    inviteeId?: SortOrder
+    phoneNumber?: SortOrder
+    name?: SortOrder
+    status?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HouseholdInvitationMinOrderByAggregateInput = {
+    id?: SortOrder
+    householdId?: SortOrder
+    inviterId?: SortOrder
+    inviteeId?: SortOrder
+    phoneNumber?: SortOrder
+    name?: SortOrder
+    status?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumInvitationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvitationStatus | EnumInvitationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvitationStatusWithAggregatesFilter<$PrismaModel> | $Enums.InvitationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumInvitationStatusFilter<$PrismaModel>
+    _max?: NestedEnumInvitationStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateNestedManyWithoutHouseholdInput = {
     create?: XOR<UserCreateWithoutHouseholdInput, UserUncheckedCreateWithoutHouseholdInput> | UserCreateWithoutHouseholdInput[] | UserUncheckedCreateWithoutHouseholdInput[]
     connectOrCreate?: UserCreateOrConnectWithoutHouseholdInput | UserCreateOrConnectWithoutHouseholdInput[]
@@ -9934,6 +11721,13 @@ export namespace Prisma {
     connect?: ChoreWhereUniqueInput | ChoreWhereUniqueInput[]
   }
 
+  export type HouseholdInvitationCreateNestedManyWithoutHouseholdInput = {
+    create?: XOR<HouseholdInvitationCreateWithoutHouseholdInput, HouseholdInvitationUncheckedCreateWithoutHouseholdInput> | HouseholdInvitationCreateWithoutHouseholdInput[] | HouseholdInvitationUncheckedCreateWithoutHouseholdInput[]
+    connectOrCreate?: HouseholdInvitationCreateOrConnectWithoutHouseholdInput | HouseholdInvitationCreateOrConnectWithoutHouseholdInput[]
+    createMany?: HouseholdInvitationCreateManyHouseholdInputEnvelope
+    connect?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutHouseholdInput = {
     create?: XOR<UserCreateWithoutHouseholdInput, UserUncheckedCreateWithoutHouseholdInput> | UserCreateWithoutHouseholdInput[] | UserUncheckedCreateWithoutHouseholdInput[]
     connectOrCreate?: UserCreateOrConnectWithoutHouseholdInput | UserCreateOrConnectWithoutHouseholdInput[]
@@ -9946,6 +11740,13 @@ export namespace Prisma {
     connectOrCreate?: ChoreCreateOrConnectWithoutHouseholdInput | ChoreCreateOrConnectWithoutHouseholdInput[]
     createMany?: ChoreCreateManyHouseholdInputEnvelope
     connect?: ChoreWhereUniqueInput | ChoreWhereUniqueInput[]
+  }
+
+  export type HouseholdInvitationUncheckedCreateNestedManyWithoutHouseholdInput = {
+    create?: XOR<HouseholdInvitationCreateWithoutHouseholdInput, HouseholdInvitationUncheckedCreateWithoutHouseholdInput> | HouseholdInvitationCreateWithoutHouseholdInput[] | HouseholdInvitationUncheckedCreateWithoutHouseholdInput[]
+    connectOrCreate?: HouseholdInvitationCreateOrConnectWithoutHouseholdInput | HouseholdInvitationCreateOrConnectWithoutHouseholdInput[]
+    createMany?: HouseholdInvitationCreateManyHouseholdInputEnvelope
+    connect?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -9984,6 +11785,20 @@ export namespace Prisma {
     deleteMany?: ChoreScalarWhereInput | ChoreScalarWhereInput[]
   }
 
+  export type HouseholdInvitationUpdateManyWithoutHouseholdNestedInput = {
+    create?: XOR<HouseholdInvitationCreateWithoutHouseholdInput, HouseholdInvitationUncheckedCreateWithoutHouseholdInput> | HouseholdInvitationCreateWithoutHouseholdInput[] | HouseholdInvitationUncheckedCreateWithoutHouseholdInput[]
+    connectOrCreate?: HouseholdInvitationCreateOrConnectWithoutHouseholdInput | HouseholdInvitationCreateOrConnectWithoutHouseholdInput[]
+    upsert?: HouseholdInvitationUpsertWithWhereUniqueWithoutHouseholdInput | HouseholdInvitationUpsertWithWhereUniqueWithoutHouseholdInput[]
+    createMany?: HouseholdInvitationCreateManyHouseholdInputEnvelope
+    set?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    disconnect?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    delete?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    connect?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    update?: HouseholdInvitationUpdateWithWhereUniqueWithoutHouseholdInput | HouseholdInvitationUpdateWithWhereUniqueWithoutHouseholdInput[]
+    updateMany?: HouseholdInvitationUpdateManyWithWhereWithoutHouseholdInput | HouseholdInvitationUpdateManyWithWhereWithoutHouseholdInput[]
+    deleteMany?: HouseholdInvitationScalarWhereInput | HouseholdInvitationScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutHouseholdNestedInput = {
     create?: XOR<UserCreateWithoutHouseholdInput, UserUncheckedCreateWithoutHouseholdInput> | UserCreateWithoutHouseholdInput[] | UserUncheckedCreateWithoutHouseholdInput[]
     connectOrCreate?: UserCreateOrConnectWithoutHouseholdInput | UserCreateOrConnectWithoutHouseholdInput[]
@@ -10012,6 +11827,20 @@ export namespace Prisma {
     deleteMany?: ChoreScalarWhereInput | ChoreScalarWhereInput[]
   }
 
+  export type HouseholdInvitationUncheckedUpdateManyWithoutHouseholdNestedInput = {
+    create?: XOR<HouseholdInvitationCreateWithoutHouseholdInput, HouseholdInvitationUncheckedCreateWithoutHouseholdInput> | HouseholdInvitationCreateWithoutHouseholdInput[] | HouseholdInvitationUncheckedCreateWithoutHouseholdInput[]
+    connectOrCreate?: HouseholdInvitationCreateOrConnectWithoutHouseholdInput | HouseholdInvitationCreateOrConnectWithoutHouseholdInput[]
+    upsert?: HouseholdInvitationUpsertWithWhereUniqueWithoutHouseholdInput | HouseholdInvitationUpsertWithWhereUniqueWithoutHouseholdInput[]
+    createMany?: HouseholdInvitationCreateManyHouseholdInputEnvelope
+    set?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    disconnect?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    delete?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    connect?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    update?: HouseholdInvitationUpdateWithWhereUniqueWithoutHouseholdInput | HouseholdInvitationUpdateWithWhereUniqueWithoutHouseholdInput[]
+    updateMany?: HouseholdInvitationUpdateManyWithWhereWithoutHouseholdInput | HouseholdInvitationUpdateManyWithWhereWithoutHouseholdInput[]
+    deleteMany?: HouseholdInvitationScalarWhereInput | HouseholdInvitationScalarWhereInput[]
+  }
+
   export type HouseholdCreateNestedOneWithoutMembersInput = {
     create?: XOR<HouseholdCreateWithoutMembersInput, HouseholdUncheckedCreateWithoutMembersInput>
     connectOrCreate?: HouseholdCreateOrConnectWithoutMembersInput
@@ -10032,6 +11861,19 @@ export namespace Prisma {
     connect?: CalendarConnectionWhereUniqueInput | CalendarConnectionWhereUniqueInput[]
   }
 
+  export type HouseholdInvitationCreateNestedManyWithoutInviterInput = {
+    create?: XOR<HouseholdInvitationCreateWithoutInviterInput, HouseholdInvitationUncheckedCreateWithoutInviterInput> | HouseholdInvitationCreateWithoutInviterInput[] | HouseholdInvitationUncheckedCreateWithoutInviterInput[]
+    connectOrCreate?: HouseholdInvitationCreateOrConnectWithoutInviterInput | HouseholdInvitationCreateOrConnectWithoutInviterInput[]
+    createMany?: HouseholdInvitationCreateManyInviterInputEnvelope
+    connect?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+  }
+
+  export type HouseholdInvitationCreateNestedOneWithoutInviteeInput = {
+    create?: XOR<HouseholdInvitationCreateWithoutInviteeInput, HouseholdInvitationUncheckedCreateWithoutInviteeInput>
+    connectOrCreate?: HouseholdInvitationCreateOrConnectWithoutInviteeInput
+    connect?: HouseholdInvitationWhereUniqueInput
+  }
+
   export type ChoreScheduleUncheckedCreateNestedManyWithoutAssignedToInput = {
     create?: XOR<ChoreScheduleCreateWithoutAssignedToInput, ChoreScheduleUncheckedCreateWithoutAssignedToInput> | ChoreScheduleCreateWithoutAssignedToInput[] | ChoreScheduleUncheckedCreateWithoutAssignedToInput[]
     connectOrCreate?: ChoreScheduleCreateOrConnectWithoutAssignedToInput | ChoreScheduleCreateOrConnectWithoutAssignedToInput[]
@@ -10044,6 +11886,27 @@ export namespace Prisma {
     connectOrCreate?: CalendarConnectionCreateOrConnectWithoutUserInput | CalendarConnectionCreateOrConnectWithoutUserInput[]
     createMany?: CalendarConnectionCreateManyUserInputEnvelope
     connect?: CalendarConnectionWhereUniqueInput | CalendarConnectionWhereUniqueInput[]
+  }
+
+  export type HouseholdInvitationUncheckedCreateNestedManyWithoutInviterInput = {
+    create?: XOR<HouseholdInvitationCreateWithoutInviterInput, HouseholdInvitationUncheckedCreateWithoutInviterInput> | HouseholdInvitationCreateWithoutInviterInput[] | HouseholdInvitationUncheckedCreateWithoutInviterInput[]
+    connectOrCreate?: HouseholdInvitationCreateOrConnectWithoutInviterInput | HouseholdInvitationCreateOrConnectWithoutInviterInput[]
+    createMany?: HouseholdInvitationCreateManyInviterInputEnvelope
+    connect?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+  }
+
+  export type HouseholdInvitationUncheckedCreateNestedOneWithoutInviteeInput = {
+    create?: XOR<HouseholdInvitationCreateWithoutInviteeInput, HouseholdInvitationUncheckedCreateWithoutInviteeInput>
+    connectOrCreate?: HouseholdInvitationCreateOrConnectWithoutInviteeInput
+    connect?: HouseholdInvitationWhereUniqueInput
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type EnumUserRoleFieldUpdateOperationsInput = {
+    set?: $Enums.UserRole
   }
 
   export type HouseholdUpdateOneRequiredWithoutMembersNestedInput = {
@@ -10082,6 +11945,30 @@ export namespace Prisma {
     deleteMany?: CalendarConnectionScalarWhereInput | CalendarConnectionScalarWhereInput[]
   }
 
+  export type HouseholdInvitationUpdateManyWithoutInviterNestedInput = {
+    create?: XOR<HouseholdInvitationCreateWithoutInviterInput, HouseholdInvitationUncheckedCreateWithoutInviterInput> | HouseholdInvitationCreateWithoutInviterInput[] | HouseholdInvitationUncheckedCreateWithoutInviterInput[]
+    connectOrCreate?: HouseholdInvitationCreateOrConnectWithoutInviterInput | HouseholdInvitationCreateOrConnectWithoutInviterInput[]
+    upsert?: HouseholdInvitationUpsertWithWhereUniqueWithoutInviterInput | HouseholdInvitationUpsertWithWhereUniqueWithoutInviterInput[]
+    createMany?: HouseholdInvitationCreateManyInviterInputEnvelope
+    set?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    disconnect?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    delete?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    connect?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    update?: HouseholdInvitationUpdateWithWhereUniqueWithoutInviterInput | HouseholdInvitationUpdateWithWhereUniqueWithoutInviterInput[]
+    updateMany?: HouseholdInvitationUpdateManyWithWhereWithoutInviterInput | HouseholdInvitationUpdateManyWithWhereWithoutInviterInput[]
+    deleteMany?: HouseholdInvitationScalarWhereInput | HouseholdInvitationScalarWhereInput[]
+  }
+
+  export type HouseholdInvitationUpdateOneWithoutInviteeNestedInput = {
+    create?: XOR<HouseholdInvitationCreateWithoutInviteeInput, HouseholdInvitationUncheckedCreateWithoutInviteeInput>
+    connectOrCreate?: HouseholdInvitationCreateOrConnectWithoutInviteeInput
+    upsert?: HouseholdInvitationUpsertWithoutInviteeInput
+    disconnect?: HouseholdInvitationWhereInput | boolean
+    delete?: HouseholdInvitationWhereInput | boolean
+    connect?: HouseholdInvitationWhereUniqueInput
+    update?: XOR<XOR<HouseholdInvitationUpdateToOneWithWhereWithoutInviteeInput, HouseholdInvitationUpdateWithoutInviteeInput>, HouseholdInvitationUncheckedUpdateWithoutInviteeInput>
+  }
+
   export type ChoreScheduleUncheckedUpdateManyWithoutAssignedToNestedInput = {
     create?: XOR<ChoreScheduleCreateWithoutAssignedToInput, ChoreScheduleUncheckedCreateWithoutAssignedToInput> | ChoreScheduleCreateWithoutAssignedToInput[] | ChoreScheduleUncheckedCreateWithoutAssignedToInput[]
     connectOrCreate?: ChoreScheduleCreateOrConnectWithoutAssignedToInput | ChoreScheduleCreateOrConnectWithoutAssignedToInput[]
@@ -10108,6 +11995,30 @@ export namespace Prisma {
     update?: CalendarConnectionUpdateWithWhereUniqueWithoutUserInput | CalendarConnectionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CalendarConnectionUpdateManyWithWhereWithoutUserInput | CalendarConnectionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CalendarConnectionScalarWhereInput | CalendarConnectionScalarWhereInput[]
+  }
+
+  export type HouseholdInvitationUncheckedUpdateManyWithoutInviterNestedInput = {
+    create?: XOR<HouseholdInvitationCreateWithoutInviterInput, HouseholdInvitationUncheckedCreateWithoutInviterInput> | HouseholdInvitationCreateWithoutInviterInput[] | HouseholdInvitationUncheckedCreateWithoutInviterInput[]
+    connectOrCreate?: HouseholdInvitationCreateOrConnectWithoutInviterInput | HouseholdInvitationCreateOrConnectWithoutInviterInput[]
+    upsert?: HouseholdInvitationUpsertWithWhereUniqueWithoutInviterInput | HouseholdInvitationUpsertWithWhereUniqueWithoutInviterInput[]
+    createMany?: HouseholdInvitationCreateManyInviterInputEnvelope
+    set?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    disconnect?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    delete?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    connect?: HouseholdInvitationWhereUniqueInput | HouseholdInvitationWhereUniqueInput[]
+    update?: HouseholdInvitationUpdateWithWhereUniqueWithoutInviterInput | HouseholdInvitationUpdateWithWhereUniqueWithoutInviterInput[]
+    updateMany?: HouseholdInvitationUpdateManyWithWhereWithoutInviterInput | HouseholdInvitationUpdateManyWithWhereWithoutInviterInput[]
+    deleteMany?: HouseholdInvitationScalarWhereInput | HouseholdInvitationScalarWhereInput[]
+  }
+
+  export type HouseholdInvitationUncheckedUpdateOneWithoutInviteeNestedInput = {
+    create?: XOR<HouseholdInvitationCreateWithoutInviteeInput, HouseholdInvitationUncheckedCreateWithoutInviteeInput>
+    connectOrCreate?: HouseholdInvitationCreateOrConnectWithoutInviteeInput
+    upsert?: HouseholdInvitationUpsertWithoutInviteeInput
+    disconnect?: HouseholdInvitationWhereInput | boolean
+    delete?: HouseholdInvitationWhereInput | boolean
+    connect?: HouseholdInvitationWhereUniqueInput
+    update?: XOR<XOR<HouseholdInvitationUpdateToOneWithWhereWithoutInviteeInput, HouseholdInvitationUpdateWithoutInviteeInput>, HouseholdInvitationUncheckedUpdateWithoutInviteeInput>
   }
 
   export type ChoreCreatedescriptionListInput = {
@@ -10150,10 +12061,6 @@ export namespace Prisma {
     connectOrCreate?: ChoreScheduleCreateOrConnectWithoutChoreInput | ChoreScheduleCreateOrConnectWithoutChoreInput[]
     createMany?: ChoreScheduleCreateManyChoreInputEnvelope
     connect?: ChoreScheduleWhereUniqueInput | ChoreScheduleWhereUniqueInput[]
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type ChoreUpdatedescriptionListInput = {
@@ -10320,6 +12227,54 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCalendarConnectionsInput, UserUpdateWithoutCalendarConnectionsInput>, UserUncheckedUpdateWithoutCalendarConnectionsInput>
   }
 
+  export type HouseholdCreateNestedOneWithoutInvitationsInput = {
+    create?: XOR<HouseholdCreateWithoutInvitationsInput, HouseholdUncheckedCreateWithoutInvitationsInput>
+    connectOrCreate?: HouseholdCreateOrConnectWithoutInvitationsInput
+    connect?: HouseholdWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutSentInvitationsInput = {
+    create?: XOR<UserCreateWithoutSentInvitationsInput, UserUncheckedCreateWithoutSentInvitationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSentInvitationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutReceivedInvitationInput = {
+    create?: XOR<UserCreateWithoutReceivedInvitationInput, UserUncheckedCreateWithoutReceivedInvitationInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedInvitationInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumInvitationStatusFieldUpdateOperationsInput = {
+    set?: $Enums.InvitationStatus
+  }
+
+  export type HouseholdUpdateOneRequiredWithoutInvitationsNestedInput = {
+    create?: XOR<HouseholdCreateWithoutInvitationsInput, HouseholdUncheckedCreateWithoutInvitationsInput>
+    connectOrCreate?: HouseholdCreateOrConnectWithoutInvitationsInput
+    upsert?: HouseholdUpsertWithoutInvitationsInput
+    connect?: HouseholdWhereUniqueInput
+    update?: XOR<XOR<HouseholdUpdateToOneWithWhereWithoutInvitationsInput, HouseholdUpdateWithoutInvitationsInput>, HouseholdUncheckedUpdateWithoutInvitationsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutSentInvitationsNestedInput = {
+    create?: XOR<UserCreateWithoutSentInvitationsInput, UserUncheckedCreateWithoutSentInvitationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSentInvitationsInput
+    upsert?: UserUpsertWithoutSentInvitationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSentInvitationsInput, UserUpdateWithoutSentInvitationsInput>, UserUncheckedUpdateWithoutSentInvitationsInput>
+  }
+
+  export type UserUpdateOneWithoutReceivedInvitationNestedInput = {
+    create?: XOR<UserCreateWithoutReceivedInvitationInput, UserUncheckedCreateWithoutReceivedInvitationInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedInvitationInput
+    upsert?: UserUpsertWithoutReceivedInvitationInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReceivedInvitationInput, UserUpdateWithoutReceivedInvitationInput>, UserUncheckedUpdateWithoutReceivedInvitationInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -10401,27 +12356,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedEnumRecurrenceTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.RecurrenceType | EnumRecurrenceTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.RecurrenceType[] | ListEnumRecurrenceTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.RecurrenceType[] | ListEnumRecurrenceTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumRecurrenceTypeFilter<$PrismaModel> | $Enums.RecurrenceType
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -10439,6 +12378,39 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRecurrenceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RecurrenceType | EnumRecurrenceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RecurrenceType[] | ListEnumRecurrenceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RecurrenceType[] | ListEnumRecurrenceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRecurrenceTypeFilter<$PrismaModel> | $Enums.RecurrenceType
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedEnumRecurrenceTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -10555,24 +12527,49 @@ export namespace Prisma {
     _max?: NestedEnumScheduleStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumInvitationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvitationStatus | EnumInvitationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvitationStatusFilter<$PrismaModel> | $Enums.InvitationStatus
+  }
+
+  export type NestedEnumInvitationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvitationStatus | EnumInvitationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvitationStatusWithAggregatesFilter<$PrismaModel> | $Enums.InvitationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumInvitationStatusFilter<$PrismaModel>
+    _max?: NestedEnumInvitationStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutHouseholdInput = {
     id?: string
     name: string
     email: string
+    phone?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedChores?: ChoreScheduleCreateNestedManyWithoutAssignedToInput
     calendarConnections?: CalendarConnectionCreateNestedManyWithoutUserInput
+    sentInvitations?: HouseholdInvitationCreateNestedManyWithoutInviterInput
+    receivedInvitation?: HouseholdInvitationCreateNestedOneWithoutInviteeInput
   }
 
   export type UserUncheckedCreateWithoutHouseholdInput = {
     id?: string
     name: string
     email: string
+    phone?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedChores?: ChoreScheduleUncheckedCreateNestedManyWithoutAssignedToInput
     calendarConnections?: CalendarConnectionUncheckedCreateNestedManyWithoutUserInput
+    sentInvitations?: HouseholdInvitationUncheckedCreateNestedManyWithoutInviterInput
+    receivedInvitation?: HouseholdInvitationUncheckedCreateNestedOneWithoutInviteeInput
   }
 
   export type UserCreateOrConnectWithoutHouseholdInput = {
@@ -10629,6 +12626,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type HouseholdInvitationCreateWithoutHouseholdInput = {
+    id?: string
+    phoneNumber: string
+    name?: string | null
+    status?: $Enums.InvitationStatus
+    token?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inviter: UserCreateNestedOneWithoutSentInvitationsInput
+    invitee?: UserCreateNestedOneWithoutReceivedInvitationInput
+  }
+
+  export type HouseholdInvitationUncheckedCreateWithoutHouseholdInput = {
+    id?: string
+    inviterId: string
+    inviteeId?: string | null
+    phoneNumber: string
+    name?: string | null
+    status?: $Enums.InvitationStatus
+    token?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HouseholdInvitationCreateOrConnectWithoutHouseholdInput = {
+    where: HouseholdInvitationWhereUniqueInput
+    create: XOR<HouseholdInvitationCreateWithoutHouseholdInput, HouseholdInvitationUncheckedCreateWithoutHouseholdInput>
+  }
+
+  export type HouseholdInvitationCreateManyHouseholdInputEnvelope = {
+    data: HouseholdInvitationCreateManyHouseholdInput | HouseholdInvitationCreateManyHouseholdInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithWhereUniqueWithoutHouseholdInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutHouseholdInput, UserUncheckedUpdateWithoutHouseholdInput>
@@ -10652,7 +12685,9 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    phone?: StringNullableFilter<"User"> | string | null
     householdId?: StringFilter<"User"> | string
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
   }
@@ -10692,12 +12727,46 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Chore"> | Date | string
   }
 
+  export type HouseholdInvitationUpsertWithWhereUniqueWithoutHouseholdInput = {
+    where: HouseholdInvitationWhereUniqueInput
+    update: XOR<HouseholdInvitationUpdateWithoutHouseholdInput, HouseholdInvitationUncheckedUpdateWithoutHouseholdInput>
+    create: XOR<HouseholdInvitationCreateWithoutHouseholdInput, HouseholdInvitationUncheckedCreateWithoutHouseholdInput>
+  }
+
+  export type HouseholdInvitationUpdateWithWhereUniqueWithoutHouseholdInput = {
+    where: HouseholdInvitationWhereUniqueInput
+    data: XOR<HouseholdInvitationUpdateWithoutHouseholdInput, HouseholdInvitationUncheckedUpdateWithoutHouseholdInput>
+  }
+
+  export type HouseholdInvitationUpdateManyWithWhereWithoutHouseholdInput = {
+    where: HouseholdInvitationScalarWhereInput
+    data: XOR<HouseholdInvitationUpdateManyMutationInput, HouseholdInvitationUncheckedUpdateManyWithoutHouseholdInput>
+  }
+
+  export type HouseholdInvitationScalarWhereInput = {
+    AND?: HouseholdInvitationScalarWhereInput | HouseholdInvitationScalarWhereInput[]
+    OR?: HouseholdInvitationScalarWhereInput[]
+    NOT?: HouseholdInvitationScalarWhereInput | HouseholdInvitationScalarWhereInput[]
+    id?: StringFilter<"HouseholdInvitation"> | string
+    householdId?: StringFilter<"HouseholdInvitation"> | string
+    inviterId?: StringFilter<"HouseholdInvitation"> | string
+    inviteeId?: StringNullableFilter<"HouseholdInvitation"> | string | null
+    phoneNumber?: StringFilter<"HouseholdInvitation"> | string
+    name?: StringNullableFilter<"HouseholdInvitation"> | string | null
+    status?: EnumInvitationStatusFilter<"HouseholdInvitation"> | $Enums.InvitationStatus
+    token?: StringFilter<"HouseholdInvitation"> | string
+    expiresAt?: DateTimeFilter<"HouseholdInvitation"> | Date | string
+    createdAt?: DateTimeFilter<"HouseholdInvitation"> | Date | string
+    updatedAt?: DateTimeFilter<"HouseholdInvitation"> | Date | string
+  }
+
   export type HouseholdCreateWithoutMembersInput = {
     id?: string
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     chores?: ChoreCreateNestedManyWithoutHouseholdInput
+    invitations?: HouseholdInvitationCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateWithoutMembersInput = {
@@ -10706,6 +12775,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     chores?: ChoreUncheckedCreateNestedManyWithoutHouseholdInput
+    invitations?: HouseholdInvitationUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdCreateOrConnectWithoutMembersInput = {
@@ -10775,6 +12845,73 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type HouseholdInvitationCreateWithoutInviterInput = {
+    id?: string
+    phoneNumber: string
+    name?: string | null
+    status?: $Enums.InvitationStatus
+    token?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    household: HouseholdCreateNestedOneWithoutInvitationsInput
+    invitee?: UserCreateNestedOneWithoutReceivedInvitationInput
+  }
+
+  export type HouseholdInvitationUncheckedCreateWithoutInviterInput = {
+    id?: string
+    householdId: string
+    inviteeId?: string | null
+    phoneNumber: string
+    name?: string | null
+    status?: $Enums.InvitationStatus
+    token?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HouseholdInvitationCreateOrConnectWithoutInviterInput = {
+    where: HouseholdInvitationWhereUniqueInput
+    create: XOR<HouseholdInvitationCreateWithoutInviterInput, HouseholdInvitationUncheckedCreateWithoutInviterInput>
+  }
+
+  export type HouseholdInvitationCreateManyInviterInputEnvelope = {
+    data: HouseholdInvitationCreateManyInviterInput | HouseholdInvitationCreateManyInviterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HouseholdInvitationCreateWithoutInviteeInput = {
+    id?: string
+    phoneNumber: string
+    name?: string | null
+    status?: $Enums.InvitationStatus
+    token?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    household: HouseholdCreateNestedOneWithoutInvitationsInput
+    inviter: UserCreateNestedOneWithoutSentInvitationsInput
+  }
+
+  export type HouseholdInvitationUncheckedCreateWithoutInviteeInput = {
+    id?: string
+    householdId: string
+    inviterId: string
+    phoneNumber: string
+    name?: string | null
+    status?: $Enums.InvitationStatus
+    token?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HouseholdInvitationCreateOrConnectWithoutInviteeInput = {
+    where: HouseholdInvitationWhereUniqueInput
+    create: XOR<HouseholdInvitationCreateWithoutInviteeInput, HouseholdInvitationUncheckedCreateWithoutInviteeInput>
+  }
+
   export type HouseholdUpsertWithoutMembersInput = {
     update: XOR<HouseholdUpdateWithoutMembersInput, HouseholdUncheckedUpdateWithoutMembersInput>
     create: XOR<HouseholdCreateWithoutMembersInput, HouseholdUncheckedCreateWithoutMembersInput>
@@ -10792,6 +12929,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chores?: ChoreUpdateManyWithoutHouseholdNestedInput
+    invitations?: HouseholdInvitationUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateWithoutMembersInput = {
@@ -10800,6 +12938,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chores?: ChoreUncheckedUpdateManyWithoutHouseholdNestedInput
+    invitations?: HouseholdInvitationUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type ChoreScheduleUpsertWithWhereUniqueWithoutAssignedToInput = {
@@ -10863,12 +13002,66 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CalendarConnection"> | Date | string
   }
 
+  export type HouseholdInvitationUpsertWithWhereUniqueWithoutInviterInput = {
+    where: HouseholdInvitationWhereUniqueInput
+    update: XOR<HouseholdInvitationUpdateWithoutInviterInput, HouseholdInvitationUncheckedUpdateWithoutInviterInput>
+    create: XOR<HouseholdInvitationCreateWithoutInviterInput, HouseholdInvitationUncheckedCreateWithoutInviterInput>
+  }
+
+  export type HouseholdInvitationUpdateWithWhereUniqueWithoutInviterInput = {
+    where: HouseholdInvitationWhereUniqueInput
+    data: XOR<HouseholdInvitationUpdateWithoutInviterInput, HouseholdInvitationUncheckedUpdateWithoutInviterInput>
+  }
+
+  export type HouseholdInvitationUpdateManyWithWhereWithoutInviterInput = {
+    where: HouseholdInvitationScalarWhereInput
+    data: XOR<HouseholdInvitationUpdateManyMutationInput, HouseholdInvitationUncheckedUpdateManyWithoutInviterInput>
+  }
+
+  export type HouseholdInvitationUpsertWithoutInviteeInput = {
+    update: XOR<HouseholdInvitationUpdateWithoutInviteeInput, HouseholdInvitationUncheckedUpdateWithoutInviteeInput>
+    create: XOR<HouseholdInvitationCreateWithoutInviteeInput, HouseholdInvitationUncheckedCreateWithoutInviteeInput>
+    where?: HouseholdInvitationWhereInput
+  }
+
+  export type HouseholdInvitationUpdateToOneWithWhereWithoutInviteeInput = {
+    where?: HouseholdInvitationWhereInput
+    data: XOR<HouseholdInvitationUpdateWithoutInviteeInput, HouseholdInvitationUncheckedUpdateWithoutInviteeInput>
+  }
+
+  export type HouseholdInvitationUpdateWithoutInviteeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    household?: HouseholdUpdateOneRequiredWithoutInvitationsNestedInput
+    inviter?: UserUpdateOneRequiredWithoutSentInvitationsNestedInput
+  }
+
+  export type HouseholdInvitationUncheckedUpdateWithoutInviteeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    householdId?: StringFieldUpdateOperationsInput | string
+    inviterId?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type HouseholdCreateWithoutChoresInput = {
     id?: string
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: UserCreateNestedManyWithoutHouseholdInput
+    invitations?: HouseholdInvitationCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateWithoutChoresInput = {
@@ -10877,6 +13070,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: UserUncheckedCreateNestedManyWithoutHouseholdInput
+    invitations?: HouseholdInvitationUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdCreateOrConnectWithoutChoresInput = {
@@ -10957,6 +13151,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserUpdateManyWithoutHouseholdNestedInput
+    invitations?: HouseholdInvitationUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateWithoutChoresInput = {
@@ -10965,6 +13160,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserUncheckedUpdateManyWithoutHouseholdNestedInput
+    invitations?: HouseholdInvitationUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type ChoreInstructionUpsertWithWhereUniqueWithoutChoreInput = {
@@ -11138,20 +13334,28 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    phone?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     household: HouseholdCreateNestedOneWithoutMembersInput
     calendarConnections?: CalendarConnectionCreateNestedManyWithoutUserInput
+    sentInvitations?: HouseholdInvitationCreateNestedManyWithoutInviterInput
+    receivedInvitation?: HouseholdInvitationCreateNestedOneWithoutInviteeInput
   }
 
   export type UserUncheckedCreateWithoutAssignedChoresInput = {
     id?: string
     name: string
     email: string
+    phone?: string | null
     householdId: string
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     calendarConnections?: CalendarConnectionUncheckedCreateNestedManyWithoutUserInput
+    sentInvitations?: HouseholdInvitationUncheckedCreateNestedManyWithoutInviterInput
+    receivedInvitation?: HouseholdInvitationUncheckedCreateNestedOneWithoutInviteeInput
   }
 
   export type UserCreateOrConnectWithoutAssignedChoresInput = {
@@ -11219,40 +13423,56 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     household?: HouseholdUpdateOneRequiredWithoutMembersNestedInput
     calendarConnections?: CalendarConnectionUpdateManyWithoutUserNestedInput
+    sentInvitations?: HouseholdInvitationUpdateManyWithoutInviterNestedInput
+    receivedInvitation?: HouseholdInvitationUpdateOneWithoutInviteeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedChoresInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     householdId?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     calendarConnections?: CalendarConnectionUncheckedUpdateManyWithoutUserNestedInput
+    sentInvitations?: HouseholdInvitationUncheckedUpdateManyWithoutInviterNestedInput
+    receivedInvitation?: HouseholdInvitationUncheckedUpdateOneWithoutInviteeNestedInput
   }
 
   export type UserCreateWithoutCalendarConnectionsInput = {
     id?: string
     name: string
     email: string
+    phone?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     household: HouseholdCreateNestedOneWithoutMembersInput
     assignedChores?: ChoreScheduleCreateNestedManyWithoutAssignedToInput
+    sentInvitations?: HouseholdInvitationCreateNestedManyWithoutInviterInput
+    receivedInvitation?: HouseholdInvitationCreateNestedOneWithoutInviteeInput
   }
 
   export type UserUncheckedCreateWithoutCalendarConnectionsInput = {
     id?: string
     name: string
     email: string
+    phone?: string | null
     householdId: string
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedChores?: ChoreScheduleUncheckedCreateNestedManyWithoutAssignedToInput
+    sentInvitations?: HouseholdInvitationUncheckedCreateNestedManyWithoutInviterInput
+    receivedInvitation?: HouseholdInvitationUncheckedCreateNestedOneWithoutInviteeInput
   }
 
   export type UserCreateOrConnectWithoutCalendarConnectionsInput = {
@@ -11275,26 +13495,232 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     household?: HouseholdUpdateOneRequiredWithoutMembersNestedInput
     assignedChores?: ChoreScheduleUpdateManyWithoutAssignedToNestedInput
+    sentInvitations?: HouseholdInvitationUpdateManyWithoutInviterNestedInput
+    receivedInvitation?: HouseholdInvitationUpdateOneWithoutInviteeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCalendarConnectionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     householdId?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedChores?: ChoreScheduleUncheckedUpdateManyWithoutAssignedToNestedInput
+    sentInvitations?: HouseholdInvitationUncheckedUpdateManyWithoutInviterNestedInput
+    receivedInvitation?: HouseholdInvitationUncheckedUpdateOneWithoutInviteeNestedInput
+  }
+
+  export type HouseholdCreateWithoutInvitationsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: UserCreateNestedManyWithoutHouseholdInput
+    chores?: ChoreCreateNestedManyWithoutHouseholdInput
+  }
+
+  export type HouseholdUncheckedCreateWithoutInvitationsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: UserUncheckedCreateNestedManyWithoutHouseholdInput
+    chores?: ChoreUncheckedCreateNestedManyWithoutHouseholdInput
+  }
+
+  export type HouseholdCreateOrConnectWithoutInvitationsInput = {
+    where: HouseholdWhereUniqueInput
+    create: XOR<HouseholdCreateWithoutInvitationsInput, HouseholdUncheckedCreateWithoutInvitationsInput>
+  }
+
+  export type UserCreateWithoutSentInvitationsInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    household: HouseholdCreateNestedOneWithoutMembersInput
+    assignedChores?: ChoreScheduleCreateNestedManyWithoutAssignedToInput
+    calendarConnections?: CalendarConnectionCreateNestedManyWithoutUserInput
+    receivedInvitation?: HouseholdInvitationCreateNestedOneWithoutInviteeInput
+  }
+
+  export type UserUncheckedCreateWithoutSentInvitationsInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    householdId: string
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedChores?: ChoreScheduleUncheckedCreateNestedManyWithoutAssignedToInput
+    calendarConnections?: CalendarConnectionUncheckedCreateNestedManyWithoutUserInput
+    receivedInvitation?: HouseholdInvitationUncheckedCreateNestedOneWithoutInviteeInput
+  }
+
+  export type UserCreateOrConnectWithoutSentInvitationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSentInvitationsInput, UserUncheckedCreateWithoutSentInvitationsInput>
+  }
+
+  export type UserCreateWithoutReceivedInvitationInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    household: HouseholdCreateNestedOneWithoutMembersInput
+    assignedChores?: ChoreScheduleCreateNestedManyWithoutAssignedToInput
+    calendarConnections?: CalendarConnectionCreateNestedManyWithoutUserInput
+    sentInvitations?: HouseholdInvitationCreateNestedManyWithoutInviterInput
+  }
+
+  export type UserUncheckedCreateWithoutReceivedInvitationInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    householdId: string
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedChores?: ChoreScheduleUncheckedCreateNestedManyWithoutAssignedToInput
+    calendarConnections?: CalendarConnectionUncheckedCreateNestedManyWithoutUserInput
+    sentInvitations?: HouseholdInvitationUncheckedCreateNestedManyWithoutInviterInput
+  }
+
+  export type UserCreateOrConnectWithoutReceivedInvitationInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReceivedInvitationInput, UserUncheckedCreateWithoutReceivedInvitationInput>
+  }
+
+  export type HouseholdUpsertWithoutInvitationsInput = {
+    update: XOR<HouseholdUpdateWithoutInvitationsInput, HouseholdUncheckedUpdateWithoutInvitationsInput>
+    create: XOR<HouseholdCreateWithoutInvitationsInput, HouseholdUncheckedCreateWithoutInvitationsInput>
+    where?: HouseholdWhereInput
+  }
+
+  export type HouseholdUpdateToOneWithWhereWithoutInvitationsInput = {
+    where?: HouseholdWhereInput
+    data: XOR<HouseholdUpdateWithoutInvitationsInput, HouseholdUncheckedUpdateWithoutInvitationsInput>
+  }
+
+  export type HouseholdUpdateWithoutInvitationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: UserUpdateManyWithoutHouseholdNestedInput
+    chores?: ChoreUpdateManyWithoutHouseholdNestedInput
+  }
+
+  export type HouseholdUncheckedUpdateWithoutInvitationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: UserUncheckedUpdateManyWithoutHouseholdNestedInput
+    chores?: ChoreUncheckedUpdateManyWithoutHouseholdNestedInput
+  }
+
+  export type UserUpsertWithoutSentInvitationsInput = {
+    update: XOR<UserUpdateWithoutSentInvitationsInput, UserUncheckedUpdateWithoutSentInvitationsInput>
+    create: XOR<UserCreateWithoutSentInvitationsInput, UserUncheckedCreateWithoutSentInvitationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSentInvitationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSentInvitationsInput, UserUncheckedUpdateWithoutSentInvitationsInput>
+  }
+
+  export type UserUpdateWithoutSentInvitationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    household?: HouseholdUpdateOneRequiredWithoutMembersNestedInput
+    assignedChores?: ChoreScheduleUpdateManyWithoutAssignedToNestedInput
+    calendarConnections?: CalendarConnectionUpdateManyWithoutUserNestedInput
+    receivedInvitation?: HouseholdInvitationUpdateOneWithoutInviteeNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSentInvitationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    householdId?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedChores?: ChoreScheduleUncheckedUpdateManyWithoutAssignedToNestedInput
+    calendarConnections?: CalendarConnectionUncheckedUpdateManyWithoutUserNestedInput
+    receivedInvitation?: HouseholdInvitationUncheckedUpdateOneWithoutInviteeNestedInput
+  }
+
+  export type UserUpsertWithoutReceivedInvitationInput = {
+    update: XOR<UserUpdateWithoutReceivedInvitationInput, UserUncheckedUpdateWithoutReceivedInvitationInput>
+    create: XOR<UserCreateWithoutReceivedInvitationInput, UserUncheckedCreateWithoutReceivedInvitationInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReceivedInvitationInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReceivedInvitationInput, UserUncheckedUpdateWithoutReceivedInvitationInput>
+  }
+
+  export type UserUpdateWithoutReceivedInvitationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    household?: HouseholdUpdateOneRequiredWithoutMembersNestedInput
+    assignedChores?: ChoreScheduleUpdateManyWithoutAssignedToNestedInput
+    calendarConnections?: CalendarConnectionUpdateManyWithoutUserNestedInput
+    sentInvitations?: HouseholdInvitationUpdateManyWithoutInviterNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReceivedInvitationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    householdId?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedChores?: ChoreScheduleUncheckedUpdateManyWithoutAssignedToNestedInput
+    calendarConnections?: CalendarConnectionUncheckedUpdateManyWithoutUserNestedInput
+    sentInvitations?: HouseholdInvitationUncheckedUpdateManyWithoutInviterNestedInput
   }
 
   export type UserCreateManyHouseholdInput = {
     id?: string
     name: string
     email: string
+    phone?: string | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11314,30 +13740,53 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type HouseholdInvitationCreateManyHouseholdInput = {
+    id?: string
+    inviterId: string
+    inviteeId?: string | null
+    phoneNumber: string
+    name?: string | null
+    status?: $Enums.InvitationStatus
+    token?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type UserUpdateWithoutHouseholdInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedChores?: ChoreScheduleUpdateManyWithoutAssignedToNestedInput
     calendarConnections?: CalendarConnectionUpdateManyWithoutUserNestedInput
+    sentInvitations?: HouseholdInvitationUpdateManyWithoutInviterNestedInput
+    receivedInvitation?: HouseholdInvitationUpdateOneWithoutInviteeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHouseholdInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedChores?: ChoreScheduleUncheckedUpdateManyWithoutAssignedToNestedInput
     calendarConnections?: CalendarConnectionUncheckedUpdateManyWithoutUserNestedInput
+    sentInvitations?: HouseholdInvitationUncheckedUpdateManyWithoutInviterNestedInput
+    receivedInvitation?: HouseholdInvitationUncheckedUpdateOneWithoutInviteeNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutHouseholdInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11391,6 +13840,45 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type HouseholdInvitationUpdateWithoutHouseholdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inviter?: UserUpdateOneRequiredWithoutSentInvitationsNestedInput
+    invitee?: UserUpdateOneWithoutReceivedInvitationNestedInput
+  }
+
+  export type HouseholdInvitationUncheckedUpdateWithoutHouseholdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inviterId?: StringFieldUpdateOperationsInput | string
+    inviteeId?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HouseholdInvitationUncheckedUpdateManyWithoutHouseholdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inviterId?: StringFieldUpdateOperationsInput | string
+    inviteeId?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ChoreScheduleCreateManyAssignedToInput = {
     id?: string
     choreId: string
@@ -11408,6 +13896,19 @@ export namespace Prisma {
     refreshToken?: string | null
     expiresAt?: Date | string | null
     isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HouseholdInvitationCreateManyInviterInput = {
+    id?: string
+    householdId: string
+    inviteeId?: string | null
+    phoneNumber: string
+    name?: string | null
+    status?: $Enums.InvitationStatus
+    token?: string
+    expiresAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11471,6 +13972,45 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HouseholdInvitationUpdateWithoutInviterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    household?: HouseholdUpdateOneRequiredWithoutInvitationsNestedInput
+    invitee?: UserUpdateOneWithoutReceivedInvitationNestedInput
+  }
+
+  export type HouseholdInvitationUncheckedUpdateWithoutInviterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    householdId?: StringFieldUpdateOperationsInput | string
+    inviteeId?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HouseholdInvitationUncheckedUpdateManyWithoutInviterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    householdId?: StringFieldUpdateOperationsInput | string
+    inviteeId?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

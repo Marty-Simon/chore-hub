@@ -12,12 +12,13 @@ datasource db {
 
 // Household management
 model Household {
-  id        String   @id @default(cuid())
-  name      String
-  members   User[]
-  chores    Chore[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String                @id @default(cuid())
+  name        String
+  members     User[]
+  chores      Chore[]
+  invitations HouseholdInvitation[]
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
 }
 
 // Users (household members)
@@ -25,12 +26,22 @@ model User {
   id                   String               @id @default(cuid())
   name                 String
   email                String               @unique
+  phone                String?
   householdId          String
   household            Household            @relation(fields: [householdId], references: [id], onDelete: Cascade)
   assignedChores       ChoreSchedule[]
   calendarConnections  CalendarConnection[]
+  sentInvitations      HouseholdInvitation[] @relation("SentInvitations")
+  receivedInvitation   HouseholdInvitation? @relation("ReceivedInvitation")
+  role                 UserRole             @default(MEMBER)
   createdAt            DateTime             @default(now())
   updatedAt            DateTime             @updatedAt
+}
+
+enum UserRole {
+  ADMIN    // Can manage household and invite members
+  MEMBER   // Regular household member
+  CHILD    // Limited permissions
 }
 
 // Chore definitions (templates)
@@ -108,4 +119,32 @@ model CalendarConnection {
   isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+// Household member invitations
+model HouseholdInvitation {
+  id          String            @id @default(cuid())
+  householdId String
+  household   Household         @relation(fields: [householdId], references: [id], onDelete: Cascade)
+  inviterId   String
+  inviter     User              @relation("SentInvitations", fields: [inviterId], references: [id], onDelete: Cascade)
+  inviteeId   String?           @unique
+  invitee     User?             @relation("ReceivedInvitation", fields: [inviteeId], references: [id], onDelete: Cascade)
+  phoneNumber String
+  name        String?
+  status      InvitationStatus  @default(PENDING)
+  token       String            @unique @default(cuid())
+  expiresAt   DateTime
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([phoneNumber])
+  @@index([token])
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  EXPIRED
 }

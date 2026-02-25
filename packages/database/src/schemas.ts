@@ -7,6 +7,8 @@ import { z } from 'zod';
 // Enums
 export const RecurrenceTypeSchema = z.enum(['DAILY', 'WEEKLY', 'MONTHLY']);
 export const ScheduleStatusSchema = z.enum(['PENDING', 'IN_PROGRESS', 'COMPLETED', 'SKIPPED']);
+export const UserRoleSchema = z.enum(['ADMIN', 'MEMBER', 'CHILD']);
+export const InvitationStatusSchema = z.enum(['PENDING', 'ACCEPTED', 'DECLINED', 'EXPIRED']);
 
 // Household schemas
 export const createHouseholdSchema = z.object({
@@ -21,12 +23,33 @@ export const updateHouseholdSchema = z.object({
 export const createUserSchema = z.object({
   name: z.string().min(1).max(100),
   email: z.string().email(),
+  phone: z.string().optional(),
   householdId: z.string().cuid(),
+  role: UserRoleSchema.optional(),
 });
 
 export const updateUserSchema = z.object({
   name: z.string().min(1).max(100).optional(),
   email: z.string().email().optional(),
+  phone: z.string().nullable().optional(),
+  role: UserRoleSchema.optional(),
+});
+
+// Household Invitation schemas
+export const createInvitationSchema = z.object({
+  householdId: z.string().cuid(),
+  inviterId: z.string().cuid(),
+  phoneNumber: z.string().min(10).max(20),
+  name: z.string().min(1).max(100).optional(),
+});
+
+export const acceptInvitationSchema = z.object({
+  token: z.string(),
+  userId: z.string().cuid(),
+});
+
+export const declineInvitationSchema = z.object({
+  token: z.string(),
 });
 
 // Chore schemas
@@ -110,5 +133,10 @@ export type CreateChoreSchedule = z.infer<typeof createChoreScheduleSchema>;
 export type UpdateChoreSchedule = z.infer<typeof updateChoreScheduleSchema>;
 export type CreateCalendarConnection = z.infer<typeof createCalendarConnectionSchema>;
 export type UpdateCalendarConnection = z.infer<typeof updateCalendarConnectionSchema>;
+export type CreateInvitation = z.infer<typeof createInvitationSchema>;
+export type AcceptInvitation = z.infer<typeof acceptInvitationSchema>;
+export type DeclineInvitation = z.infer<typeof declineInvitationSchema>;
 export type RecurrenceType = z.infer<typeof RecurrenceTypeSchema>;
 export type ScheduleStatus = z.infer<typeof ScheduleStatusSchema>;
+export type UserRole = z.infer<typeof UserRoleSchema>;
+export type InvitationStatus = z.infer<typeof InvitationStatusSchema>;

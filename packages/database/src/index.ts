@@ -27,6 +27,8 @@ export * from '../prisma/generated/client/index.js';
 export {
   RecurrenceTypeSchema,
   ScheduleStatusSchema,
+  UserRoleSchema,
+  InvitationStatusSchema,
   createHouseholdSchema,
   updateHouseholdSchema,
   createUserSchema,
@@ -39,6 +41,9 @@ export {
   updateChoreScheduleSchema,
   createCalendarConnectionSchema,
   updateCalendarConnectionSchema,
+  createInvitationSchema,
+  acceptInvitationSchema,
+  declineInvitationSchema,
   type CreateHousehold,
   type UpdateHousehold,
   type CreateUser,
@@ -51,4 +56,9 @@ export {
   type UpdateChoreSchedule,
   type CreateCalendarConnection,
   type UpdateCalendarConnection,
+  type CreateInvitation,
+  type AcceptInvitation,
+  type DeclineInvitation,
+  type UserRole,
+  type InvitationStatus,
 } from './schemas';

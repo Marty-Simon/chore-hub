@@ -93,6 +93,14 @@ export default function Home() {
             path="/chores"
             intent="primary"
           />
+
+          <NavCard
+            title="Household Members"
+            description="Manage members and send invitations"
+            icon="account-group"
+            path="/household/members"
+            intent="neutral"
+          />
         </View>
 
         <Card padding="md" background="primary" gap="sm">

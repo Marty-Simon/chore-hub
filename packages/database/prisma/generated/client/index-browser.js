@@ -131,7 +131,9 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
+  phone: 'phone',
   householdId: 'householdId',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -184,6 +186,20 @@ exports.Prisma.CalendarConnectionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.HouseholdInvitationScalarFieldEnum = {
+  id: 'id',
+  householdId: 'householdId',
+  inviterId: 'inviterId',
+  inviteeId: 'inviteeId',
+  phoneNumber: 'phoneNumber',
+  name: 'name',
+  status: 'status',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -198,6 +214,12 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.UserRole = exports.$Enums.UserRole = {
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER',
+  CHILD: 'CHILD'
+};
+
 exports.RecurrenceType = exports.$Enums.RecurrenceType = {
   DAILY: 'DAILY',
   WEEKLY: 'WEEKLY',
@@ -211,13 +233,21 @@ exports.ScheduleStatus = exports.$Enums.ScheduleStatus = {
   SKIPPED: 'SKIPPED'
 };
 
+exports.InvitationStatus = exports.$Enums.InvitationStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  DECLINED: 'DECLINED',
+  EXPIRED: 'EXPIRED'
+};
+
 exports.Prisma.ModelName = {
   Household: 'Household',
   User: 'User',
   Chore: 'Chore',
   ChoreInstruction: 'ChoreInstruction',
   ChoreSchedule: 'ChoreSchedule',
-  CalendarConnection: 'CalendarConnection'
+  CalendarConnection: 'CalendarConnection',
+  HouseholdInvitation: 'HouseholdInvitation'
 };
 
 /**

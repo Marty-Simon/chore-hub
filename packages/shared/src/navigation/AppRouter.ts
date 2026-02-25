@@ -10,6 +10,7 @@ import ChoresList from '../screens/ChoresList';
 import ChoreDetail from '../screens/ChoreDetail';
 import MyChores from '../screens/MyChores';
 import ChoreForm from '../screens/ChoreForm';
+import HouseholdMembers from '../screens/HouseholdMembers';
 
 export const AppRouter: NavigatorParam = {
   path: '/',
@@ -54,6 +55,12 @@ export const AppRouter: NavigatorParam = {
       type: 'screen',
       component: ChoreDetail,
       options: { title: 'Chore Details' },
+    },
+    {
+      path: '/household/members',
+      type: 'screen',
+      component: HouseholdMembers,
+      options: { title: 'Household Members' },
     },
   ],
 };

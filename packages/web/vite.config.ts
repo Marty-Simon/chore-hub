@@ -106,6 +106,10 @@ export default defineConfig({
       usePolling: true,
       interval: 1000,
     },
+    watch: {
+      usePolling: true,
+      interval: 1000,
+    },
     allowedHosts: true,
     host: '0.0.0.0',
     port: 5173,

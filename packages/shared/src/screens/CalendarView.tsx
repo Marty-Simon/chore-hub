@@ -34,6 +34,9 @@ export default function CalendarView() {
   const [viewMode, setViewMode] = useState<'day' | 'week' | 'month'>('week');
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'PENDING' | 'COMPLETED'>('ALL');
   
+  // TODO: Get householdId from auth context when implemented
+  const householdId = 'temp-household-id';
+  
   // Calculate date range based on view mode
   const getDateRange = () => {
     const start = new Date(selectedDate);
@@ -65,6 +68,7 @@ export default function CalendarView() {
   const { data: schedules, isLoading } = trpc.schedule.listByDateRange.useQuery({
     startDate,
     endDate,
+    householdId,
     // TODO: Add userId from auth context when implemented
   });
 

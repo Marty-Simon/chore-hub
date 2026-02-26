@@ -5,82 +5,82 @@
   "projectId": "cmm0n1iae0015u9cdudn46vka",
   "featureId": "cmm0n1iam0017u9cdqash75ff",
   "branchName": "main",
-  "activatedAt": "2026-02-25T18:19:07.930Z",
+  "activatedAt": "2026-02-26T13:55:46.047Z",
   "steps": [
     {
       "step": "fetch_context",
       "status": "success",
-      "duration": 66
+      "duration": 120
     },
     {
       "step": "clear_workspace",
       "status": "success",
-      "duration": 1
+      "duration": 0
     },
     {
       "step": "setup_credentials",
       "status": "success",
-      "duration": 19
+      "duration": 20
     },
     {
       "step": "git_clone",
       "status": "success",
-      "duration": 428
+      "duration": 433
     },
     {
       "step": "npm_install",
       "status": "success",
-      "duration": 38136
+      "duration": 38329
     },
     {
       "step": "upgrade_idealyst",
       "status": "success",
-      "duration": 5125
+      "duration": 3037
     },
     {
       "step": "create_database",
       "status": "failed",
-      "duration": 61
+      "duration": 32
     },
     {
       "step": "db_generate",
       "status": "success",
-      "duration": 6453
+      "duration": 3135
     },
     {
       "step": "db_migrate",
       "status": "failed",
-      "duration": 3127
+      "duration": 1429
     },
     {
       "step": "restore_database",
-      "status": "success",
-      "duration": 312
+      "status": "skipped",
+      "duration": 1440
     },
     {
       "step": "configure_env",
       "status": "success",
-      "duration": 1
+      "duration": 2
     },
     {
       "step": "configure_allowed_host",
       "status": "success",
-      "duration": 14
+      "duration": 2
     },
     {
       "step": "inject_preview_bridge",
       "status": "success",
-      "duration": 1
+      "duration": 0
     },
     {
       "step": "start_api_server",
       "status": "success",
-      "duration": 3655
+      "duration": 2629
     },
     {
       "step": "start_web_server",
       "status": "success",
-      "duration": 1720
+      "duration": 1617
     }
   ],
   "errors": [

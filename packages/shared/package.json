@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@idealyst/datepicker": "^1.2.118",
+    "@idealyst/datepicker": "^1.2.119",
     "@tanstack/react-query": "^5.83.0",
     "@trpc/client": "^11.5.0",
     "@trpc/react-query": "^11.5.0"
@@ -25,10 +25,10 @@
     "react-native": "^0.83.0"
   },
   "devDependencies": {
-    "@idealyst/components": "^1.2.118",
-    "@idealyst/config": "^1.2.118",
-    "@idealyst/navigation": "^1.2.118",
-    "@idealyst/theme": "^1.2.118",
+    "@idealyst/components": "^1.2.119",
+    "@idealyst/config": "^1.2.119",
+    "@idealyst/navigation": "^1.2.119",
+    "@idealyst/theme": "^1.2.119",
     "@mdi/react": "^1.6.1",
     "@types/node": "^20.0.0",
     "@types/react": "^18.2.0",

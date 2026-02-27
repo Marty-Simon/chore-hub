@@ -5,12 +5,12 @@
   "projectId": "cmm0n1iae0015u9cdudn46vka",
   "featureId": "cmm0n1iam0017u9cdqash75ff",
   "branchName": "main",
-  "activatedAt": "2026-02-26T13:55:46.047Z",
+  "activatedAt": "2026-02-27T14:11:59.642Z",
   "steps": [
     {
       "step": "fetch_context",
       "status": "success",
-      "duration": 120
+      "duration": 67
     },
     {
       "step": "clear_workspace",
@@ -20,52 +20,52 @@
     {
       "step": "setup_credentials",
       "status": "success",
-      "duration": 20
+      "duration": 18
     },
     {
       "step": "git_clone",
       "status": "success",
-      "duration": 433
+      "duration": 457
     },
     {
       "step": "npm_install",
       "status": "success",
-      "duration": 38329
+      "duration": 38957
     },
     {
       "step": "upgrade_idealyst",
       "status": "success",
-      "duration": 3037
+      "duration": 3692
     },
     {
       "step": "create_database",
       "status": "failed",
-      "duration": 32
+      "duration": 30
     },
     {
       "step": "db_generate",
       "status": "success",
-      "duration": 3135
+      "duration": 4106
     },
     {
       "step": "db_migrate",
       "status": "failed",
-      "duration": 1429
+      "duration": 2670
     },
     {
       "step": "restore_database",
-      "status": "skipped",
-      "duration": 1440
+      "status": "success",
+      "duration": 456
     },
     {
       "step": "configure_env",
       "status": "success",
-      "duration": 2
+      "duration": 1
     },
     {
       "step": "configure_allowed_host",
       "status": "success",
-      "duration": 2
+      "duration": 3
     },
     {
       "step": "inject_preview_bridge",
@@ -75,12 +75,12 @@
     {
       "step": "start_api_server",
       "status": "success",
-      "duration": 2629
+      "duration": 5038
     },
     {
       "step": "start_web_server",
       "status": "success",
-      "duration": 1617
+      "duration": 3432
     }
   ],
   "errors": [

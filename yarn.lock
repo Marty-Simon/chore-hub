@@ -1650,11 +1650,11 @@ __metadata:
     "@babel/preset-env": "npm:^7.24.0"
     "@babel/runtime": "npm:^7.24.0"
     "@chore-hub/shared": "workspace:*"
-    "@idealyst/components": "npm:^1.2.118"
-    "@idealyst/config": "npm:^1.2.118"
-    "@idealyst/navigation": "npm:^1.2.118"
-    "@idealyst/theme": "npm:^1.2.118"
-    "@idealyst/tooling": "npm:^1.2.118"
+    "@idealyst/components": "npm:^1.2.119"
+    "@idealyst/config": "npm:^1.2.119"
+    "@idealyst/navigation": "npm:^1.2.119"
+    "@idealyst/theme": "npm:^1.2.119"
+    "@idealyst/tooling": "npm:^1.2.119"
     "@react-native-community/cli": "npm:^18.0.0"
     "@react-native-vector-icons/material-design-icons": "npm:^12.0.0"
     "@react-native/babel-preset": "npm:^0.83.0"
@@ -1688,11 +1688,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@chore-hub/shared@workspace:packages/shared"
   dependencies:
-    "@idealyst/components": "npm:^1.2.118"
-    "@idealyst/config": "npm:^1.2.118"
-    "@idealyst/datepicker": "npm:^1.2.118"
-    "@idealyst/navigation": "npm:^1.2.118"
-    "@idealyst/theme": "npm:^1.2.118"
+    "@idealyst/components": "npm:^1.2.119"
+    "@idealyst/config": "npm:^1.2.119"
+    "@idealyst/datepicker": "npm:^1.2.119"
+    "@idealyst/navigation": "npm:^1.2.119"
+    "@idealyst/theme": "npm:^1.2.119"
     "@mdi/react": "npm:^1.6.1"
     "@tanstack/react-query": "npm:^5.83.0"
     "@trpc/client": "npm:^11.5.0"
@@ -1725,11 +1725,11 @@ __metadata:
     "@babel/preset-react": "npm:^7.24.0"
     "@babel/preset-typescript": "npm:^7.24.0"
     "@chore-hub/shared": "workspace:*"
-    "@idealyst/components": "npm:^1.2.118"
-    "@idealyst/config": "npm:^1.2.118"
-    "@idealyst/navigation": "npm:^1.2.118"
-    "@idealyst/theme": "npm:^1.2.118"
-    "@idealyst/tooling": "npm:^1.2.118"
+    "@idealyst/components": "npm:^1.2.119"
+    "@idealyst/config": "npm:^1.2.119"
+    "@idealyst/navigation": "npm:^1.2.119"
+    "@idealyst/theme": "npm:^1.2.119"
+    "@idealyst/tooling": "npm:^1.2.119"
     "@mdi/js": "npm:^7.4.47"
     "@mdi/react": "npm:^1.6.1"
     "@tanstack/react-query": "npm:^5.83.0"
@@ -2173,11 +2173,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@idealyst/components@npm:^1.2.118":
-  version: 1.2.118
-  resolution: "@idealyst/components@npm:1.2.118"
+"@idealyst/components@npm:^1.2.119":
+  version: 1.2.119
+  resolution: "@idealyst/components@npm:1.2.119"
   peerDependencies:
-    "@idealyst/theme": ^1.2.118
+    "@idealyst/theme": ^1.2.119
     "@mdi/js": ">=7.0.0"
     "@mdi/react": ">=1.0.0"
     "@react-native-vector-icons/common": ">=12.0.0"
@@ -2213,13 +2213,13 @@ __metadata:
       optional: true
     react-native-vector-icons:
       optional: true
-  checksum: 566306fd5db40abe906ed092412424e72b3ecf27e4d4108d0dc0eaf297ec2c82327328545d59c892ad6bec1a4249271891ec59885e996abd61b615af5b86c5a1
+  checksum: 70123c1db9bbe383a4c328701554513b54646280808b39149bcd7fb31352d5d6cb8aad4fc745462f54044be55c754000cc8104e2fc9d0f081d9e3f6d224ae68e
   languageName: node
   linkType: hard
 
-"@idealyst/config@npm:^1.2.118":
-  version: 1.2.118
-  resolution: "@idealyst/config@npm:1.2.118"
+"@idealyst/config@npm:^1.2.119":
+  version: 1.2.119
+  resolution: "@idealyst/config@npm:1.2.119"
   peerDependencies:
     react-native-config: ">=1.5.0"
   peerDependenciesMeta:
@@ -2227,15 +2227,15 @@ __metadata:
       optional: true
   bin:
     idealyst-config: bin/idealyst-config.js
-  checksum: 763ef8dd6cb5880754c8b713b185fdc6659d3fee75b692f44e9bef5b3a7ef7deb19caea0dd9c795d36a4b6b90f9f37d2ce2af9e27314dbe45ef203e234911f5e
+  checksum: d3efa268246b84a5bd99cb1073b95e21913647de20bedfa84f5e62f56a7fdf9b1657a0e5dc4ee61aea20c583684cb35d8320772ed1dd0e13afb7c4d0f4e0aa1d
   languageName: node
   linkType: hard
 
-"@idealyst/datepicker@npm:^1.2.118":
-  version: 1.2.118
-  resolution: "@idealyst/datepicker@npm:1.2.118"
+"@idealyst/datepicker@npm:^1.2.119":
+  version: 1.2.119
+  resolution: "@idealyst/datepicker@npm:1.2.119"
   peerDependencies:
-    "@idealyst/theme": ^1.2.118
+    "@idealyst/theme": ^1.2.119
     "@mdi/js": ">=7.0.0"
     "@mdi/react": ">=1.6.0"
     react: ">=16.8.0"
@@ -2258,18 +2258,18 @@ __metadata:
       optional: true
     react-native-vector-icons:
       optional: true
-  checksum: 26d9af824a832124b46ef965e403be624b945bfbbdb269adbf3042dad6d0ec8038754c2de4651bc18c8163333b72a63435f9ad05215ddc783e94ec8aded81013
+  checksum: 1315cd83be1591d4ffc12f9901fccf84ac7f4f891445d07684d3d281664d96c265ef0c72bb825cce0ec27b47fb8987ce99cb4ecc90f490c91f3cec99dcbe8a42
   languageName: node
   linkType: hard
 
-"@idealyst/navigation@npm:^1.2.118":
-  version: 1.2.118
-  resolution: "@idealyst/navigation@npm:1.2.118"
+"@idealyst/navigation@npm:^1.2.119":
+  version: 1.2.119
+  resolution: "@idealyst/navigation@npm:1.2.119"
   peerDependencies:
     "@idealyst/camera": ^1.2.30
-    "@idealyst/components": ^1.2.118
+    "@idealyst/components": ^1.2.119
     "@idealyst/microphone": ^1.2.30
-    "@idealyst/theme": ^1.2.118
+    "@idealyst/theme": ^1.2.119
     "@react-navigation/bottom-tabs": ">=7.0.0"
     "@react-navigation/drawer": ">=7.0.0"
     "@react-navigation/native": ">=7.0.0"
@@ -2288,27 +2288,27 @@ __metadata:
       optional: true
     "@idealyst/microphone":
       optional: true
-  checksum: 1c1997973a217b0a30afa009fd1fb05bbb7b6955603fcd9db4bf36c1afb416da328abc0877805d9d1185504f35fa87429f2d8dcec6635fc13ed22d4e72d52215
+  checksum: 4c22f629f9cdbf9262de378ee4b779289295b76c67b2b3d2207c7e0e1583f9e8799c7f18562d29ec55187b210c12caf1bad991c4433e382742ce415616c9af2f
   languageName: node
   linkType: hard
 
-"@idealyst/theme@npm:^1.2.118":
-  version: 1.2.118
-  resolution: "@idealyst/theme@npm:1.2.118"
+"@idealyst/theme@npm:^1.2.119":
+  version: 1.2.119
+  resolution: "@idealyst/theme@npm:1.2.119"
   dependencies:
-    "@idealyst/tooling": "npm:^1.2.118"
+    "@idealyst/tooling": "npm:^1.2.119"
   peerDependencies:
     react-native-unistyles: ">=3.0.0"
   peerDependenciesMeta:
     react-native-unistyles:
       optional: true
-  checksum: a8d4de2328da2ece107386bb1e40a283ac6b384d3f016a98b0bcda811e3f02522c0e4cf90c4389d75d9e464a468e2d842c6fa76822301cc9984ae1d2b0cd8bee
+  checksum: ee773fde6bbb2e16bc5dfd940e0a6283db22a4bd7a6ca3e558ca3b9fc66211bebf48a72e9427973550d2b385932cff2a28a09d034f5b296f7e9b9bcb1646a21b
   languageName: node
   linkType: hard
 
-"@idealyst/tooling@npm:^1.2.118":
-  version: 1.2.118
-  resolution: "@idealyst/tooling@npm:1.2.118"
+"@idealyst/tooling@npm:^1.2.119":
+  version: 1.2.119
+  resolution: "@idealyst/tooling@npm:1.2.119"
   dependencies:
     typescript: "npm:^5.0.0"
   peerDependencies:
@@ -2316,7 +2316,7 @@ __metadata:
   peerDependenciesMeta:
     vite:
       optional: true
-  checksum: bbb7555d4eca4c079629d88de289b9463094b5f2ccab9bce061d1d26acd4f32d29c22d5ae3c805beda81f2c06795030e67553e48699742d57e8265bc5763bf38
+  checksum: b8bdb710313149b8778e7205f327ed4f8033fe25a4830f55e11ded12d3ec85bcb48faac7ea9f0218343155fc3a189a92980dc2a231d3969b96e4692efd5f67df
   languageName: node
   linkType: hard
 
